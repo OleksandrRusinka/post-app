@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryOptions, useMutation, UseMutationOptions, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
@@ -12,13 +12,6 @@ interface PostFilters {
   search?: string
   userId?: number
   source?: 'fakejson' | 'user'
-}
-
-type MutationOptions<TData, TVariables> = {
-  onSuccess?: (data: TData, variables: TVariables, context: unknown) => void
-  onError?: (error: Error, variables: TVariables, context: unknown) => void
-  onSettled?: (data: TData | undefined, error: Error | null, variables: TVariables, context: unknown) => void
-  onMutate?: (variables: TVariables) => Promise<unknown> | unknown
 }
 
 export const postsQueryKeys = {
@@ -48,48 +41,39 @@ export const postsQueryOptions = {
     }),
 }
 
-export const useCreatePost = (options?: MutationOptions<Post, CreatePostDto>) => {
+export const useCreatePost = (options?: UseMutationOptions<Post, Error, CreatePostDto>) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
   return useMutation({
     mutationFn: postsApi.createPost,
-    onSuccess: (data: Post, variables: CreatePostDto, context: unknown) => {
+    onSuccess: (data) => {
       store.addSavedPost(data)
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
-      options?.onSuccess?.(data, variables, context)
     },
-    onError: (error: Error, variables: CreatePostDto, context: unknown) => {
-      options?.onError?.(error, variables, context)
-    },
-    onSettled: options?.onSettled,
-    onMutate: options?.onMutate,
+    ...options,
   })
 }
 
-export const useUpdatePost = (options?: MutationOptions<Post, { id: number; data: Partial<CreatePostDto> }>) => {
+export const useUpdatePost = (
+  options?: UseMutationOptions<Post, Error, { id: number; data: Partial<CreatePostDto> }>,
+) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<CreatePostDto> }) => postsApi.updatePost(id, data),
-    onSuccess: (data: Post, variables: { id: number; data: Partial<CreatePostDto> }, context: unknown) => {
+    onSuccess: (data) => {
       if (data.source === 'user') {
         store.updateSavedPost(data.id, data)
       }
-
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
-      options?.onSuccess?.(data, variables, context)
     },
-    onError: (error: Error, variables: { id: number; data: Partial<CreatePostDto> }, context: unknown) => {
-      options?.onError?.(error, variables, context)
-    },
-    onSettled: options?.onSettled,
-    onMutate: options?.onMutate,
+    ...options,
   })
 }
 
-export const useDeletePost = (options?: MutationOptions<void, number>) => {
+export const useDeletePost = (options?: UseMutationOptions<void, Error, number>) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -101,15 +85,10 @@ export const useDeletePost = (options?: MutationOptions<void, number>) => {
       }
       await postsApi.deletePost(id)
     },
-    onSuccess: (data: void, variables: number, context: unknown) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
-      options?.onSuccess?.(data, variables, context)
     },
-    onError: (error: Error, variables: number, context: unknown) => {
-      options?.onError?.(error, variables, context)
-    },
-    onSettled: options?.onSettled,
-    onMutate: options?.onMutate,
+    ...options,
   })
 }
 
