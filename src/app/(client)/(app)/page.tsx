@@ -1,5 +1,6 @@
 import { type FC } from 'react'
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
+
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { postsQueryOptions } from '@/entities/api/posts'
 import { HomeModule } from '@/modules/home'

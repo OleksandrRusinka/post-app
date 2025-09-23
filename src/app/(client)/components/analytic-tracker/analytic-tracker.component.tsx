@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
+
 import { growthBookConfig } from '@/core/integration/growthbook'
 import { mixpanelClient } from '@/core/integration/mixpanel'
 
@@ -8,7 +9,7 @@ import { mixpanelClient } from '@/core/integration/mixpanel'
 interface IProps {}
 
 // component
-const AnalyticTrackerComponent = () => {
+const AnalyticTrackerComponent: FC<IProps> = () => {
   const analyticInit = useRef(false)
 
   const handleInitAnalytics = async () => {

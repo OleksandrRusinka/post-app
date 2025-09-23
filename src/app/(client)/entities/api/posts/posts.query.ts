@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
@@ -6,18 +7,33 @@ import { usePostsStore } from '@/shared/store'
 
 import { postsApi } from './posts.api'
 
+// interface
+interface PostFilters {
+  search?: string
+  userId?: number
+  source?: 'fakejson' | 'user'
+}
+
+type MutationOptions<TData, TVariables> = {
+  onSuccess?: (data: TData, variables: TVariables, context: unknown) => void
+  onError?: (error: Error, variables: TVariables, context: unknown) => void
+  onSettled?: (data: TData | undefined, error: Error | null, variables: TVariables, context: unknown) => void
+  onMutate?: (variables: TVariables) => Promise<unknown> | unknown
+}
+
 export const postsQueryKeys = {
+  root: ['posts'] as const,
   all: ['posts'] as const,
   lists: () => [...postsQueryKeys.all, 'list'] as const,
-  list: (filters?: Record<string, any>) => [...postsQueryKeys.lists(), { filters }] as const,
+  list: (filters: PostFilters = {}) => [...postsQueryKeys.lists(), filters] as const,
   details: () => [...postsQueryKeys.all, 'detail'] as const,
   detail: (id: string | number) => [...postsQueryKeys.details(), id] as const,
 }
 
 export const postsQueryOptions = {
-  all: () =>
+  all: (filters: PostFilters = {}) =>
     queryOptions({
-      queryKey: postsQueryKeys.lists(),
+      queryKey: postsQueryKeys.list(filters),
       queryFn: postsApi.getAllPosts,
       staleTime: 30 * 1000, // 30 seconds
       gcTime: 5 * 60 * 1000, // 5 minutes
@@ -32,88 +48,48 @@ export const postsQueryOptions = {
     }),
 }
 
-export const usePosts = () => {
-  const store = usePostsStore()
-  const query = useQuery(postsQueryOptions.all())
-
-  const data = React.useMemo(() => {
-    if (!query.data) return undefined
-
-    const userPosts = store.savedPosts.filter((p) => p.source === 'user')
-    const apiPosts = query.data
-
-    const allPosts = [...userPosts, ...apiPosts]
-    return allPosts.sort((a, b) => {
-      if (a.id < 0 && b.id > 0) return -1
-      if (a.id > 0 && b.id < 0) return 1
-
-      return b.id - a.id
-    })
-  }, [query.data, store.savedPosts])
-
-  return {
-    ...query,
-    data,
-  }
-}
-
-export const usePost = (id: string | number) => {
-  const store = usePostsStore()
-
-  const query = useQuery(postsQueryOptions.byId(id))
-
-  const userPost = store.getSavedPost(Number(id))
-  if (userPost && userPost.source === 'user') {
-    return {
-      ...query,
-      data: userPost,
-      isLoading: false,
-      error: null,
-      isError: false,
-    }
-  }
-
-  return query
-}
-
-export const useCreatePost = (options?: { onSuccess?: (data: Post) => void; onError?: (error: Error) => void }) => {
+export const useCreatePost = (options?: MutationOptions<Post, CreatePostDto>) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
   return useMutation({
-    mutationFn: (data: CreatePostDto) => postsApi.createPost(data),
-    onSuccess: (data) => {
+    mutationFn: postsApi.createPost,
+    onSuccess: (data: Post, variables: CreatePostDto, context: unknown) => {
       store.addSavedPost(data)
-
-      queryClient.invalidateQueries({ queryKey: postsQueryKeys.lists() })
-
-      options?.onSuccess?.(data)
+      queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
+      options?.onSuccess?.(data, variables, context)
     },
-    onError: options?.onError,
+    onError: (error: Error, variables: CreatePostDto, context: unknown) => {
+      options?.onError?.(error, variables, context)
+    },
+    onSettled: options?.onSettled,
+    onMutate: options?.onMutate,
   })
 }
 
-export const useUpdatePost = (options?: { onSuccess?: (data: Post) => void; onError?: (error: Error) => void }) => {
+export const useUpdatePost = (options?: MutationOptions<Post, { id: number; data: Partial<CreatePostDto> }>) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<CreatePostDto> }) => postsApi.updatePost(id, data),
-    onSuccess: (data) => {
+    onSuccess: (data: Post, variables: { id: number; data: Partial<CreatePostDto> }, context: unknown) => {
       if (data.source === 'user') {
         store.updateSavedPost(data.id, data)
       }
 
-      queryClient.invalidateQueries({ queryKey: postsQueryKeys.detail(data.id) })
-      queryClient.invalidateQueries({ queryKey: postsQueryKeys.lists() })
-
-      options?.onSuccess?.(data)
+      queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
+      options?.onSuccess?.(data, variables, context)
     },
-    onError: options?.onError,
+    onError: (error: Error, variables: { id: number; data: Partial<CreatePostDto> }, context: unknown) => {
+      options?.onError?.(error, variables, context)
+    },
+    onSettled: options?.onSettled,
+    onMutate: options?.onMutate,
   })
 }
 
-export const useDeletePost = (options?: { onSuccess?: () => void; onError?: (error: Error) => void }) => {
+export const useDeletePost = (options?: MutationOptions<void, number>) => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -123,13 +99,81 @@ export const useDeletePost = (options?: { onSuccess?: () => void; onError?: (err
       if (userPost && userPost.source === 'user') {
         store.removeSavedPost(id)
       }
-
       await postsApi.deletePost(id)
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: postsQueryKeys.lists() })
-      options?.onSuccess?.()
+    onSuccess: (data: void, variables: number, context: unknown) => {
+      queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
+      options?.onSuccess?.(data, variables, context)
     },
-    onError: options?.onError,
+    onError: (error: Error, variables: number, context: unknown) => {
+      options?.onError?.(error, variables, context)
+    },
+    onSettled: options?.onSettled,
+    onMutate: options?.onMutate,
   })
+}
+
+const selectUserPosts = (savedPosts: Post[]) => savedPosts.filter((post) => post.source === 'user')
+
+const filterPosts = (posts: Post[], filters: PostFilters) => {
+  let filteredPosts = posts
+
+  if (filters.search) {
+    const searchLower = filters.search.toLowerCase()
+    filteredPosts = filteredPosts.filter(
+      (post) => post.title.toLowerCase().includes(searchLower) || post.body.toLowerCase().includes(searchLower),
+    )
+  }
+
+  if (filters.userId) {
+    filteredPosts = filteredPosts.filter((post) => post.userId === filters.userId)
+  }
+
+  if (filters.source) {
+    filteredPosts = filteredPosts.filter((post) => post.source === filters.source)
+  }
+
+  return filteredPosts
+}
+
+const sortPosts = (posts: Post[]) => {
+  return posts.sort((a, b) => {
+    if (a.id < 0 && b.id > 0) return -1
+    if (a.id > 0 && b.id < 0) return 1
+    return b.id - a.id
+  })
+}
+
+export const usePosts = (filters: PostFilters = {}) => {
+  const store = usePostsStore()
+  const query = useQuery(postsQueryOptions.all())
+
+  const data = React.useMemo(() => {
+    if (!query.data) return undefined
+
+    const userPosts = selectUserPosts(store.savedPosts)
+    const allPosts = [...userPosts, ...query.data]
+    const filteredPosts = filterPosts(allPosts, filters)
+
+    return sortPosts(filteredPosts)
+  }, [query.data, store.savedPosts, filters])
+
+  return {
+    ...query,
+    data,
+  }
+}
+
+export const usePost = (id: string | number) => {
+  const store = usePostsStore()
+  const userPost = store.getSavedPost(Number(id))
+
+  const query = useQuery({
+    ...postsQueryOptions.byId(id),
+    enabled: !userPost || userPost.source !== 'user',
+  })
+
+  return userPost?.source === 'user'
+    ? { ...query, data: userPost, isLoading: false, error: null, isError: false }
+    : query
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import { FC, ReactNode } from 'react'
 
-import '@/config/styles/globals.css'
-import { LayoutModule } from '@/modules/layout'
 import { AnalyticTrackerComponent } from '@/components/analytic-tracker'
+import { LayoutModule } from '@/modules/layout'
 
 import Providers from './(app)/providers'
-import { FC, ReactNode } from 'react'
+
+import '@/config/styles/globals.css'
 
 // interface
 interface IProps {

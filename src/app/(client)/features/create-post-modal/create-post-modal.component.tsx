@@ -1,8 +1,10 @@
 'use client'
 
-import { Button, Input, Modal, ModalContent, ModalBody, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
 import { FC, useEffect } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
+
 import { useCreatePost } from '@/entities/api/posts'
 import type { CreatePostDto } from '@/entities/models'
 

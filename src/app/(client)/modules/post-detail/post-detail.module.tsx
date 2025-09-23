@@ -1,10 +1,11 @@
 'use client'
 
-import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
 import { ArrowLeft, Calendar, Edit, Heart, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { notFound, useRouter } from 'next/navigation'
 import { FC } from 'react'
+
+import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
 
 import { useDeletePost, usePost } from '@/entities/api/posts'
 import { usePostsStore } from '@/shared/store'

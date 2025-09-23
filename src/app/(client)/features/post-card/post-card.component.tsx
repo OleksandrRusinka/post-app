@@ -1,15 +1,16 @@
 'use client'
 
-import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 import { Edit, Heart, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
+
+import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import { useDeletePost } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
 
-// interfaces
+// interface
 interface IProps {
   post: Post
   onEdit: (post: Post) => void

@@ -7,6 +7,5 @@
   "printWidth": 120,
   "jsxSingleQuote": true,
   "endOfLine": "auto",
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "pluginSearchDirs": false
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

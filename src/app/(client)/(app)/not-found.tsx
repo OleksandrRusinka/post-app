@@ -1,9 +1,11 @@
 'use client'
 
-import { Button } from '@heroui/react'
 import Link from 'next/link'
-import { ContainerComponent } from '@/shared/ui'
 import { FC } from 'react'
+
+import { Button } from '@heroui/react'
+
+import { ContainerComponent } from '@/shared/ui'
 
 // interface
 interface IProps {}

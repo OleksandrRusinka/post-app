@@ -1,8 +1,9 @@
 'use client'
 
+import { FC, ReactNode, useState } from 'react'
+
 import { HeroUIProvider } from '@heroui/react'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { FC, ReactNode, useState } from 'react'
 
 import { getQueryClient } from '@/shared/lib/get-query-client'
 

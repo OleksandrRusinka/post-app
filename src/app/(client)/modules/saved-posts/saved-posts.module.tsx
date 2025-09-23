@@ -1,14 +1,16 @@
 'use client'
 
-import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 import Link from 'next/link'
 import { FC, useState } from 'react'
 
+import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
+
 import { useDeletePost } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
-import { ContainerComponent } from '@/shared/ui'
-import { EditPostModal } from '../../features'
 import { usePostsStore } from '@/shared/store'
+import { ContainerComponent } from '@/shared/ui'
+
+import { EditPostModal } from '../../features'
 
 // interface
 interface IProps {}
@@ -28,7 +30,6 @@ const SavedPostsModule: FC<IProps> = () => {
   }
 
   const handleDelete = async (post: Post) => {
-    const isUserPost = post.source === 'user' || post.id < 0
     const isFakeJsonPost = post.source === 'fakejson' || post.id > 0
 
     const confirmMessage = isFakeJsonPost
@@ -36,13 +37,11 @@ const SavedPostsModule: FC<IProps> = () => {
       : 'Are you sure you want to delete this post?'
 
     if (window.confirm(confirmMessage)) {
-      try {
-        if (isFakeJsonPost) {
-          removeSavedPost(post.id)
-        } else {
-          await deletePostMutation.mutateAsync(post.id)
-        }
-      } catch (_error) {}
+      if (isFakeJsonPost) {
+        removeSavedPost(post.id)
+      } else {
+        await deletePostMutation.mutateAsync(post.id)
+      }
     }
   }
 
@@ -75,7 +74,6 @@ const SavedPostsModule: FC<IProps> = () => {
           <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
             {savedPosts.map((post: Post, index: number) => {
               const isUserPost = post.source === 'user' || post.id < 0
-              const isFakeJsonPost = post.source === 'fakejson' || post.id > 0
 
               return (
                 <Card

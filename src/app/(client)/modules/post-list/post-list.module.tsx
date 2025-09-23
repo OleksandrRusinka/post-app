@@ -1,9 +1,12 @@
 'use client'
 
+import { FC, useMemo, useState } from 'react'
+
+import { Button, Pagination, useDisclosure } from '@heroui/react'
+
 import { usePosts } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
-import { Button, Pagination, useDisclosure } from '@heroui/react'
-import { FC, useMemo, useState } from 'react'
+
 import { CreatePostModal, EditPostModal, PostCard } from '../../features'
 
 // interface
@@ -21,7 +24,7 @@ const PostListModule: FC<IProps> = () => {
 
   const { data: posts, isLoading } = usePosts()
 
-  const { currentPosts, totalPages, paginationConfig } = useMemo(() => {
+  const { currentPosts, totalPages } = useMemo(() => {
     const allPosts = posts || []
 
     const uniquePosts = allPosts.filter(
@@ -32,13 +35,7 @@ const PostListModule: FC<IProps> = () => {
     const startIndex = (currentPage - 1) * POSTS_PER_PAGE
     const currentPosts = uniquePosts.slice(startIndex, startIndex + POSTS_PER_PAGE)
 
-    const paginationConfig = {
-      page: currentPage,
-      pages: totalPages,
-      setPage: setCurrentPage,
-    }
-
-    return { currentPosts, totalPages, paginationConfig }
+    return { currentPosts, totalPages }
   }, [posts, currentPage])
 
   const handleEditPost = (post: Post) => {
@@ -85,24 +82,17 @@ const PostListModule: FC<IProps> = () => {
         </div>
 
         {totalPages > 1 && (
-          <div className='flex justify-center pt-8'>
-            <Pagination
-              isCompact
-              showControls
-              page={currentPage}
-              total={totalPages}
-              onChange={setCurrentPage}
-              color='primary'
-              size='lg'
-              classNames={{
-                wrapper: 'gap-2',
-                item: 'w-10 h-10 text-small font-medium data-[active=true]:text-black',
-                cursor: 'bg-white text-black font-bold shadow-lg border border-gray-300',
-                prev: 'text-gray-600 bg-transparent',
-                next: 'text-gray-600 bg-transparent',
-              }}
-            />
-          </div>
+          <Pagination
+            page={currentPage}
+            total={totalPages}
+            onChange={setCurrentPage}
+            className='z-0 mx-auto'
+            size='sm'
+            isDisabled={isLoading || totalPages <= 1}
+            color={isLoading || totalPages <= 1 ? 'default' : 'primary'}
+            showControls
+            isCompact
+          />
         )}
       </div>
 

@@ -1,8 +1,9 @@
 'use client'
 
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
 import { FC, useEffect } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
 
 import { useUpdatePost } from '@/entities/api/posts'
 import type { CreatePostDto, Post } from '@/entities/models'
@@ -32,11 +33,6 @@ const EditPostModal: FC<IProps> = (props) => {
     formState: { errors },
   } = useForm<CreatePostDto>({
     mode: 'onChange',
-    defaultValues: {
-      title: post?.title ?? '',
-      body: post?.body ?? '',
-      userId: post?.userId ?? 1,
-    },
   })
 
   useEffect(() => {

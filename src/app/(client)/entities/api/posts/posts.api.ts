@@ -4,12 +4,15 @@ import type { CreatePostDto, Post } from '@/entities/models'
 
 const api = ky.create({
   prefixUrl: 'https://jsonplaceholder.typicode.com',
-  timeout: 10000,
-  retry: 1,
 })
 
+const ENDPOINTS = {
+  POSTS: 'posts',
+  POST_BY_ID: (id: string | number) => `posts/${id}`,
+} as const
+
 export const postsApi = {
-  async getAllPosts(): Promise<Post[]> {
+  getAllPosts: async (): Promise<Post[]> => {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
       next: { revalidate: 30, tags: ['posts'] },
     })
@@ -19,10 +22,10 @@ export const postsApi = {
     }
 
     const data = await response.json()
-    return data.map((post: any) => ({ ...post, source: 'fakejson' as const }))
+    return data.map((post: Post) => ({ ...post, source: 'fakejson' as const }))
   },
 
-  async getPostById(id: string | number): Promise<Post> {
+  getPostById: async (id: string | number): Promise<Post> => {
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
       next: { revalidate: 30, tags: ['posts', `post-${id}`] },
     })
@@ -35,8 +38,8 @@ export const postsApi = {
     return { ...data, source: 'fakejson' as const }
   },
 
-  async createPost(data: CreatePostDto): Promise<Post> {
-    const response = await api.post('posts', { json: data }).json<Post>()
+  createPost: async (data: CreatePostDto): Promise<Post> => {
+    const response = await api.post(ENDPOINTS.POSTS, { json: data }).json<Post>()
     return {
       ...response,
       source: 'user' as const,
@@ -44,7 +47,7 @@ export const postsApi = {
     }
   },
 
-  async updatePost(id: number, data: Partial<CreatePostDto>): Promise<Post> {
+  updatePost: async (id: number, data: Partial<CreatePostDto>): Promise<Post> => {
     if (id < 0) {
       return {
         id,
@@ -55,15 +58,15 @@ export const postsApi = {
       }
     }
 
-    const response = await api.put(`posts/${id}`, { json: data }).json<Post>()
+    const response = await api.put(ENDPOINTS.POST_BY_ID(id), { json: data }).json<Post>()
     return { ...response, source: 'fakejson' as const }
   },
 
-  async deletePost(id: number): Promise<void> {
+  deletePost: async (id: number): Promise<void> => {
     if (id < 0) {
       return Promise.resolve()
     }
 
-    await api.delete(`posts/${id}`)
+    await api.delete(ENDPOINTS.POST_BY_ID(id))
   },
 }

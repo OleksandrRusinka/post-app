@@ -1,6 +1,7 @@
-import { type FC } from 'react'
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
 import { notFound } from 'next/navigation'
+import { type FC } from 'react'
+
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { postsQueryOptions } from '@/entities/api/posts'
 import { PostDetailModule } from '@/modules/post-detail'
