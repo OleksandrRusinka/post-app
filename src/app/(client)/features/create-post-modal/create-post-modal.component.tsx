@@ -18,12 +18,7 @@ interface IProps {
 const CreatePostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange } = props
 
-  const createPostMutation = useCreatePost({
-    onSuccess: () => {
-      reset()
-      onOpenChange()
-    },
-  })
+  const createPostMutation = useCreatePost()
 
   const {
     control,
@@ -39,7 +34,12 @@ const CreatePostModal: FC<IProps> = (props) => {
   }, [isOpen, reset])
 
   const onSubmit = (data: CreatePostDto) => {
-    createPostMutation.mutate(data)
+    createPostMutation.mutate(data, {
+      onSuccess: () => {
+        reset()
+        onOpenChange()
+      },
+    })
   }
 
   // return

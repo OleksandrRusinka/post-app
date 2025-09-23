@@ -3,7 +3,7 @@ import { type FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { postsQueryOptions } from '@/entities/api/posts'
+import { postsOptions } from '@/entities/api/posts'
 import { PostDetailModule } from '@/modules/post-detail'
 import { getQueryClient } from '@/shared/lib/get-query-client'
 
@@ -23,7 +23,7 @@ const PostPage: FC<Readonly<IProps>> = async (props) => {
   const queryClient = getQueryClient()
 
   try {
-    await queryClient.prefetchQuery(postsQueryOptions.byId(slug))
+    await queryClient.prefetchQuery(postsOptions.byId(slug))
   } catch {
     notFound()
   }
