@@ -23,11 +23,7 @@ const PostDetailModule: FC<IProps> = (props) => {
   const router = useRouter()
   const { data: post, isLoading, error } = usePost(postId)
 
-  const deletePostMutation = useDeletePost({
-    onSuccess: () => {
-      router.push('/')
-    },
-  })
+  const deletePostMutation = useDeletePost()
 
   const savedPosts = usePostsStore((state) => state.savedPosts)
   const addSavedPost = usePostsStore((state) => state.addSavedPost)
@@ -60,7 +56,11 @@ const PostDetailModule: FC<IProps> = (props) => {
       removeSavedPost(post.id)
       router.push('/')
     } else {
-      deletePostMutation.mutate(post.id)
+      deletePostMutation.mutate(post.id, {
+        onSuccess: () => {
+          router.push('/')
+        },
+      })
     }
   }
 

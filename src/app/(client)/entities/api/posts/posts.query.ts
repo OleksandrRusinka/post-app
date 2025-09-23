@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { queryOptions, useMutation, UseMutationOptions, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
@@ -41,7 +41,7 @@ export const postsQueryOptions = {
     }),
 }
 
-export const useCreatePost = (options?: UseMutationOptions<Post, Error, CreatePostDto>) => {
+export const useCreatePost = () => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -51,13 +51,10 @@ export const useCreatePost = (options?: UseMutationOptions<Post, Error, CreatePo
       store.addSavedPost(data)
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
     },
-    ...options,
   })
 }
 
-export const useUpdatePost = (
-  options?: UseMutationOptions<Post, Error, { id: number; data: Partial<CreatePostDto> }>,
-) => {
+export const useUpdatePost = () => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -69,11 +66,10 @@ export const useUpdatePost = (
       }
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
     },
-    ...options,
   })
 }
 
-export const useDeletePost = (options?: UseMutationOptions<void, Error, number>) => {
+export const useDeletePost = () => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -88,7 +84,6 @@ export const useDeletePost = (options?: UseMutationOptions<void, Error, number>)
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.root })
     },
-    ...options,
   })
 }
 

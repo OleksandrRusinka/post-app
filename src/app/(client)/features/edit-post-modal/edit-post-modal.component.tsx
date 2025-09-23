@@ -19,12 +19,7 @@ interface IProps {
 const EditPostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange, post } = props
 
-  const updatePostMutation = useUpdatePost({
-    onSuccess: () => {
-      onOpenChange()
-      reset()
-    },
-  })
+  const updatePostMutation = useUpdatePost()
 
   const {
     control,
@@ -48,7 +43,15 @@ const EditPostModal: FC<IProps> = (props) => {
 
   const onSubmit = (data: CreatePostDto) => {
     if (!post) return
-    updatePostMutation.mutate({ id: post.id, data })
+    updatePostMutation.mutate(
+      { id: post.id, data },
+      {
+        onSuccess: () => {
+          onOpenChange()
+          reset()
+        },
+      },
+    )
   }
 
   // return
