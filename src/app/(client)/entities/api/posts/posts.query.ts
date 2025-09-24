@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
@@ -79,7 +78,6 @@ export const useCreatePost = () => {
 }
 
 export const useUpdatePost = () => {
-export const useUpdatePost = () => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
 
@@ -95,7 +93,6 @@ export const useUpdatePost = () => {
   })
 }
 
-export const useDeletePost = () => {
 export const useDeletePost = () => {
   const queryClient = useQueryClient()
   const store = usePostsStore()
