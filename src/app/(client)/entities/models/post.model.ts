@@ -11,3 +11,11 @@ export interface CreatePostDto {
   body: string
   userId: number
 }
+
+export interface PostFilters {
+  search?: string
+  userId?: number
+  source?: 'fakejson' | 'user'
+  page?: number
+  limit?: number
+}

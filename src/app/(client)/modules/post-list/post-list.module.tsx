@@ -1,11 +1,11 @@
 'use client'
 
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { Button, Pagination, useDisclosure } from '@heroui/react'
 
-import { usePosts } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
+import { usePostsPaginated } from '@/shared/ui'
 
 import { CreatePostModal, EditPostModal, PostCard } from '../../features'
 
@@ -20,23 +20,11 @@ const PostListModule: FC<IProps> = () => {
   const [editingPost, setEditingPost] = useState<Post | null>(null)
 
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onOpenChange: onCreateOpenChange } = useDisclosure()
-  const { isOpen: isEditOpen, onOpenChange: onEditOpenChange, onOpen: onEditOpen } = useDisclosure()
+  const { isOpen: isEditOpen, onOpen: onEditOpen, onOpenChange: onEditOpenChange } = useDisclosure()
 
-  const { data: posts, isLoading } = usePosts()
+  const { data: posts, isLoading, totalPages } = usePostsPaginated({ page: currentPage, limit: POSTS_PER_PAGE })
 
-  const { currentPosts, totalPages } = useMemo(() => {
-    const allPosts = posts || []
-
-    const uniquePosts = allPosts.filter(
-      (post: Post, index: number, arr: Post[]) => arr.findIndex((p: Post) => p.id === post.id) === index,
-    )
-
-    const totalPages = Math.ceil(uniquePosts.length / POSTS_PER_PAGE)
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE
-    const currentPosts = uniquePosts.slice(startIndex, startIndex + POSTS_PER_PAGE)
-
-    return { currentPosts, totalPages }
-  }, [posts, currentPage])
+  const currentPosts = posts || []
 
   const handleEditPost = (post: Post) => {
     setEditingPost(post)
@@ -50,7 +38,7 @@ const PostListModule: FC<IProps> = () => {
 
   if (isLoading) return <div className='py-16 text-center text-gray-500'>Loading posts...</div>
 
-  if (currentPosts.length === 0 && !isLoading)
+  if (currentPosts.length === 0 && !isLoading && currentPage === 1)
     return (
       <div className='flex min-h-[calc(100vh-300px)] items-center justify-center'>
         <div className='text-center'>
@@ -85,11 +73,13 @@ const PostListModule: FC<IProps> = () => {
           <Pagination
             page={currentPage}
             total={totalPages}
-            onChange={setCurrentPage}
+            onChange={(page) => {
+              setCurrentPage(page)
+            }}
             className='z-0 mx-auto'
             size='sm'
-            isDisabled={isLoading || totalPages <= 1}
-            color={isLoading || totalPages <= 1 ? 'default' : 'primary'}
+            isDisabled={isLoading}
+            color='primary'
             showControls
             isCompact
           />

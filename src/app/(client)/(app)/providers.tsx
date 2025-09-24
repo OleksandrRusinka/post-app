@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from 'react'
 
 import { HeroUIProvider } from '@heroui/react'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { getQueryClient } from '@/shared/lib/get-query-client'
 
@@ -22,6 +23,7 @@ const Providers: FC<IProps> = (props) => {
   return (
     <QueryClientProvider client={queryClient}>
       <HeroUIProvider>{children}</HeroUIProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
