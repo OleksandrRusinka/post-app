@@ -1,4 +1,4 @@
-import React from 'react'
+import { useMemo } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
@@ -11,7 +11,7 @@ const usePostsPaginated = (filters: PostFilters = {}) => {
   const store = usePostsStore()
   const query = useQuery(postsListOptions())
 
-  const paginatedData = React.useMemo(() => {
+  const paginatedData = useMemo(() => {
     if (!query.data) return { posts: [], totalCount: 0, totalPages: 0 }
 
     const userPosts = selectUserPosts(store.savedPosts)
