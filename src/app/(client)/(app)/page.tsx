@@ -2,7 +2,7 @@ import { type FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { postsOptions } from '@/entities/api/posts'
+import { postsListOptions } from '@/entities/api/posts'
 import { HomeModule } from '@/modules/home'
 import { getQueryClient } from '@/shared/lib/get-query-client'
 
@@ -15,7 +15,7 @@ interface IProps {}
 const Page: FC<Readonly<IProps>> = async () => {
   const queryClient = getQueryClient()
 
-  await queryClient.prefetchQuery(postsOptions.all())
+  await queryClient.prefetchQuery(postsListOptions())
 
   // return
   return (

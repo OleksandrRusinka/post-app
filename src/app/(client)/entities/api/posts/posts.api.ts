@@ -1,6 +1,9 @@
 import ky from 'ky'
 
+import type { QueryFunctionContext } from '@tanstack/react-query'
+
 import type { CreatePostDto, Post } from '@/entities/models'
+import { restApiFetcher } from '@/shared/lib'
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com'
 
@@ -8,40 +11,40 @@ const api = ky.create({
   prefixUrl: BASE_URL,
 })
 
-export const postsApi = {
-  getAllPosts: async (): Promise<Post[]> => {
-    const response = await fetch(`${BASE_URL}/posts`, {
-      next: { revalidate: 30, tags: ['posts'] },
-    })
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.status}`)
-    }
-
-    const data = await response.json()
-    return data.map((post: Omit<Post, 'source'>) => ({
+export const postsQueryApi = {
+  list: async (opt: QueryFunctionContext): Promise<Post[]> => {
+    const data = await restApiFetcher.get('posts').json<Omit<Post, 'source'>[]>()
+    return data.map((post) => ({
       ...post,
       source: 'fakejson' as const,
     }))
   },
 
-  getPostById: async (id: string | number): Promise<Post> => {
-    const response = await fetch(`${BASE_URL}/posts/${id}`, {
-      next: { revalidate: 30, tags: ['posts', `post-${id}`] },
-    })
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch post ${id}: ${response.status}`)
-    }
-
-    const data = await response.json()
+  byId: async (opt: QueryFunctionContext, params: { id: number }): Promise<Post> => {
+    const { id } = params
+    const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
     return {
       ...data,
       source: 'fakejson' as const,
     }
   },
 
-  createPost: async (data: CreatePostDto): Promise<Post> => {
+  bySlug: async (opt: QueryFunctionContext, params: { slug: string }): Promise<Post> => {
+    const { slug } = params
+    const id = parseInt(slug, 10)
+    if (isNaN(id)) {
+      throw new Error('Invalid post slug')
+    }
+    const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
+    return {
+      ...data,
+      source: 'fakejson' as const,
+    }
+  },
+}
+
+export const postsMutationApi = {
+  create: async (data: CreatePostDto): Promise<Post> => {
     const response = await api.post('posts', { json: data }).json<Omit<Post, 'source'>>()
     return {
       ...response,
@@ -50,7 +53,9 @@ export const postsApi = {
     }
   },
 
-  updatePost: async (id: number, data: Partial<CreatePostDto>): Promise<Post> => {
+  update: async (params: { id: number; data: Partial<CreatePostDto> }): Promise<Post> => {
+    const { id, data } = params
+
     if (id < 0) {
       return {
         id,
@@ -68,7 +73,8 @@ export const postsApi = {
     }
   },
 
-  deletePost: async (id: number): Promise<void> => {
+  delete: async (params: { id: number }): Promise<void> => {
+    const { id } = params
     if (id < 0) return
 
     await api.delete(`posts/${id}`)

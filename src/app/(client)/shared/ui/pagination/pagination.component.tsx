@@ -2,14 +2,14 @@ import React from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { postsOptions } from '@/entities/api/posts'
+import { postsListOptions } from '@/entities/api/posts'
 import { Post, PostFilters } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
 import { filterPosts, selectUserPosts, sortPosts } from '@/shared/utils'
 
 const usePostsPaginated = (filters: PostFilters = {}) => {
   const store = usePostsStore()
-  const query = useQuery(postsOptions.all(filters))
+  const query = useQuery(postsListOptions())
 
   const paginatedData = React.useMemo(() => {
     if (!query.data) return { posts: [], totalCount: 0, totalPages: 0 }
