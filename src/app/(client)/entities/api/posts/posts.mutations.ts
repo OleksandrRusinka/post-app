@@ -1,4 +1,4 @@
-import React from 'react'
+import { useMemo } from 'react'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -83,7 +83,7 @@ export const usePosts = (filters: PostFilters = {}) => {
   const store = usePostsStore()
   const query = useQuery(postsListOptions())
 
-  const data = React.useMemo(() => {
+  const data = useMemo(() => {
     if (!query.data) return undefined
 
     const userPosts = selectUserPosts(store.savedPosts)
