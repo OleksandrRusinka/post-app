@@ -1,15 +1,7 @@
-import ky from 'ky'
-
 import type { QueryFunctionContext } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
 import { restApiFetcher } from '@/shared/lib'
-
-const BASE_URL = 'https://jsonplaceholder.typicode.com'
-
-const api = ky.create({
-  prefixUrl: BASE_URL,
-})
 
 export const postsQueryApi = {
   list: async (opt: QueryFunctionContext): Promise<Post[]> => {
@@ -45,7 +37,7 @@ export const postsQueryApi = {
 
 export const postsMutationApi = {
   create: async (data: CreatePostDto): Promise<Post> => {
-    const response = await api.post('posts', { json: data }).json<Omit<Post, 'source'>>()
+    const response = await restApiFetcher.post('posts', { json: data }).json<Omit<Post, 'source'>>()
     return {
       ...response,
       source: 'user' as const,
@@ -66,7 +58,7 @@ export const postsMutationApi = {
       }
     }
 
-    const response = await api.put(`posts/${id}`, { json: data }).json<Omit<Post, 'source'>>()
+    const response = await restApiFetcher.put(`posts/${id}`, { json: data }).json<Omit<Post, 'source'>>()
     return {
       ...response,
       source: 'fakejson' as const,
@@ -77,6 +69,6 @@ export const postsMutationApi = {
     const { id } = params
     if (id < 0) return
 
-    await api.delete(`posts/${id}`)
+    await restApiFetcher.delete(`posts/${id}`)
   },
 }
