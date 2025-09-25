@@ -15,21 +15,15 @@ export const postByIdOptions = (id: number) =>
     enabled: !!id && id > 0,
   })
 
-export const postBySlugOptions = (slug: string) =>
-  queryOptions({
-    queryKey: ['posts', 'slug', slug] as const,
+export const postBySlugOptions = (slug: string) => {
+  const numericId = parseInt(slug, 10)
+  return queryOptions({
+    queryKey: ['posts', 'detail', numericId] as const,
     queryFn: (opt) => postsQueryApi.bySlug(opt, { slug }),
-    enabled: !!slug,
+    enabled: !!slug && !isNaN(numericId),
   })
+}
 
 export const usePostsQuery = () => {
   return useQuery(postsListOptions())
-}
-
-export const usePostQuery = (id: number) => {
-  return useQuery(postByIdOptions(id))
-}
-
-export const usePostBySlugQuery = (slug: string) => {
-  return useQuery(postBySlugOptions(slug))
 }

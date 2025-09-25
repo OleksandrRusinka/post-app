@@ -60,10 +60,11 @@ export const useDeletePost = () => {
 
 export const usePost = (id: string | number) => {
   const store = usePostsStore()
-  const userPost = store.getSavedPost(Number(id))
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id
+  const userPost = store.getSavedPost(numericId)
 
   const query = useQuery({
-    ...postByIdOptions(Number(id)),
+    ...postByIdOptions(numericId),
     enabled: !userPost || userPost.source !== 'user',
   })
 
@@ -77,6 +78,15 @@ export const usePost = (id: string | number) => {
         isSuccess: true,
       }
     : query
+}
+
+export const usePostBySlug = (slug: string) => {
+  const numericId = parseInt(slug, 10)
+  if (isNaN(numericId)) {
+    throw new Error('Invalid slug: must be numeric')
+  }
+
+  return usePost(numericId)
 }
 
 export const usePosts = (filters: PostFilters = {}) => {

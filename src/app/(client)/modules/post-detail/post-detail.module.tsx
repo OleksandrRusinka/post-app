@@ -2,13 +2,14 @@
 
 import { ArrowLeft, Calendar, Edit, Heart, Trash2 } from 'lucide-react'
 import Link from 'next/link'
-import { notFound, useRouter } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
 
-import { useDeletePost, usePost } from '@/entities/api/posts'
-import { usePostsStore } from '@/shared/store'
+import { usePostBySlug } from '@/entities/api/posts'
+import type { Post } from '@/entities/models'
+import { usePostActions } from '@/shared/hooks'
 import { ContainerComponent } from '@/shared/ui'
 
 // interface
@@ -20,14 +21,8 @@ interface IProps {
 const PostDetailModule: FC<IProps> = (props) => {
   const { postId } = props
 
-  const router = useRouter()
-  const { data: post, isLoading, error } = usePost(postId)
-
-  const deletePostMutation = useDeletePost()
-
-  const savedPosts = usePostsStore((state) => state.savedPosts)
-  const addSavedPost = usePostsStore((state) => state.addSavedPost)
-  const removeSavedPost = usePostsStore((state) => state.removeSavedPost)
+  const { data: post, isLoading, error } = usePostBySlug(postId)
+  const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
 
   if (isLoading) {
     return (
@@ -39,30 +34,10 @@ const PostDetailModule: FC<IProps> = (props) => {
 
   if (error || !post) notFound()
 
-  const isUserPost = post.source === 'user' || post.id < 0
-  const isFakeJsonPost = post.source === 'fakejson' || post.id > 0
-  const isSaved = savedPosts.some((p) => p.id === post.id)
+  const postData = post as Post
+  const { isUserPost, isFakeJsonPost, isSaved } = getPostType(postData)
 
-  const handleToggleSave = () => (isSaved ? removeSavedPost(post.id) : addSavedPost(post))
-
-  const handleDeletePost = () => {
-    const confirmMessage = isFakeJsonPost
-      ? 'Are you sure you want to remove this post from saved posts?'
-      : 'Are you sure you want to delete this post?'
-
-    if (!window.confirm(confirmMessage)) return
-
-    if (isFakeJsonPost) {
-      removeSavedPost(post.id)
-      router.push('/')
-    } else {
-      deletePostMutation.mutate(post.id, {
-        onSuccess: () => {
-          router.push('/')
-        },
-      })
-    }
-  }
+  const handleDelete = () => handleDeletePost(postData, { redirectTo: '/' })
 
   // return
   return (
@@ -72,7 +47,7 @@ const PostDetailModule: FC<IProps> = (props) => {
           className={`border-2 p-2 shadow-lg ${isUserPost ? 'border-green-100 bg-green-50/30' : 'border-gray-100'}`}
         >
           <CardHeader className='justify-between pb-4'>
-            <h1 className='p-2 text-center text-3xl font-bold text-gray-900 md:text-4xl'>{post.title}</h1>
+            <h1 className='p-2 text-center text-3xl font-bold text-gray-900 md:text-4xl'>{postData.title}</h1>
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
               <Chip size='sm' variant='flat' className='flex items-center gap-1 p-2'>
                 <Calendar className='h-3 w-3' />
@@ -85,7 +60,7 @@ const PostDetailModule: FC<IProps> = (props) => {
 
           <CardBody className='pt-6'>
             <div className='prose prose-lg prose-gray max-w-none'>
-              <p className='whitespace-pre-wrap text-gray-700'>{post.body}</p>
+              <p className='whitespace-pre-wrap text-gray-700'>{postData.body}</p>
             </div>
           </CardBody>
         </Card>
@@ -98,7 +73,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   color={isSaved ? 'danger' : 'default'}
                   variant='flat'
                   size='sm'
-                  onPress={handleToggleSave}
+                  onPress={() => handleToggleSave(postData)}
                   className='flex items-center gap-2 font-medium'
                 >
                   <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
@@ -108,7 +83,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   color='danger'
                   variant='flat'
                   size='sm'
-                  onPress={handleDeletePost}
+                  onPress={handleDelete}
                   className='flex items-center gap-2 font-medium'
                 >
                   <Trash2 className='h-4 w-4' /> Remove from Saved
@@ -132,7 +107,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   color='danger'
                   variant='flat'
                   size='sm'
-                  onPress={handleDeletePost}
+                  onPress={handleDelete}
                   isLoading={deletePostMutation.isPending}
                   className='flex items-center gap-2 font-medium'
                 >

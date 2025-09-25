@@ -6,9 +6,8 @@ import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
-import { useDeletePost } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
-import { usePostsStore } from '@/shared/store'
+import { usePostActions } from '@/shared/hooks'
 
 // interface
 interface IProps {
@@ -20,37 +19,10 @@ interface IProps {
 const PostCard: FC<IProps> = (props) => {
   const { post, onEdit } = props
 
-  const deletePostMutation = useDeletePost()
+  const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
+  const { isUserPost, isFakeJsonPost, isSaved } = getPostType(post)
 
-  const savedPosts = usePostsStore((state) => state.savedPosts)
-  const addSavedPost = usePostsStore((state) => state.addSavedPost)
-  const removeSavedPost = usePostsStore((state) => state.removeSavedPost)
-
-  const isUserPost = post.source === 'user' || post.id < 0
-  const isFakeJsonPost = post.source === 'fakejson' || post.id > 0
-  const isSaved = savedPosts.some((p) => p.id === post.id)
-
-  const handleToggleSave = () => {
-    if (isSaved) {
-      removeSavedPost(post.id)
-    } else {
-      addSavedPost(post)
-    }
-  }
-
-  const handleDelete = () => {
-    const confirmMessage = isFakeJsonPost
-      ? 'Are you sure you want to remove this post from saved posts?'
-      : 'Are you sure you want to delete this post?'
-
-    if (window.confirm(confirmMessage)) {
-      if (isFakeJsonPost) {
-        removeSavedPost(post.id)
-      } else {
-        deletePostMutation.mutate(post.id)
-      }
-    }
-  }
+  const handleDelete = () => handleDeletePost(post)
 
   // return
   return (
@@ -98,7 +70,7 @@ const PostCard: FC<IProps> = (props) => {
                     variant='flat'
                     color={isSaved ? 'danger' : 'default'}
                     className='h-8 min-w-8'
-                    onPress={handleToggleSave}
+                    onPress={() => handleToggleSave(post)}
                     title={isSaved ? 'Remove from saved' : 'Save post'}
                   >
                     <Heart className={`h-3 w-3 ${isSaved ? 'fill-current' : ''}`} />

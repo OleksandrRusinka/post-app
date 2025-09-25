@@ -5,14 +5,13 @@ import { FC, useState } from 'react'
 import { Button, Pagination, useDisclosure } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
+import { POSTS_PER_PAGE } from '@/shared/constants'
 import { usePostsPaginated } from '@/shared/ui'
 
 import { CreatePostModal, EditPostModal, PostCard } from '../../features'
 
 // interface
 interface IProps {}
-
-const POSTS_PER_PAGE = 6
 
 // component
 const PostListModule: FC<IProps> = () => {

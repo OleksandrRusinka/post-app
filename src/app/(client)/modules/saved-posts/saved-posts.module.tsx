@@ -5,8 +5,8 @@ import { FC, useState } from 'react'
 
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 
-import { useDeletePost } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
+import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
 import { ContainerComponent } from '@/shared/ui'
 
@@ -18,32 +18,17 @@ interface IProps {}
 // component
 const SavedPostsModule: FC<IProps> = () => {
   const savedPosts = usePostsStore((state) => state.savedPosts)
-  const removeSavedPost = usePostsStore((state) => state.removeSavedPost)
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [editingPost, setEditingPost] = useState<Post | null>(null)
 
-  const deletePostMutation = useDeletePost()
+  const { handleDeletePost, deletePostMutation } = usePostActions()
 
   const handleEdit = (post: Post) => {
     setEditingPost(post)
     onOpen()
   }
 
-  const handleDelete = async (post: Post) => {
-    const isFakeJsonPost = post.source === 'fakejson' || post.id > 0
-
-    const confirmMessage = isFakeJsonPost
-      ? 'Are you sure you want to remove this post from saved posts?'
-      : 'Are you sure you want to delete this post?'
-
-    if (window.confirm(confirmMessage)) {
-      if (isFakeJsonPost) {
-        removeSavedPost(post.id)
-      } else {
-        await deletePostMutation.mutateAsync(post.id)
-      }
-    }
-  }
+  const handleDelete = (post: Post) => handleDeletePost(post)
 
   const handleCloseEditModal = () => {
     setEditingPost(null)
