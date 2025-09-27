@@ -10,7 +10,7 @@ import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react
 import { usePostBySlug } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
 import { usePostActions } from '@/shared/hooks'
-import { ContainerComponent } from '@/shared/ui'
+import { ContainerComponent } from '@/shared/ui/container'
 
 // interface
 interface IProps {
@@ -26,9 +26,11 @@ const PostDetailModule: FC<IProps> = (props) => {
 
   if (isLoading) {
     return (
-      <ContainerComponent className='py-8'>
-        <div className='mx-auto max-w-4xl text-center text-gray-500'>Loading post...</div>
-      </ContainerComponent>
+      <>
+        <ContainerComponent className='py-8'>
+          <div className='mx-auto max-w-4xl text-center text-gray-500'>Loading post...</div>
+        </ContainerComponent>
+      </>
     )
   }
 
@@ -48,10 +50,13 @@ const PostDetailModule: FC<IProps> = (props) => {
         >
           <CardHeader className='justify-between pb-4'>
             <h1 className='p-2 text-center text-3xl font-bold text-gray-900 md:text-4xl'>{postData.title}</h1>
+
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
               <Chip size='sm' variant='flat' className='flex items-center gap-1 p-2'>
                 <Calendar className='h-3 w-3' />
+
                 <span>{new Date().toLocaleDateString()}</span>
+
               </Chip>
             </div>
           </CardHeader>
@@ -63,8 +68,8 @@ const PostDetailModule: FC<IProps> = (props) => {
               <p className='whitespace-pre-wrap text-gray-700'>{postData.body}</p>
             </div>
           </CardBody>
-        </Card>
 
+        </Card>
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
           <div className='flex flex-wrap justify-center gap-3'>
             {isFakeJsonPost && (
@@ -79,6 +84,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
                   {isSaved ? 'Saved' : 'Save'}
                 </Button>
+
                 <Button
                   color='danger'
                   variant='flat'
@@ -103,6 +109,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                 >
                   <Edit className='h-4 w-4' /> Edit
                 </Button>
+
                 <Button
                   color='danger'
                   variant='flat'

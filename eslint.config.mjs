@@ -35,7 +35,15 @@ const eslintConfig = [
     },
     languageOptions: { parser: tsParser },
     rules: {
-      'prettier/prettier': 'warn',
+      'prettier/prettier': [
+        'warn',
+        {
+          bracketSameLine: false,
+          htmlWhitespaceSensitivity: 'ignore',
+          singleAttributePerLine: false,
+          embeddedLanguageFormatting: 'off',
+        },
+      ],
       'simple-import-sort/imports': [
         'warn',
         {
@@ -50,6 +58,10 @@ const eslintConfig = [
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
+      'react/jsx-indent': ['warn', 2],
+      'react/jsx-indent-props': ['warn', 2],
+      'react/jsx-closing-bracket-location': ['warn', 'line-aligned'],
+      'react/jsx-closing-tag-location': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [

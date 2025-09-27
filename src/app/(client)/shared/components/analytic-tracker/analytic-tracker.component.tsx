@@ -2,8 +2,8 @@
 
 import { FC, useEffect, useRef } from 'react'
 
-import { growthBookConfig } from '@/core/integration/growthbook'
-import { mixpanelClient } from '@/core/integration/mixpanel'
+import { growthBookConfig } from '@/pkg/integration/growthbook'
+import { mixpanelClient } from '@/pkg/integration/mixpanel'
 
 // interface
 interface IProps {}

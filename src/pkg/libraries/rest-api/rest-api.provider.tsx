@@ -1,20 +1,19 @@
 'use client'
 
-import { FC, ReactNode, useState } from 'react'
+import { type FC, type ReactNode, useState } from 'react'
 
-import { HeroUIProvider } from '@heroui/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import { getQueryClient } from '@/shared/lib/get-query-client'
+import { getQueryClient } from './service'
 
 // interface
 interface IProps {
   children: ReactNode
 }
 
-// component
-const Providers: FC<IProps> = (props) => {
+// api provider
+const RestApiProvider: FC<Readonly<IProps>> = (props) => {
   const { children } = props
 
   const [queryClient] = useState(() => getQueryClient())
@@ -22,10 +21,11 @@ const Providers: FC<IProps> = (props) => {
   // return
   return (
     <QueryClientProvider client={queryClient}>
-      <HeroUIProvider>{children}</HeroUIProvider>
+      {children}
+
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
 
-export default Providers
+export default RestApiProvider

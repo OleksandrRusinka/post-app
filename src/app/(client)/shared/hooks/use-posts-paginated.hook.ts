@@ -5,9 +5,16 @@ import { useQuery } from '@tanstack/react-query'
 import { postsListOptions } from '@/entities/api/posts'
 import { Post, PostFilters } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
-import { filterPosts, selectUserPosts, sortPosts } from '@/shared/utils'
+import { selectUserPosts, sortPosts } from '@/shared/utils'
 
-const usePostsPaginated = (filters: PostFilters = {}) => {
+// interface
+interface IProps extends PostFilters {
+  page?: number
+  limit?: number
+}
+
+// hook
+const usePostsPaginated = (filters: IProps) => {
   const store = usePostsStore()
   const query = useQuery(postsListOptions())
 
@@ -15,8 +22,8 @@ const usePostsPaginated = (filters: PostFilters = {}) => {
     if (!query.data) return { posts: [], totalCount: 0, totalPages: 0 }
 
     const userPosts = selectUserPosts(store.savedPosts)
-    const filteredUserPosts = filterPosts(userPosts, filters)
-    const allPosts = [...filteredUserPosts, ...query.data]
+
+    const allPosts = [...userPosts, ...query.data]
     const sortedPosts = sortPosts(allPosts)
 
     const uniquePosts = sortedPosts.filter(
@@ -41,6 +48,7 @@ const usePostsPaginated = (filters: PostFilters = {}) => {
     }
   }, [query.data, store.savedPosts, filters])
 
+  // return
   return {
     ...query,
     data: paginatedData.posts,

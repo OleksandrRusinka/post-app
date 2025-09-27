@@ -4,7 +4,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { postsListOptions } from '@/entities/api/posts'
 import { HomeModule } from '@/modules/home'
-import { getQueryClient } from '@/shared/lib/get-query-client'
+import { getQueryClient } from '@/pkg/libraries/rest-api/service'
 
 export const revalidate = 30
 

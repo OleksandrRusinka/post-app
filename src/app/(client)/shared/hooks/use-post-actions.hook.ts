@@ -7,7 +7,8 @@ import type { Post } from '@/entities/models'
 import { CONFIRMATION_MESSAGES, POST_SOURCES } from '@/shared/constants'
 import { usePostsStore } from '@/shared/store'
 
-export const usePostActions = () => {
+// hook
+const usePostActions = () => {
   const router = useRouter()
   const deletePostMutation = useDeletePost()
 
@@ -52,6 +53,7 @@ export const usePostActions = () => {
     }
   }
 
+  // return
   return {
     getPostType,
     handleToggleSave,
@@ -59,3 +61,5 @@ export const usePostActions = () => {
     deletePostMutation,
   }
 }
+
+export default usePostActions

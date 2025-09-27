@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-interface AppState {
+// interface
+interface IStore {
   currentPage: number
   setCurrentPage: (page: number) => void
 
@@ -20,7 +21,8 @@ const initialState = {
   isLoading: false,
 }
 
-export const useAppStore = create<AppState>()(
+// store
+export const useAppStore = create<IStore>()(
   devtools(
     (set, get) => ({
       ...initialState,

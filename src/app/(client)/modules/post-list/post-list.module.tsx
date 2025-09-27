@@ -4,11 +4,12 @@ import { FC, useState } from 'react'
 
 import { Button, Pagination, useDisclosure } from '@heroui/react'
 
+import { PostCard } from '@/app/(client)/shared/ui/post-card'
 import type { Post } from '@/entities/models'
+import { CreatePostModal } from '@/features/create-post-modal'
+import { EditPostModal } from '@/features/edit-post-modal'
 import { POSTS_PER_PAGE } from '@/shared/constants'
-import { usePostsPaginated } from '@/shared/ui'
-
-import { CreatePostModal, EditPostModal, PostCard } from '../../features'
+import { usePostsPaginated } from '@/shared/hooks'
 
 // interface
 interface IProps {}
@@ -52,11 +53,13 @@ const PostListModule: FC<IProps> = () => {
       </div>
     )
 
+  // return
   return (
     <>
       <div className='space-y-8'>
         <div className='flex items-center justify-between'>
           <h2 className='text-2xl font-bold'>Latest Posts</h2>
+
           <Button color='primary' onPress={onCreateOpen}>
             ✏️ Create Post
           </Button>
@@ -69,22 +72,23 @@ const PostListModule: FC<IProps> = () => {
         </div>
 
         {totalPages > 1 && (
-          <Pagination
-            page={currentPage}
-            total={totalPages}
-            onChange={(page) => {
-              setCurrentPage(page)
-            }}
-            className='z-0 mx-auto'
-            size='sm'
-            isDisabled={isLoading}
-            color='primary'
-            showControls
-            isCompact
-          />
+          <div className='flex justify-center py-8'>
+            <Pagination
+              page={currentPage}
+              total={totalPages}
+              onChange={(page) => {
+                setCurrentPage(page)
+              }}
+              size='lg'
+              isDisabled={isLoading}
+              color='primary'
+              showControls
+              variant='bordered'
+              className='gap-2'
+            />
+          </div>
         )}
       </div>
-
       <CreatePostModal isOpen={isCreateOpen} onOpenChange={onCreateOpenChange} />
       <EditPostModal isOpen={isEditOpen} onOpenChange={handleCloseEditModal} post={editingPost} />
     </>

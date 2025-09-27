@@ -24,7 +24,8 @@
       "@/entities/*": ["./src/app/(client)/entities/*"],
       "@/shared/*": ["./src/app/(client)/shared/*"],
       "@/config/*": ["./src/config/*"],
-      "@/components/*": ["./src/app/(client)/components/*"]
+      "@/components/*": ["src/app/(client)/shared/components/*"],
+      "@/pkg/*": ["./src/pkg/*"]
     },
     "target": "ES2022"
   },

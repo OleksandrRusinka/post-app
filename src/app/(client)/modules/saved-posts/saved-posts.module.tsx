@@ -8,9 +8,9 @@ import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react
 import type { Post } from '@/entities/models'
 import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
-import { ContainerComponent } from '@/shared/ui'
+import { ContainerComponent } from '@/shared/ui/container'
 
-import { EditPostModal } from '../../features'
+import { EditPostModal } from '../../features/edit-post-modal'
 
 // interface
 interface IProps {}
@@ -41,6 +41,7 @@ const SavedPostsModule: FC<IProps> = () => {
       <div className='space-y-8'>
         <div className='space-y-4 text-center'>
           <h1 className='text-4xl font-bold text-gray-900'>Saved Posts</h1>
+
           <p className='mx-auto max-w-2xl text-lg text-gray-600'>Your saved posts - create, edit and delete</p>
         </div>
 
@@ -48,8 +49,11 @@ const SavedPostsModule: FC<IProps> = () => {
           <div className='flex min-h-[calc(100vh-300px)] items-center justify-center'>
             <div className='text-center'>
               <div className='mb-4 text-6xl'>📝</div>
+
               <h3 className='mb-2 text-xl font-semibold text-gray-900'>No saved posts yet</h3>
+
               <p className='mb-6 text-gray-600'>Create your first post to see it here!</p>
+
               <Button as={Link} href='/' color='primary'>
                 Go to All Posts
               </Button>
@@ -71,6 +75,7 @@ const SavedPostsModule: FC<IProps> = () => {
                   <CardHeader className='pb-2'>
                     <div className='flex w-full items-start justify-between gap-3'>
                       <h3 className='line-clamp-2 flex-1 text-lg font-semibold text-gray-900'>{post.title}</h3>
+
                       <span
                         className={`shrink-0 rounded-full px-2 py-1 text-xs ${
                           isUserPost ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
@@ -109,6 +114,7 @@ const SavedPostsModule: FC<IProps> = () => {
                           >
                             Edit
                           </Button>
+
                           <Button
                             size='sm'
                             color='danger'

@@ -6,7 +6,7 @@ import type { CreatePostDto, PostFilters } from '@/entities/models'
 import { usePostsStore } from '@/shared/store'
 import { filterPosts, selectUserPosts, sortPosts } from '@/shared/utils'
 
-import { postsMutationApi } from './posts.api'
+import { createPost, deletePost, updatePost } from './posts.api'
 import { postByIdOptions, postsListOptions } from './posts.query'
 
 export const useCreatePost = () => {
@@ -14,7 +14,7 @@ export const useCreatePost = () => {
   const store = usePostsStore()
 
   return useMutation({
-    mutationFn: postsMutationApi.create,
+    mutationFn: createPost,
     onSuccess: (newPost) => {
       store.addSavedPost(newPost)
       queryClient.invalidateQueries({ queryKey: ['posts'] })
@@ -27,7 +27,7 @@ export const useUpdatePost = () => {
   const store = usePostsStore()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<CreatePostDto> }) => postsMutationApi.update({ id, data }),
+    mutationFn: ({ id, data }: { id: number; data: Partial<CreatePostDto> }) => updatePost({ id, data }),
     onSuccess: (updatedPost) => {
       if (updatedPost.source === 'user') {
         store.updateSavedPost(updatedPost.id, updatedPost)
@@ -48,7 +48,7 @@ export const useDeletePost = () => {
       if (userPost?.source === 'user') {
         store.removeSavedPost(id)
       }
-      await postsMutationApi.delete({ id })
+      await deletePost({ id })
       return id
     },
     onSuccess: (deletedId) => {

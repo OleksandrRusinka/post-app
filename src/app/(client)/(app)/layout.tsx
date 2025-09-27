@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { FC, ReactNode } from 'react'
 
-import { AnalyticTrackerComponent } from '@/components/analytic-tracker'
+import { AnalyticTrackerComponent } from '@/app/(client)/shared/components/analytic-tracker'
+import { fontClassNames } from '@/config/fonts/font'
 import { LayoutModule } from '@/modules/layout'
-
-import Providers from './(app)/providers'
+import RestApiProvider from '@/pkg/libraries/rest-api/rest-api.provider'
+import UiProvider from '@/pkg/libraries/ui/ui.provider'
 
 import '@/config/styles/globals.css'
 
@@ -29,11 +30,13 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   // return
   return (
     <html lang='en'>
-      <body suppressHydrationWarning>
-        <Providers>
-          <AnalyticTrackerComponent />
-          <LayoutModule>{children}</LayoutModule>
-        </Providers>
+      <body className={fontClassNames} suppressHydrationWarning>
+        <UiProvider>
+          <RestApiProvider>
+            <AnalyticTrackerComponent />
+            <LayoutModule>{children}</LayoutModule>
+          </RestApiProvider>
+        </UiProvider>
       </body>
     </html>
   )

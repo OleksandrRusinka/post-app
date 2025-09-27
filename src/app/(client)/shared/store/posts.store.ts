@@ -3,7 +3,8 @@ import { devtools, persist } from 'zustand/middleware'
 
 import type { Post } from '@/entities/models'
 
-interface PostsState {
+// interface
+interface IStore {
   savedPosts: Post[]
   addSavedPost: (post: Post) => void
   updateSavedPost: (id: number, updates: Partial<Post>) => void
@@ -11,7 +12,8 @@ interface PostsState {
   getSavedPost: (id: number) => Post | undefined
 }
 
-export const usePostsStore = create<PostsState>()(
+// store
+export const usePostsStore = create<IStore>()(
   devtools(
     persist(
       (set, get) => ({

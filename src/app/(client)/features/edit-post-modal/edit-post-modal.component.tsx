@@ -149,6 +149,7 @@ const EditPostModal: FC<IProps> = (props) => {
                   >
                     Cancel
                   </Button>
+
                   <Button
                     color='primary'
                     type='submit'

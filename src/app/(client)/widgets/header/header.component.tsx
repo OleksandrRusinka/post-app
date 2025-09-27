@@ -5,8 +5,11 @@ import { FC } from 'react'
 
 import { usePostsStore } from '@/shared/store'
 
+// interface
+interface IProps {}
+
 // component
-const Header: FC = () => {
+const HeaderComponent: FC<IProps> = () => {
   const savedPostsCount = usePostsStore((state) => state.savedPosts.length)
 
   // return
@@ -19,6 +22,7 @@ const Header: FC = () => {
             className='flex items-center space-x-2 font-bold text-gray-900 transition-colors hover:text-blue-600'
           >
             <span className='text-2xl'>📝</span>
+
             <span className='text-xl'>Blog</span>
           </Link>
 
@@ -29,6 +33,7 @@ const Header: FC = () => {
             >
               All Posts
             </Link>
+
             <Link
               href='/saved'
               className='flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
@@ -47,4 +52,4 @@ const Header: FC = () => {
   )
 }
 
-export default Header
+export default HeaderComponent
