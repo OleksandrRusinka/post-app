@@ -16,7 +16,6 @@ const HomeModule: FC<IProps> = () => {
           <h1 className='text-4xl font-bold text-gray-900'>Blog Posts</h1>
 
           <p className='mx-auto max-w-2xl text-lg text-gray-600'>Discover our collection of articles and insights</p>
-
         </div>
         <PostListModule />
       </div>

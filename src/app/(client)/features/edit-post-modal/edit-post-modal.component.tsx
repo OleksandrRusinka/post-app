@@ -78,6 +78,7 @@ const EditPostModal: FC<IProps> = (props) => {
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>
             <ModalHeader className='text-2xl font-bold text-gray-900'>Edit Post</ModalHeader>
+
             <ModalBody>
               <div className='space-y-6'>
                 <Controller

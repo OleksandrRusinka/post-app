@@ -44,7 +44,9 @@ const PostListModule: FC<IProps> = () => {
         <div className='text-center'>
           <div className='mb-4 text-6xl'>📝</div>
           <h3 className='mb-2 text-xl font-semibold text-gray-900'>No posts yet</h3>
+
           <p className='mb-6 text-gray-600'>Be the first to create a post!</p>
+
           <Button color='primary' onPress={onCreateOpen}>
             Create First Post
           </Button>

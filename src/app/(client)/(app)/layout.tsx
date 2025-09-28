@@ -14,6 +14,7 @@ interface IProps {
   children: ReactNode
 }
 
+// metadata
 export const metadata: Metadata = {
   title: {
     default: 'Blog',
