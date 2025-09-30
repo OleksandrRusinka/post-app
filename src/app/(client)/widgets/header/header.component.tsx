@@ -1,15 +1,18 @@
 'use client'
 
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
+import { Link } from '@/pkg/libraries/locale'
 import { usePostsStore } from '@/shared/store'
+import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
 
 // interface
 interface IProps {}
 
 // component
 const HeaderComponent: FC<IProps> = () => {
+  const t = useTranslations('header')
   const savedPostsCount = usePostsStore((state) => state.savedPosts.length)
 
   // return
@@ -23,7 +26,7 @@ const HeaderComponent: FC<IProps> = () => {
           >
             <span className='text-2xl'>📝</span>
 
-            <span className='text-xl'>Blog</span>
+            <span className='text-xl'>{t('blog_title')}</span>
           </Link>
 
           <nav className='flex items-center space-x-6'>
@@ -31,20 +34,22 @@ const HeaderComponent: FC<IProps> = () => {
               href='/'
               className='rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
             >
-              All Posts
+              {t('all_posts')}
             </Link>
 
             <Link
               href='/saved'
               className='flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
             >
-              Saved Posts
+              {t('saved_posts')}
               {savedPostsCount > 0 && (
                 <span className='rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800'>
                   {savedPostsCount}
                 </span>
               )}
             </Link>
+
+            <LanguageSwitcherComponent />
           </nav>
         </div>
       </div>
