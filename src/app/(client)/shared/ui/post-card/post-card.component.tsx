@@ -1,12 +1,13 @@
 'use client'
 
 import { Edit, Heart, Trash2 } from 'lucide-react'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
+import { Link } from '@/pkg/libraries/locale'
 import { usePostActions } from '@/shared/hooks'
 
 // interface
@@ -18,6 +19,7 @@ interface IProps {
 // component
 const PostCard: FC<IProps> = (props) => {
   const { post, onEdit } = props
+  const t = useTranslations()
 
   const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
   const { isUserPost, isFakeJsonPost, isSaved } = getPostType(post)
@@ -41,7 +43,7 @@ const PostCard: FC<IProps> = (props) => {
               isUserPost ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
             }`}
           >
-            {isUserPost ? 'Your Post' : `#${post.id}`}
+            {isUserPost ? t('your_post') : `#${post.id}`}
           </span>
         </div>
       </CardHeader>
@@ -59,7 +61,7 @@ const PostCard: FC<IProps> = (props) => {
               variant='flat'
               className='font-medium'
             >
-              Read More
+              {t('read_more')}
             </Button>
 
             <div className='flex items-center gap-2'>
@@ -72,7 +74,7 @@ const PostCard: FC<IProps> = (props) => {
                     color={isSaved ? 'danger' : 'default'}
                     className='h-8 min-w-8'
                     onPress={() => handleToggleSave(post)}
-                    title={isSaved ? 'Remove from saved' : 'Save post'}
+                    title={isSaved ? t('remove_from_saved') : t('save_post')}
                   >
                     <Heart className={`h-3 w-3 ${isSaved ? 'fill-current' : ''}`} />
                   </Button>
@@ -88,7 +90,7 @@ const PostCard: FC<IProps> = (props) => {
                     color='warning'
                     className='h-8 min-w-8'
                     onPress={() => onEdit(post)}
-                    title='Edit post'
+                    title={t('edit_post')}
                   >
                     <Edit className='h-3 w-3' />
                   </Button>
@@ -101,7 +103,7 @@ const PostCard: FC<IProps> = (props) => {
                     className='h-8 min-w-8'
                     onPress={handleDelete}
                     isLoading={deletePostMutation.isPending}
-                    title='Delete post'
+                    title={t('delete_post')}
                   >
                     <Trash2 className='h-3 w-3' />
                   </Button>

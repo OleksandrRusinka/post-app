@@ -2,10 +2,56 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "not_found_title": "Not Found",
-  "not_found_description": "The page you are looking for does not exist.",
-  "not_found_button": "Go Back",
-  "not_found_subcategories_description": "No products found.",
+  header_all_posts: string
+  header_saved_posts: string
+  header_blog_title: string
+  home_title: string
+  home_subtitle: string
+  latest_posts: string
+  create_post_button: string
+  loading_posts: string
+  no_posts: string
+  no_posts_description: string
+  create_first_post: string
+  read_more: string
+  your_post: string
+  save_post: string
+  remove_from_saved: string
+  edit_post: string
+  delete_post: string
+  loading_post: string
+  save: string
+  saved: string
+  edit: string
+  delete: string
+  back_to_posts: string
+  saved_posts_title: string
+  saved_posts_subtitle: string
+  no_saved: string
+  no_saved_description: string
+  go_to_all_posts: string
+  view: string
+  create_post_title: string
+  post_title_placeholder: string
+  post_body_placeholder: string
+  title_required: string
+  title_min_length: string
+  body_required: string
+  body_min_length: string
+  create_error: string
+  cancel: string
+  submit_create: string
+  creating: string
+  edit_post_title: string
+  update_error: string
+  submit_update: string
+  updating: string
+  not_found_title: string
+  not_found_description: string
+  not_found_button: string
+  error_title: string
+  error_description: string
+  error_retry: string
+}
 
-};
-export default messages;
+export default messages

@@ -39,7 +39,7 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const { children, params } = props
   const { locale } = await params
 
-  if (!routing.locales.includes(locale as 'en' | 'uk' | 'de')) {
+  if (!routing.locales.includes(locale as 'en' | 'uk')) {
     notFound()
   }
 

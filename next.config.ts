@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
+import { withSentryConfig } from '@sentry/nextjs'
+
 const withNextIntl = createNextIntlPlugin('./src/pkg/libraries/locale/request.ts')
 
 const nextConfig: NextConfig = {
@@ -79,4 +81,25 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
 }
 
-export default withNextIntl(nextConfig)
+export default withSentryConfig(withNextIntl(nextConfig), {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+
+  silent: !process.env.CI,
+
+  widenClientFileUpload: true,
+
+  reactComponentAnnotation: {
+    enabled: true,
+  },
+
+  tunnelRoute: '/monitoring',
+
+  sourcemaps: {
+    disable: false,
+  },
+
+  disableLogger: true,
+
+  automaticVercelMonitors: true,
+})

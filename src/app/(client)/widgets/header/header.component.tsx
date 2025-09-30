@@ -12,7 +12,7 @@ interface IProps {}
 
 // component
 const HeaderComponent: FC<IProps> = () => {
-  const t = useTranslations('header')
+  const t = useTranslations()
   const savedPostsCount = usePostsStore((state) => state.savedPosts.length)
 
   // return
@@ -26,7 +26,7 @@ const HeaderComponent: FC<IProps> = () => {
           >
             <span className='text-2xl'>📝</span>
 
-            <span className='text-xl'>{t('blog_title')}</span>
+            <span className='text-xl'>{t('header_blog_title')}</span>
           </Link>
 
           <nav className='flex items-center space-x-6'>
@@ -34,14 +34,14 @@ const HeaderComponent: FC<IProps> = () => {
               href='/'
               className='rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
             >
-              {t('all_posts')}
+              {t('header_all_posts')}
             </Link>
 
             <Link
-              href='/saved'
+              href='/posts/saved'
               className='flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
             >
-              {t('saved_posts')}
+              {t('header_saved_posts')}
               {savedPostsCount > 0 && (
                 <span className='rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800'>
                   {savedPostsCount}

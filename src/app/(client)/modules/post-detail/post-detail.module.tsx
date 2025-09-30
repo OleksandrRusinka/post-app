@@ -1,14 +1,15 @@
 'use client'
 
 import { ArrowLeft, Calendar, Edit, Heart, Trash2 } from 'lucide-react'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
 
 import { usePostBySlug } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
+import { Link } from '@/pkg/libraries/locale'
 import { usePostActions } from '@/shared/hooks'
 import { ContainerComponent } from '@/shared/ui/container'
 
@@ -20,6 +21,7 @@ interface IProps {
 // component
 const PostDetailModule: FC<IProps> = (props) => {
   const { postId } = props
+  const t = useTranslations()
 
   const { data: post, isLoading, error } = usePostBySlug(postId)
   const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
@@ -28,7 +30,7 @@ const PostDetailModule: FC<IProps> = (props) => {
     return (
       <>
         <ContainerComponent className='py-8'>
-          <div className='mx-auto max-w-4xl text-center text-gray-500'>Loading post...</div>
+          <div className='mx-auto max-w-4xl text-center text-gray-500'>{t('loading_post')}</div>
         </ContainerComponent>
       </>
     )
@@ -56,7 +58,6 @@ const PostDetailModule: FC<IProps> = (props) => {
                 <Calendar className='h-3 w-3' />
 
                 <span>{new Date().toLocaleDateString()}</span>
-
               </Chip>
             </div>
           </CardHeader>
@@ -68,7 +69,6 @@ const PostDetailModule: FC<IProps> = (props) => {
               <p className='whitespace-pre-wrap text-gray-700'>{postData.body}</p>
             </div>
           </CardBody>
-
         </Card>
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
           <div className='flex flex-wrap justify-center gap-3'>
@@ -82,7 +82,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   className='flex items-center gap-2 font-medium'
                 >
                   <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
-                  {isSaved ? 'Saved' : 'Save'}
+                  {isSaved ? t('saved') : t('save')}
                 </Button>
 
                 <Button
@@ -92,7 +92,7 @@ const PostDetailModule: FC<IProps> = (props) => {
                   onPress={handleDelete}
                   className='flex items-center gap-2 font-medium'
                 >
-                  <Trash2 className='h-4 w-4' /> Remove from Saved
+                  <Trash2 className='h-4 w-4' /> {t('remove_from_saved')}
                 </Button>
               </>
             )}
@@ -101,13 +101,13 @@ const PostDetailModule: FC<IProps> = (props) => {
               <>
                 <Button
                   as={Link}
-                  href='/saved'
+                  href='/posts/saved'
                   color='warning'
                   variant='flat'
                   size='sm'
                   className='flex items-center gap-2 font-medium'
                 >
-                  <Edit className='h-4 w-4' /> Edit
+                  <Edit className='h-4 w-4' /> {t('edit')}
                 </Button>
 
                 <Button
@@ -118,14 +118,14 @@ const PostDetailModule: FC<IProps> = (props) => {
                   isLoading={deletePostMutation.isPending}
                   className='flex items-center gap-2 font-medium'
                 >
-                  <Trash2 className='h-4 w-4' /> Delete
+                  <Trash2 className='h-4 w-4' /> {t('delete')}
                 </Button>
               </>
             )}
           </div>
 
           <Button as={Link} href='/' color='primary' size='lg' className='flex items-center gap-2 px-8 font-semibold'>
-            <ArrowLeft className='h-4 w-4' /> Back to All Posts
+            <ArrowLeft className='h-4 w-4' /> {t('back_to_posts')}
           </Button>
         </div>
       </div>

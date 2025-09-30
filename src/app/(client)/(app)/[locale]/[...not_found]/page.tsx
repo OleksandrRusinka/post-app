@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 
-export default function NotFoundCatchAll() {
+// component
+export default async function NotFoundCatchAll() {
   notFound()
 }

@@ -1,3 +1,4 @@
+import { setRequestLocale } from 'next-intl/server'
 import { type FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
@@ -11,6 +12,7 @@ export const revalidate = 30
 // interface
 interface IProps {
   params: Promise<{
+    locale: string
     slug: string
   }>
 }
@@ -25,8 +27,10 @@ export async function generateStaticParams() {
 
 // component
 const PostPage: FC<Readonly<IProps>> = async (props) => {
-  const { params } = props
-  const { slug } = await params
+  const { locale, slug } = await props.params
+
+  setRequestLocale(locale)
+
   const queryClient = getQueryClient()
 
   await queryClient.prefetchQuery(postBySlugOptions(slug))

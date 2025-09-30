@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useState } from 'react'
 
 import { Button, Pagination, useDisclosure } from '@heroui/react'
@@ -16,6 +17,7 @@ interface IProps {}
 
 // component
 const PostListModule: FC<IProps> = () => {
+  const t = useTranslations()
   const [currentPage, setCurrentPage] = useState(1)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
 
@@ -36,19 +38,19 @@ const PostListModule: FC<IProps> = () => {
     onEditOpenChange()
   }
 
-  if (isLoading) return <div className='py-16 text-center text-gray-500'>Loading posts...</div>
+  if (isLoading) return <div className='py-16 text-center text-gray-500'>{t('loading_posts')}</div>
 
   if (currentPosts.length === 0 && !isLoading && currentPage === 1)
     return (
       <div className='flex min-h-[calc(100vh-300px)] items-center justify-center'>
         <div className='text-center'>
           <div className='mb-4 text-6xl'>📝</div>
-          <h3 className='mb-2 text-xl font-semibold text-gray-900'>No posts yet</h3>
+          <h3 className='mb-2 text-xl font-semibold text-gray-900'>{t('no_posts')}</h3>
 
-          <p className='mb-6 text-gray-600'>Be the first to create a post!</p>
+          <p className='mb-6 text-gray-600'>{t('no_posts_description')}</p>
 
           <Button color='primary' onPress={onCreateOpen}>
-            Create First Post
+            {t('create_first_post')}
           </Button>
         </div>
         <CreatePostModal isOpen={isCreateOpen} onOpenChange={onCreateOpenChange} />
@@ -60,10 +62,10 @@ const PostListModule: FC<IProps> = () => {
     <>
       <div className='space-y-8'>
         <div className='flex items-center justify-between'>
-          <h2 className='text-2xl font-bold'>Latest Posts</h2>
+          <h2 className='text-2xl font-bold'>{t('latest_posts')}</h2>
 
           <Button color='primary' onPress={onCreateOpen}>
-            ✏️ Create Post
+            ✏️ {t('create_post_button')}
           </Button>
         </div>
 

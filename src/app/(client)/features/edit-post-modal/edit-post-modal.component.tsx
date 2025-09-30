@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -18,6 +19,7 @@ interface IProps {
 // component
 const EditPostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange, post } = props
+  const t = useTranslations()
 
   const updatePostMutation = useUpdatePost()
 
@@ -77,7 +79,7 @@ const EditPostModal: FC<IProps> = (props) => {
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>
-            <ModalHeader className='text-2xl font-bold text-gray-900'>Edit Post</ModalHeader>
+            <ModalHeader className='text-2xl font-bold text-gray-900'>{t('edit_post_title')}</ModalHeader>
 
             <ModalBody>
               <div className='space-y-6'>
@@ -85,13 +87,13 @@ const EditPostModal: FC<IProps> = (props) => {
                   name='title'
                   control={control}
                   rules={{
-                    required: 'Title is required',
-                    minLength: { value: 5, message: 'Title must be at least 5 characters' },
+                    required: t('title_required'),
+                    minLength: { value: 5, message: t('title_min_length') },
                   }}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      placeholder='Enter your post title...'
+                      placeholder={t('post_title_placeholder')}
                       variant='bordered'
                       size='lg'
                       isInvalid={!!errors.title}
@@ -109,13 +111,13 @@ const EditPostModal: FC<IProps> = (props) => {
                   name='body'
                   control={control}
                   rules={{
-                    required: 'Content is required',
-                    minLength: { value: 20, message: 'Content must be at least 20 characters' },
+                    required: t('body_required'),
+                    minLength: { value: 20, message: t('body_min_length') },
                   }}
                   render={({ field }) => (
                     <Textarea
                       {...field}
-                      placeholder='Write your post content here...'
+                      placeholder={t('post_body_placeholder')}
                       variant='bordered'
                       size='lg'
                       minRows={6}
@@ -136,7 +138,7 @@ const EditPostModal: FC<IProps> = (props) => {
             <ModalFooter>
               <div className='flex w-full flex-col gap-2'>
                 {updatePostMutation.isError && (
-                  <p className='px-1 text-sm font-medium text-red-500'>Failed to update post. Please try again.</p>
+                  <p className='px-1 text-sm font-medium text-red-500'>{t('update_error')}</p>
                 )}
 
                 <div className='flex justify-end gap-3'>
@@ -148,7 +150,7 @@ const EditPostModal: FC<IProps> = (props) => {
                     isDisabled={updatePostMutation.isPending}
                     className='px-6 font-semibold text-gray-700 hover:bg-red-50 hover:text-red-600'
                   >
-                    Cancel
+                    {t('cancel')}
                   </Button>
 
                   <Button
@@ -158,7 +160,7 @@ const EditPostModal: FC<IProps> = (props) => {
                     isLoading={updatePostMutation.isPending}
                     className='bg-gradient-to-r from-blue-500 to-blue-600 px-8 font-semibold text-white shadow-lg hover:from-blue-600 hover:to-blue-700'
                   >
-                    {updatePostMutation.isPending ? 'Updating...' : 'Update Post'}
+                    {updatePostMutation.isPending ? t('updating') : t('submit_update')}
                   </Button>
                 </div>
               </div>

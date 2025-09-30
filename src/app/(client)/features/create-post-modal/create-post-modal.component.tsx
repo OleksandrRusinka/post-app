@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -17,6 +18,7 @@ interface IProps {
 // component
 const CreatePostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange } = props
+  const t = useTranslations()
 
   const createPostMutation = useCreatePost()
 
@@ -64,20 +66,20 @@ const CreatePostModal: FC<IProps> = (props) => {
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>
-            <ModalHeader className='text-2xl font-bold text-gray-900'>Create New Post</ModalHeader>
+            <ModalHeader className='text-2xl font-bold text-gray-900'>{t('create_post_title')}</ModalHeader>
             <ModalBody>
               <div className='space-y-6'>
                 <Controller
                   name='title'
                   control={control}
                   rules={{
-                    required: 'Title is required',
-                    minLength: { value: 5, message: 'Title must be at least 5 characters' },
+                    required: t('title_required'),
+                    minLength: { value: 5, message: t('title_min_length') },
                   }}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      placeholder='Enter your post title...'
+                      placeholder={t('post_title_placeholder')}
                       variant='bordered'
                       size='lg'
                       isInvalid={!!errors.title}
@@ -90,13 +92,13 @@ const CreatePostModal: FC<IProps> = (props) => {
                   name='body'
                   control={control}
                   rules={{
-                    required: 'Content is required',
-                    minLength: { value: 20, message: 'Content must be at least 20 characters' },
+                    required: t('body_required'),
+                    minLength: { value: 20, message: t('body_min_length') },
                   }}
                   render={({ field }) => (
                     <Textarea
                       {...field}
-                      placeholder='Write your post content here...'
+                      placeholder={t('post_body_placeholder')}
                       variant='bordered'
                       size='lg'
                       minRows={6}
@@ -111,7 +113,7 @@ const CreatePostModal: FC<IProps> = (props) => {
             <ModalFooter>
               <div className='flex w-full flex-col gap-2'>
                 {createPostMutation.isError && (
-                  <p className='px-1 text-sm font-medium text-red-500'>Failed to create post. Please try again.</p>
+                  <p className='px-1 text-sm font-medium text-red-500'>{t('create_error')}</p>
                 )}
 
                 <div className='flex justify-end gap-2'>
@@ -122,7 +124,7 @@ const CreatePostModal: FC<IProps> = (props) => {
                     size='lg'
                     isDisabled={createPostMutation.isPending}
                   >
-                    Cancel
+                    {t('cancel')}
                   </Button>
 
                   <Button
@@ -132,7 +134,7 @@ const CreatePostModal: FC<IProps> = (props) => {
                     isLoading={createPostMutation.isPending}
                     className='bg-gradient-to-r from-blue-500 to-blue-600 px-8 font-semibold text-white shadow-lg hover:from-blue-600 hover:to-blue-700'
                   >
-                    {createPostMutation.isPending ? 'Creating...' : 'Create Post'}
+                    {createPostMutation.isPending ? t('creating') : t('submit_create')}
                   </Button>
                 </div>
               </div>

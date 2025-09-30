@@ -1,11 +1,12 @@
 'use client'
 
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { FC, useState } from 'react'
 
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
+import { Link } from '@/pkg/libraries/locale'
 import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
 import { ContainerComponent } from '@/shared/ui/container'
@@ -17,6 +18,7 @@ interface IProps {}
 
 // component
 const SavedPostsModule: FC<IProps> = () => {
+  const t = useTranslations()
   const savedPosts = usePostsStore((state) => state.savedPosts)
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [editingPost, setEditingPost] = useState<Post | null>(null)
@@ -40,9 +42,9 @@ const SavedPostsModule: FC<IProps> = () => {
     <ContainerComponent className='py-8'>
       <div className='space-y-8'>
         <div className='space-y-4 text-center'>
-          <h1 className='text-4xl font-bold text-gray-900'>Saved Posts</h1>
+          <h1 className='text-4xl font-bold text-gray-900'>{t('saved_posts_title')}</h1>
 
-          <p className='mx-auto max-w-2xl text-lg text-gray-600'>Your saved posts - create, edit and delete</p>
+          <p className='mx-auto max-w-2xl text-lg text-gray-600'>{t('saved_posts_subtitle')}</p>
         </div>
 
         {savedPosts.length === 0 ? (
@@ -50,12 +52,12 @@ const SavedPostsModule: FC<IProps> = () => {
             <div className='text-center'>
               <div className='mb-4 text-6xl'>📝</div>
 
-              <h3 className='mb-2 text-xl font-semibold text-gray-900'>No saved posts yet</h3>
+              <h3 className='mb-2 text-xl font-semibold text-gray-900'>{t('no_saved')}</h3>
 
-              <p className='mb-6 text-gray-600'>Create your first post to see it here!</p>
+              <p className='mb-6 text-gray-600'>{t('no_saved_description')}</p>
 
               <Button as={Link} href='/' color='primary'>
-                Go to All Posts
+                {t('go_to_all_posts')}
               </Button>
             </div>
           </div>
@@ -81,7 +83,7 @@ const SavedPostsModule: FC<IProps> = () => {
                           isUserPost ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                         }`}
                       >
-                        {isUserPost ? 'Your Post' : 'Saved'}
+                        {isUserPost ? t('your_post') : t('saved')}
                       </span>
                     </div>
                   </CardHeader>
@@ -99,7 +101,7 @@ const SavedPostsModule: FC<IProps> = () => {
                           variant='flat'
                           className='flex-1 font-medium'
                         >
-                          View
+                          {t('view')}
                         </Button>
                       </div>
 
@@ -112,7 +114,7 @@ const SavedPostsModule: FC<IProps> = () => {
                             className='flex-1 font-medium'
                             onPress={() => handleEdit(post)}
                           >
-                            Edit
+                            {t('edit')}
                           </Button>
 
                           <Button
@@ -123,7 +125,7 @@ const SavedPostsModule: FC<IProps> = () => {
                             onPress={() => handleDelete(post)}
                             isLoading={deletePostMutation.isPending}
                           >
-                            Delete
+                            {t('delete')}
                           </Button>
                         </div>
                       ) : (
@@ -135,7 +137,7 @@ const SavedPostsModule: FC<IProps> = () => {
                             className='flex-1 font-medium'
                             onPress={() => handleDelete(post)}
                           >
-                            Remove from Saved
+                            {t('remove_from_saved')}
                           </Button>
                         </div>
                       )}
