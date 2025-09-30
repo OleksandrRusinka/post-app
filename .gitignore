@@ -54,6 +54,9 @@ translation/*.d.json.ts
 logs/
 *.log
 
+# package lock
+package-lock.json
+
 # env files
 .env*.local
 .env.development

@@ -6,12 +6,11 @@ import { FC, useState } from 'react'
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
+import { EditPostModal } from '@/features/edit-post-modal'
 import { Link } from '@/pkg/libraries/locale'
 import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
 import { ContainerComponent } from '@/shared/ui/container'
-
-import { EditPostModal } from '../../features/edit-post-modal'
 
 // interface
 interface IProps {}
