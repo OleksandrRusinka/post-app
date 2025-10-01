@@ -17,6 +17,7 @@ interface IProps {
   }>
 }
 
+// generate static params
 export async function generateStaticParams() {
   const posts = Array.from({ length: 10 }, (_, i) => ({
     slug: (i + 1).toString(),
