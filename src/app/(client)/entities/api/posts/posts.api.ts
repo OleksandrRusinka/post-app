@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 
+import * as Sentry from '@sentry/nextjs'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
@@ -12,7 +13,10 @@ export const fetchPostsList = async (opt: QueryFunctionContext): Promise<Post[]>
       ...post,
       source: 'fakejson' as const,
     }))
-  } catch {
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'fetchPostsList' },
+    })
     notFound()
   }
 }
@@ -25,7 +29,10 @@ export const fetchPostById = async (opt: QueryFunctionContext, params: { id: num
       ...data,
       source: 'fakejson' as const,
     }
-  } catch {
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'fetchPostById', id: params.id },
+    })
     notFound()
   }
 }
@@ -42,7 +49,10 @@ export const fetchPostBySlug = async (opt: QueryFunctionContext, params: { slug:
       ...data,
       source: 'fakejson' as const,
     }
-  } catch {
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'fetchPostBySlug', slug: params.slug },
+    })
     notFound()
   }
 }
