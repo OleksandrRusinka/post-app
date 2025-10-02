@@ -9,8 +9,8 @@ import { PostCard } from '@/app/(client)/shared/ui/post-card'
 import type { Post } from '@/entities/models'
 import { CreatePostModal } from '@/features/create-post-modal'
 import { EditPostModal } from '@/features/edit-post-modal'
+import { usePostsPaginated } from '@/features/post-actions'
 import { POSTS_PER_PAGE } from '@/shared/constants'
-import { usePostsPaginated } from '@/shared/hooks'
 
 // interface
 interface IProps {}

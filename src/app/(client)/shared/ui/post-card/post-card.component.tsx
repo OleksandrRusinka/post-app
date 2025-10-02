@@ -7,8 +7,8 @@ import { FC } from 'react'
 import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
+import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostActions } from '@/shared/hooks'
 
 // interface
 interface IProps {

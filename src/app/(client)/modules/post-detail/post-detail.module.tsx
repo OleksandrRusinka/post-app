@@ -9,8 +9,8 @@ import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react
 
 import { usePostBySlug } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
+import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostActions } from '@/shared/hooks'
 import { ContainerComponent } from '@/shared/ui/container'
 
 // interface
@@ -56,9 +56,14 @@ const PostDetailModule: FC<IProps> = (props) => {
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
               <Chip size='sm' variant='flat' className='flex items-center gap-1 p-2'>
                 <Calendar className='h-3 w-3' />
-
-                <span>{new Date().toLocaleDateString()}</span>
+                <span>{new Date(postData.created_at).toLocaleDateString()}</span>
               </Chip>
+
+              {isUserPost && (
+                <Chip size='sm' variant='flat' color='success' className='flex items-center gap-1 p-2'>
+                  {t('your_post')}
+                </Chip>
+              )}
             </div>
           </CardHeader>
 

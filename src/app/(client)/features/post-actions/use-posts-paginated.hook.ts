@@ -1,11 +1,8 @@
 import { useMemo } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
-
-import { postsListOptions } from '@/entities/api/posts'
-import { Post, PostFilters } from '@/entities/models'
-import { usePostsStore } from '@/shared/store'
-import { selectUserPosts, sortPosts } from '@/shared/utils'
+import { usePosts } from '@/entities/api/posts'
+import type { Post } from '@/entities/models'
+import { PostFilters } from '@/entities/models'
 
 // interface
 interface IProps extends PostFilters {
@@ -15,24 +12,18 @@ interface IProps extends PostFilters {
 
 // hook
 const usePostsPaginated = (filters: IProps) => {
-  const store = usePostsStore()
-  const query = useQuery(postsListOptions())
+  const { page = 1, limit = 6, ...otherFilters } = filters
+
+  const { data: allPosts, isLoading, isError, error } = usePosts(otherFilters)
 
   const paginatedData = useMemo(() => {
-    if (!query.data) return { posts: [], totalCount: 0, totalPages: 0 }
+    if (!allPosts) return { posts: [], totalCount: 0, totalPages: 0 }
 
-    const userPosts = selectUserPosts(store.savedPosts)
-
-    const allPosts = [...userPosts, ...query.data]
-    const sortedPosts = sortPosts(allPosts)
-
-    const uniquePosts = sortedPosts.filter(
+    const uniquePosts = allPosts.filter(
       (post: Post, index: number, arr: Post[]) => arr.findIndex((p: Post) => p.id === post.id) === index,
     )
 
     const totalCount = uniquePosts.length
-    const page = filters.page || 1
-    const limit = filters.limit || 6
     const totalPages = Math.ceil(totalCount / limit)
 
     const startIndex = (page - 1) * limit
@@ -46,17 +37,19 @@ const usePostsPaginated = (filters: IProps) => {
       hasNextPage: page < totalPages,
       hasPreviousPage: page > 1,
     }
-  }, [query.data, store.savedPosts, filters])
+  }, [allPosts, page, limit])
 
   // return
   return {
-    ...query,
     data: paginatedData.posts,
     totalCount: paginatedData.totalCount,
     totalPages: paginatedData.totalPages,
     currentPage: paginatedData.currentPage,
     hasNextPage: paginatedData.hasNextPage,
     hasPreviousPage: paginatedData.hasPreviousPage,
+    isLoading,
+    isError,
+    error,
   }
 }
 

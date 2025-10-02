@@ -1,12 +1,45 @@
 import { notFound } from 'next/navigation'
 
 import * as Sentry from '@sentry/nextjs'
-import type { QueryFunctionContext } from '@tanstack/react-query'
 
 import type { CreatePostDto, Post } from '@/entities/models'
 import { restApiFetcher } from '@/pkg/libraries/rest-api/fetcher'
 
-export const fetchPostsList = async (opt: QueryFunctionContext): Promise<Post[]> => {
+interface ISupabasePost {
+  id: string
+  created_at: string
+  title: string
+  body: string
+}
+
+export const fetchSupabasePosts = async (): Promise<Post[]> => {
+  try {
+    const response = await fetch('/api/supabase/posts', {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    return data.posts.map((post: ISupabasePost) => ({
+      ...post,
+      source: 'user' as const,
+    }))
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'fetchSupabasePosts' },
+    })
+    return []
+  }
+}
+
+export const fetchPostsList = async (): Promise<Post[]> => {
   try {
     const data = await restApiFetcher.get('posts').json<Omit<Post, 'source'>[]>()
     return data.map((post) => ({
@@ -21,9 +54,8 @@ export const fetchPostsList = async (opt: QueryFunctionContext): Promise<Post[]>
   }
 }
 
-export const fetchPostById = async (opt: QueryFunctionContext, params: { id: number }): Promise<Post> => {
+export const fetchPostById = async (id: number): Promise<Post> => {
   try {
-    const { id } = params
     const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
     return {
       ...data,
@@ -31,64 +63,83 @@ export const fetchPostById = async (opt: QueryFunctionContext, params: { id: num
     }
   } catch (error) {
     Sentry.captureException(error, {
-      extra: { context: 'fetchPostById', id: params.id },
-    })
-    notFound()
-  }
-}
-
-export const fetchPostBySlug = async (opt: QueryFunctionContext, params: { slug: string }): Promise<Post> => {
-  try {
-    const { slug } = params
-    const id = parseInt(slug, 10)
-    if (isNaN(id)) {
-      notFound()
-    }
-    const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
-    return {
-      ...data,
-      source: 'fakejson' as const,
-    }
-  } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'fetchPostBySlug', slug: params.slug },
+      extra: { context: 'fetchPostById', id },
     })
     notFound()
   }
 }
 
 export const createPost = async (data: CreatePostDto): Promise<Post> => {
-  const response = await restApiFetcher.post('posts', { json: data }).json<Omit<Post, 'source'>>()
-  return {
-    ...response,
-    source: 'user' as const,
-    id: -Date.now(),
-  }
-}
+  try {
+    const response = await fetch('/api/supabase/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
 
-export const updatePost = async (params: { id: number; data: Partial<CreatePostDto> }): Promise<Post> => {
-  const { id, data } = params
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
 
-  if (id < 0) {
+    const result = await response.json()
+
     return {
-      id,
-      userId: data.userId || 1,
-      title: data.title || '',
-      body: data.body || '',
+      ...result.post,
       source: 'user' as const,
     }
-  }
-
-  const response = await restApiFetcher.put(`posts/${id}`, { json: data }).json<Omit<Post, 'source'>>()
-  return {
-    ...response,
-    source: 'fakejson' as const,
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'createPost', data },
+    })
+    throw error
   }
 }
 
-export const deletePost = async (params: { id: number }): Promise<void> => {
-  const { id } = params
-  if (id < 0) return
+export const updatePost = async (params: { id: number | string; data: Partial<CreatePostDto> }): Promise<Post> => {
+  try {
+    const { id, data } = params
+    const response = await fetch('/api/supabase/posts', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, ...data }),
+    })
 
-  await restApiFetcher.delete(`posts/${id}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const result = await response.json()
+
+    return {
+      ...result.post,
+      source: 'user' as const,
+    }
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'updatePost', id: params.id, data: params.data },
+    })
+    throw error
+  }
+}
+
+export const deletePost = async (params: { id: number | string }): Promise<void> => {
+  try {
+    const { id } = params
+    const response = await fetch(`/api/supabase/posts?id=${id}`, {
+      method: 'DELETE',
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+  } catch (error) {
+    Sentry.captureException(error, {
+      extra: { context: 'deletePost', id: params.id },
+    })
+    throw error
+  }
 }

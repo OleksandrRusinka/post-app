@@ -12,10 +12,6 @@ export const filterPosts = (posts: Post[], filters: PostFilters = {}): Post[] =>
     )
   }
 
-  if (filters.userId) {
-    filteredPosts = filteredPosts.filter((post) => post.userId === filters.userId)
-  }
-
   if (filters.source) {
     filteredPosts = filteredPosts.filter((post) => post.source === filters.source)
   }
@@ -25,8 +21,11 @@ export const filterPosts = (posts: Post[], filters: PostFilters = {}): Post[] =>
 
 export const sortPosts = (posts: Post[]): Post[] => {
   return [...posts].sort((a, b) => {
-    if (a.id < 0 && b.id > 0) return -1
-    if (a.id > 0 && b.id < 0) return 1
-    return Math.abs(b.id) - Math.abs(a.id)
+    if (a.source === 'user' && b.source !== 'user') return -1
+    if (a.source !== 'user' && b.source === 'user') return 1
+
+    const dateA = new Date(a.created_at).getTime()
+    const dateB = new Date(b.created_at).getTime()
+    return dateB - dateA
   })
 }

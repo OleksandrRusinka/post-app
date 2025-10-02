@@ -1,2 +1,2 @@
-export { default as usePostActions } from './use-post-actions.hook'
-export { default as usePostsPaginated } from './use-posts-paginated.hook'
+// All hooks moved to features/post-actions to comply with FSD architecture
+// shared layer cannot import from entities layer

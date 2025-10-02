@@ -1,29 +1,20 @@
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 
-import { fetchPostById, fetchPostBySlug, fetchPostsList } from './posts.api'
+import { fetchPostById, fetchPostsList } from './posts.api'
 
 export const postsListOptions = () =>
   queryOptions({
     queryKey: ['posts', 'list'] as const,
-    queryFn: (opt) => fetchPostsList(opt),
+    queryFn: fetchPostsList,
   })
 
-export const postByIdOptions = (id: number) =>
-  queryOptions({
-    queryKey: ['posts', 'detail', id] as const,
-    queryFn: (opt) => fetchPostById(opt, { id }),
-    enabled: id > 0,
-  })
+export const postByIdOptions = (id: string | number) => {
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id
+  const isValidId = !isNaN(numericId) && numericId > 0
 
-export const postBySlugOptions = (slug: string) => {
-  const numericId = parseInt(slug, 10)
   return queryOptions({
-    queryKey: ['posts', 'detail', numericId] as const,
-    queryFn: (opt) => fetchPostBySlug(opt, { slug }),
-    enabled: !!slug && !isNaN(numericId),
+    queryKey: ['posts', 'detail', id] as const,
+    queryFn: () => fetchPostById(numericId),
+    enabled: isValidId,
   })
-}
-
-export const usePostsQuery = () => {
-  return useQuery(postsListOptions())
 }

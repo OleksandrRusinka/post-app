@@ -1,14 +1,15 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 
+import { useSupabasePosts } from '@/entities/api/posts'
 import type { Post } from '@/entities/models'
 import { EditPostModal } from '@/features/edit-post-modal'
+import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
 import { ContainerComponent } from '@/shared/ui/container'
 
@@ -18,11 +19,19 @@ interface IProps {}
 // component
 const SavedPostsModule: FC<IProps> = () => {
   const t = useTranslations()
-  const savedPosts = usePostsStore((state) => state.savedPosts)
+  const localSavedPosts = usePostsStore((state) => state.savedPosts)
+  const { data: supabasePosts = [], isLoading } = useSupabasePosts()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [editingPost, setEditingPost] = useState<Post | null>(null)
 
   const { handleDeletePost, deletePostMutation } = usePostActions()
+
+  const savedPosts = useMemo(() => {
+    const localPosts = localSavedPosts.filter((post) => post.source !== 'user')
+    const allPosts = [...supabasePosts, ...localPosts]
+
+    return allPosts.filter((post, index, arr) => arr.findIndex((p) => p.id === post.id) === index)
+  }, [localSavedPosts, supabasePosts])
 
   const handleEdit = (post: Post) => {
     setEditingPost(post)
@@ -34,6 +43,14 @@ const SavedPostsModule: FC<IProps> = () => {
   const handleCloseEditModal = () => {
     setEditingPost(null)
     onOpenChange()
+  }
+
+  if (isLoading) {
+    return (
+      <ContainerComponent className='py-8'>
+        <div className='py-16 text-center text-gray-500'>{t('loading_posts')}</div>
+      </ContainerComponent>
+    )
   }
 
   // return
@@ -63,7 +80,7 @@ const SavedPostsModule: FC<IProps> = () => {
         ) : (
           <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
             {savedPosts.map((post: Post, index: number) => {
-              const isUserPost = post.source === 'user' || post.id < 0
+              const isUserPost = post.source === 'user' || (typeof post.id === 'number' && post.id < 0)
 
               return (
                 <Card
@@ -104,7 +121,7 @@ const SavedPostsModule: FC<IProps> = () => {
                         </Button>
                       </div>
 
-                      {post.source === 'user' || post.id < 0 ? (
+                      {post.source === 'user' || (typeof post.id === 'number' && post.id < 0) ? (
                         <div className='flex gap-2'>
                           <Button
                             size='sm'

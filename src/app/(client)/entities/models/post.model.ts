@@ -1,6 +1,6 @@
 export interface Post {
-  id: number
-  userId: number
+  id: number | string
+  created_at: string
   title: string
   body: string
   source?: 'fakejson' | 'user'
@@ -9,7 +9,6 @@ export interface Post {
 export interface CreatePostDto {
   title: string
   body: string
-  userId: number
 }
 
 export interface PostFilters {

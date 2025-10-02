@@ -15,8 +15,8 @@ const usePostActions = () => {
   const removeSavedPost = usePostsStore((state) => state.removeSavedPost)
 
   const getPostType = (post: Post) => ({
-    isUserPost: post.source === POST_SOURCES.USER || post.id < 0,
-    isFakeJsonPost: post.source === POST_SOURCES.FAKEJSON || post.id > 0,
+    isUserPost: post.source === POST_SOURCES.USER || (typeof post.id === 'number' && post.id < 0),
+    isFakeJsonPost: post.source === POST_SOURCES.FAKEJSON || (typeof post.id === 'number' && post.id > 0),
     isSaved: savedPosts.some((p) => p.id === post.id),
   })
 

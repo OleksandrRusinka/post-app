@@ -10,8 +10,11 @@
     "start": "next start",
     "format": "yarn type-check && yarn lint && yarn prettier",
     "lint": "npx eslint src --ext .ts,.tsx",
-    "prettier": "npx prettier --write \"src/**/*.{ts,tsx}\"",
-    "type-check": "tsc --noEmit"
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss}\"",
+    "type-check": "tsc --noEmit",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed"
   },
   "dependencies": {
     "@growthbook/growthbook-react": "^1.6.1",
@@ -19,6 +22,7 @@
     "@internationalized/date": "^3.8.2",
     "@react-aria/i18n": "^3.12.11",
     "@sentry/nextjs": "^10.17.0",
+    "@supabase/supabase-js": "^2.58.0",
     "@svgr/webpack": "^8.1.0",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-query": "^5.83.0",

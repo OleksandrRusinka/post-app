@@ -7,9 +7,9 @@ import type { Post } from '@/entities/models'
 interface IStore {
   savedPosts: Post[]
   addSavedPost: (post: Post) => void
-  updateSavedPost: (id: number, updates: Partial<Post>) => void
-  removeSavedPost: (id: number) => void
-  getSavedPost: (id: number) => Post | undefined
+  updateSavedPost: (id: number | string, updates: Partial<Post>) => void
+  removeSavedPost: (id: number | string) => void
+  getSavedPost: (id: number | string) => Post | undefined
 }
 
 // store

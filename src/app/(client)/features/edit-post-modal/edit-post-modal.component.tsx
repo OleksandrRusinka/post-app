@@ -37,7 +37,6 @@ const EditPostModal: FC<IProps> = (props) => {
       reset({
         title: post.title,
         body: post.body,
-        userId: post.userId,
       })
     }
     if (!isOpen) reset()

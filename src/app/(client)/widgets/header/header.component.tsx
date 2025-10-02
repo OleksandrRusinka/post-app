@@ -1,8 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 
+import { useSupabasePosts } from '@/entities/api/posts'
 import { Link } from '@/pkg/libraries/locale'
 import { usePostsStore } from '@/shared/store'
 import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
@@ -13,7 +14,17 @@ interface IProps {}
 // component
 const HeaderComponent: FC<IProps> = () => {
   const t = useTranslations()
-  const savedPostsCount = usePostsStore((state) => state.savedPosts.length)
+  const localSavedPosts = usePostsStore((state) => state.savedPosts)
+  const { data: supabasePosts = [] } = useSupabasePosts()
+
+  const savedPostsCount = useMemo(() => {
+    const localPosts = localSavedPosts.filter((post) => post.source !== 'user')
+    const allPosts = [...supabasePosts, ...localPosts]
+
+    const uniquePosts = allPosts.filter((post, index, arr) => arr.findIndex((p) => p.id === post.id) === index)
+
+    return uniquePosts.length
+  }, [localSavedPosts, supabasePosts])
 
   // return
   return (

@@ -133,7 +133,7 @@ const CreatePostModal: FC<IProps> = (props) => {
                     type='submit'
                     size='lg'
                     isLoading={createPostMutation.isPending}
-                    className='bg-gradient-to-r from-blue-500 to-blue-600 px-8 font-semibold text-white shadow-lg hover:from-blue-600 hover:to-blue-700'
+                    className='min-h-[48px] bg-gradient-to-r from-blue-500 to-blue-600 px-8 font-semibold text-white shadow-lg hover:from-blue-600 hover:to-blue-700'
                   >
                     {createPostMutation.isPending ? t('creating') : t('submit_create')}
                   </Button>

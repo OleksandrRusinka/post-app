@@ -5,5 +5,5 @@ import { routing } from './pkg/libraries/locale'
 export default createMiddleware(routing)
 
 export const config = {
-  matcher: ['/', '/(uk|en)/:path*', '/((?!_next|_vercel|.*\\..*).*)'],
+  matcher: ['/', '/(uk|en)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 }
