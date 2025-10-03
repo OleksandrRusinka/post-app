@@ -7,7 +7,14 @@ Sentry.init({
   enableLogs: false,
   tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
-  integrations: [],
+  integrations: [
+    Sentry.replayIntegration({
+      maskAllText: false,
+      blockAllMedia: false,
+    }),
+  ],
+  replaysSessionSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 0,
+  replaysOnErrorSampleRate: 1.0,
 
   beforeSend(event) {
     return event

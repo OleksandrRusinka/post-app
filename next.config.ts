@@ -40,6 +40,6 @@ export default withSentryConfig(withNextIntl(nextConfig), {
   sourcemaps: {
     disable: false,
   },
-  disableLogger: false,
+  disableLogger: true,
   automaticVercelMonitors: true,
 })
