@@ -74,8 +74,15 @@ build/
 # testing
 coverage/
 .nyc_output/
+/tests/html-report/
+/tests/results/
+/test-results/
+/playwright-report/
 
 # misc
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Sentry Config File
+.env.sentry-build-plugin

@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/nextjs'
 import { envClient } from '@/config/env'
 
 Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: envClient.NEXT_PUBLIC_SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN,
 
   environment: envClient.NEXT_PUBLIC_SENTRY_ENV || 'development',
 
@@ -14,7 +14,6 @@ Sentry.init({
       maskAllText: true,
       blockAllMedia: true,
     }),
-
     Sentry.feedbackIntegration({
       colorScheme: 'system',
       showBranding: false,
@@ -28,7 +27,7 @@ Sentry.init({
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 
-  beforeSend(event, hint) {
+  beforeSend(event) {
     if (process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_SENTRY_DSN) {
       return null
     }
@@ -47,5 +46,3 @@ Sentry.init({
     'AbortError',
   ],
 })
-
-export const onRouterTransitionStart = Sentry.captureRouterTransitionStart

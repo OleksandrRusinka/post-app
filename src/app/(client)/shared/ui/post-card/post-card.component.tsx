@@ -8,6 +8,7 @@ import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
 import { usePostActions } from '@/features/post-actions'
+import { mixpanelUtils } from '@/pkg/integration/mixpanel'
 import { Link } from '@/pkg/libraries/locale'
 
 // interface
@@ -25,6 +26,13 @@ const PostCard: FC<IProps> = (props) => {
   const { isUserPost, isFakeJsonPost, isSaved } = getPostType(post)
 
   const handleDelete = () => handleDeletePost(post)
+
+  const handleReadMore = () => {
+    mixpanelUtils.trackPostViewed({
+      post_id: post.id,
+      title: post.title,
+    })
+  }
 
   // return
   return (
@@ -60,6 +68,7 @@ const PostCard: FC<IProps> = (props) => {
               color='primary'
               variant='flat'
               className='font-medium'
+              onPress={handleReadMore}
             >
               {t('read_more')}
             </Button>

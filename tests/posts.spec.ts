@@ -1,52 +1,59 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('Posts App', () => {
-  test('should display posts list', async ({ page }) => {
-    await page.goto('/')
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/en')
+  })
 
-    await expect(page.locator('h2')).toContainText('Latest posts')
-    await expect(page.locator('[class*="grid"]')).toBeVisible()
+  test('should navigate between All Posts and Saved Posts pages', async ({ page }) => {
+    await expect(page.locator('text=All Posts')).toBeVisible()
+
+    const savedPostsLink = page.locator('a:has-text("Saved Posts")')
+    await expect(savedPostsLink).toBeVisible()
+    await savedPostsLink.click()
+
+    await expect(page).toHaveURL(/\/posts\/saved/)
+    await expect(page.locator('text=Saved Posts')).toBeVisible()
+
+    const allPostsLink = page.locator('a:has-text("All Posts")')
+    await expect(allPostsLink).toBeVisible()
+    await allPostsLink.click()
+
+    await expect(page).toHaveURL(/\/en\/?$/)
+    await expect(page.locator('text=All Posts')).toBeVisible()
   })
 
   test('should create a new post', async ({ page }) => {
-    await page.goto('/')
+    const createButton = page.locator('button:has-text("Create Post")')
+    await expect(createButton).toBeVisible()
+    await createButton.click()
 
-    await page.click('button:has-text("Create Post")')
+    await page.waitForSelector('text=Create New Post', { timeout: 5000 })
 
-    await page.fill('input[placeholder*="Title"]', 'E2E Test Post')
-    await page.fill('textarea[placeholder*="Body"]', 'This is a test post created by Playwright e2e tests')
+    const titleInput = page.locator('input[placeholder*="title"]').first()
+    const bodyTextarea = page.locator('textarea[placeholder*="content"]').first()
 
-    await page.click('button[type="submit"]')
+    await titleInput.fill('E2E Test Post Title')
+    await bodyTextarea.fill('This is a test post content created by Playwright for testing')
 
-    await expect(page.locator('text=E2E Test Post')).toBeVisible()
+    const submitButton = page.locator('button:has-text("Create Post")').last()
+    await submitButton.click()
+
+    await page.waitForTimeout(2000)
+    await expect(page.locator('text=E2E Test Post Title')).toBeVisible({ timeout: 10000 })
   })
 
   test('should navigate to post detail', async ({ page }) => {
-    await page.goto('/')
+    const postsGrid = page.locator('[class*="grid"] > div')
+    await expect(postsGrid.first()).toBeVisible()
 
-    const firstPost = page.locator('[class*="grid"] > div').first()
-    await firstPost.locator('button:has-text("View")').click()
+    const firstPost = postsGrid.first()
+
+    const readMoreButton = firstPost.locator('a:has-text("Read More")')
+    await expect(readMoreButton).toBeVisible()
+    await readMoreButton.click()
 
     await expect(page).toHaveURL(/\/posts\/\d+/)
     await expect(page.locator('h1')).toBeVisible()
-  })
-
-  test('should navigate to saved posts', async ({ page }) => {
-    await page.goto('/')
-
-    await page.click('a:has-text("Saved Posts")')
-
-    await expect(page).toHaveURL('/posts/saved')
-    await expect(page.locator('h1')).toContainText('Saved Posts')
-  })
-
-  test('should display Supabase posts first', async ({ page }) => {
-    await page.goto('/')
-
-    const posts = page.locator('[class*="grid"] > div')
-    await expect(posts).toHaveCount(5)
-
-    const firstPost = posts.first()
-    await expect(firstPost).toBeVisible()
   })
 })

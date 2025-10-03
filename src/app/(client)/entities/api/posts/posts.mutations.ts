@@ -79,10 +79,11 @@ export const useSupabasePosts = () =>
   useQuery({
     queryKey: QUERY_KEYS.supabasePosts,
     queryFn: fetchSupabasePosts,
-    staleTime: 60 * 1000,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
     refetchInterval: 30 * 1000,
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    refetchOnMount: 'always',
   })
 
 export const usePosts = (filters: PostFilters = {}) => {

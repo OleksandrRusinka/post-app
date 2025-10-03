@@ -1,18 +1,16 @@
-import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { FC, ReactNode } from 'react'
 
-import { AnalyticTrackerComponent } from '@/app/(client)/shared/components/analytic-tracker'
 import { fontClassNames } from '@/config/fonts/font'
 import { LayoutModule } from '@/modules/layout'
+import GrowthbookProvider from '@/pkg/integration/growthbook/growthbook.provider'
+import { MixpanelProvider } from '@/pkg/integration/mixpanel'
 import { routing } from '@/pkg/libraries/locale'
 import RestApiProvider from '@/pkg/libraries/rest-api/rest-api.provider'
 import UiProvider from '@/pkg/libraries/ui/ui.provider'
 
 import '@/config/styles/globals.css'
-
 // interface
 interface IProps {
   children: ReactNode
@@ -20,7 +18,7 @@ interface IProps {
 }
 
 // metadata
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     default: 'Blog',
     template: '%s | Blog',
@@ -39,24 +37,23 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const { children, params } = props
   const { locale } = await params
 
-  if (!routing.locales.includes(locale as 'en' | 'uk')) {
-    notFound()
-  }
-
-  const messages = await getMessages()
+  setRequestLocale(locale)
 
   // return
   return (
     <html lang={locale}>
       <body className={fontClassNames} suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          <UiProvider>
-            <RestApiProvider>
-              <AnalyticTrackerComponent />
-              <LayoutModule>{children}</LayoutModule>
-            </RestApiProvider>
-          </UiProvider>
-        </NextIntlClientProvider>
+        <GrowthbookProvider>
+          <MixpanelProvider>
+            <NextIntlClientProvider>
+              <UiProvider>
+                <RestApiProvider>
+                  <LayoutModule>{children}</LayoutModule>
+                </RestApiProvider>
+              </UiProvider>
+            </NextIntlClientProvider>
+          </MixpanelProvider>
+        </GrowthbookProvider>
       </body>
     </html>
   )

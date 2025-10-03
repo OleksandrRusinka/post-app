@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/nextjs'
 import type { CreatePostDto, Post } from '@/entities/models'
 import { restApiFetcher } from '@/pkg/libraries/rest-api/fetcher'
 
+// interface
 interface ISupabasePost {
   id: string
   created_at: string
@@ -80,10 +81,15 @@ export const createPost = async (data: CreatePostDto): Promise<Post> => {
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      const errorData = await response.json()
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
     }
 
     const result = await response.json()
+
+    if (!result.post) {
+      throw new Error('Post data is missing in the response')
+    }
 
     return {
       ...result.post,
