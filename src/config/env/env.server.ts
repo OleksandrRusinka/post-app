@@ -6,12 +6,13 @@ import { createEnv } from '@t3-oss/env-nextjs'
 export const envServer = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'production', 'test']).optional().default('development'),
-    SENTRY_ORG: z.string().optional(),
-    SENTRY_PROJECT: z.string().optional(),
-    SENTRY_AUTH_TOKEN: z.string().optional(),
-    GROWTHBOOK_CLIENT_KEY: z.string().optional(),
-    GROWTHBOOK_API_HOST: z.string().url().optional(),
+    SENTRY_ORG: z.string().optional().or(z.literal('')),
+    SENTRY_PROJECT: z.string().optional().or(z.literal('')),
+    SENTRY_AUTH_TOKEN: z.string().optional().or(z.literal('')),
+    GROWTHBOOK_CLIENT_KEY: z.string().optional().or(z.literal('')),
+    GROWTHBOOK_API_HOST: z.string().url().optional().or(z.literal('')),
   },
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   client: {
     NEXT_PUBLIC_SUPABASE_URL: z.string().url().min(1, { message: 'NEXT_PUBLIC_SUPABASE_URL is required' }),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, { message: 'NEXT_PUBLIC_SUPABASE_ANON_KEY is required' }),
