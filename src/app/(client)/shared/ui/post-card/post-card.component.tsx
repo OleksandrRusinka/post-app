@@ -8,7 +8,7 @@ import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import type { Post } from '@/entities/models'
 import { usePostActions } from '@/features/post-actions'
-import { mixpanelUtils } from '@/pkg/integration/mixpanel'
+import { trackPostViewed } from '@/pkg/integration/mixpanel'
 import { Link } from '@/pkg/libraries/locale'
 
 // interface
@@ -28,7 +28,7 @@ const PostCard: FC<IProps> = (props) => {
   const handleDelete = () => handleDeletePost(post)
 
   const handleReadMore = () => {
-    mixpanelUtils.trackPostViewed({
+    trackPostViewed({
       post_id: post.id,
       title: post.title,
     })

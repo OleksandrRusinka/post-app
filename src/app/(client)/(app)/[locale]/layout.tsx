@@ -11,6 +11,7 @@ import RestApiProvider from '@/pkg/libraries/rest-api/rest-api.provider'
 import UiProvider from '@/pkg/libraries/ui/ui.provider'
 
 import '@/config/styles/globals.css'
+
 // interface
 interface IProps {
   children: ReactNode

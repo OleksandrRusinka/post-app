@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 
 import SupabaseManager from '@/pkg/integration/supabase/supabase.client'
 
+// GET
 export async function GET(): Promise<NextResponse> {
   const supabase = SupabaseManager.getClient()
 
@@ -12,6 +13,7 @@ export async function GET(): Promise<NextResponse> {
   return NextResponse.json({ posts: data }, { status: 200 })
 }
 
+// POST
 export async function POST(req: Request): Promise<NextResponse> {
   const body = await req.json()
   const { title, body: content } = body
@@ -44,6 +46,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   return NextResponse.json({ post: data }, { status: 201 })
 }
 
+// PUT
 export async function PUT(req: Request): Promise<NextResponse> {
   const body = await req.json()
   const { id, title, body: content } = body
@@ -69,6 +72,7 @@ export async function PUT(req: Request): Promise<NextResponse> {
   return NextResponse.json({ post: data }, { status: 200 })
 }
 
+// DELETE
 export async function DELETE(req: Request): Promise<NextResponse> {
   const { searchParams } = new URL(req.url)
   const id = searchParams.get('id')

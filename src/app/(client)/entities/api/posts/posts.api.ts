@@ -13,6 +13,7 @@ interface ISupabasePost {
   body: string
 }
 
+// fetchSupabasePosts
 export const fetchSupabasePosts = async (): Promise<Post[]> => {
   try {
     const response = await fetch('/api/supabase/posts', {
@@ -40,6 +41,7 @@ export const fetchSupabasePosts = async (): Promise<Post[]> => {
   }
 }
 
+// fetchPostsList
 export const fetchPostsList = async (): Promise<Post[]> => {
   try {
     const data = await restApiFetcher.get('posts').json<Omit<Post, 'source'>[]>()
@@ -55,6 +57,7 @@ export const fetchPostsList = async (): Promise<Post[]> => {
   }
 }
 
+// fetchPostById
 export const fetchPostById = async (id: number): Promise<Post> => {
   try {
     const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
@@ -70,6 +73,7 @@ export const fetchPostById = async (id: number): Promise<Post> => {
   }
 }
 
+// createPost
 export const createPost = async (data: CreatePostDto): Promise<Post> => {
   try {
     const response = await fetch('/api/supabase/posts', {
@@ -103,6 +107,7 @@ export const createPost = async (data: CreatePostDto): Promise<Post> => {
   }
 }
 
+// updatePost
 export const updatePost = async (params: { id: number | string; data: Partial<CreatePostDto> }): Promise<Post> => {
   try {
     const { id, data } = params
@@ -132,6 +137,7 @@ export const updatePost = async (params: { id: number | string; data: Partial<Cr
   }
 }
 
+// deletePost
 export const deletePost = async (params: { id: number | string }): Promise<void> => {
   try {
     const { id } = params
