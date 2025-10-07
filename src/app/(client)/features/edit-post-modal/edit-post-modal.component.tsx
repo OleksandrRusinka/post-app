@@ -7,13 +7,13 @@ import { Controller, useForm } from 'react-hook-form'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
 
 import { useUpdatePost } from '@/entities/api/posts'
-import type { CreatePostDto, Post } from '@/entities/models'
+import type { ICreatePostDto, IPost } from '@/entities/models'
 
 // interface
 interface IProps {
   isOpen: boolean
   onOpenChange: () => void
-  post: Post | null
+  post: IPost | null
 }
 
 // component
@@ -28,7 +28,7 @@ const EditPostModal: FC<IProps> = (props) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CreatePostDto>({
+  } = useForm<ICreatePostDto>({
     mode: 'onChange',
   })
 
@@ -42,10 +42,10 @@ const EditPostModal: FC<IProps> = (props) => {
     if (!isOpen) reset()
   }, [isOpen, post, reset])
 
-  const onSubmit = (data: CreatePostDto) => {
+  const onSubmit = (data: ICreatePostDto) => {
     if (!post) return
     updatePostMutation.mutate(
-      { id: post.id, data },
+      { id: post.id, title: data.title, body: data.body },
       {
         onSuccess: () => {
           onOpenChange()

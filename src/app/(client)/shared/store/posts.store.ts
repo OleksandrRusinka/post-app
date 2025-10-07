@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 
 // interface
 interface IStore {
-  savedPosts: Post[]
-  addSavedPost: (post: Post) => void
-  updateSavedPost: (id: number | string, updates: Partial<Post>) => void
+  savedPosts: IPost[]
+  addSavedPost: (post: IPost) => void
+  updateSavedPost: (id: number | string, updates: Partial<IPost>) => void
   removeSavedPost: (id: number | string) => void
-  getSavedPost: (id: number | string) => Post | undefined
+  getSavedPost: (id: number | string) => IPost | undefined
 }
 
 // store

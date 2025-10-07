@@ -6,7 +6,7 @@ import { FC, useState } from 'react'
 import { Button, Pagination, useDisclosure } from '@heroui/react'
 
 import { PostCard } from '@/app/(client)/shared/ui/post-card'
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 import { CreatePostModal } from '@/features/create-post-modal'
 import { EditPostModal } from '@/features/edit-post-modal'
 import { usePostsPaginated } from '@/features/post-actions'
@@ -19,7 +19,7 @@ interface IProps {}
 const PostListModule: FC<IProps> = () => {
   const t = useTranslations()
   const [currentPage, setCurrentPage] = useState(1)
-  const [editingPost, setEditingPost] = useState<Post | null>(null)
+  const [editingPost, setEditingPost] = useState<IPost | null>(null)
 
   const { isOpen: isCreateOpen, onOpen: onCreateOpen, onOpenChange: onCreateOpenChange } = useDisclosure()
   const { isOpen: isEditOpen, onOpen: onEditOpen, onOpenChange: onEditOpenChange } = useDisclosure()
@@ -28,7 +28,7 @@ const PostListModule: FC<IProps> = () => {
 
   const currentPosts = posts || []
 
-  const handleEditPost = (post: Post) => {
+  const handleEditPost = (post: IPost) => {
     setEditingPost(post)
     onEditOpen()
   }
@@ -70,7 +70,7 @@ const PostListModule: FC<IProps> = () => {
         </div>
 
         <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {currentPosts.map((post: Post, index: number) => (
+          {currentPosts.map((post: IPost, index: number) => (
             <PostCard key={`post-${post.id}-${index}`} post={post} onEdit={handleEditPost} />
           ))}
         </div>

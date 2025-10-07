@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 
 import { usePosts } from '@/entities/api/posts'
-import type { Post } from '@/entities/models'
-import { PostFilters } from '@/entities/models'
+import type { IPost } from '@/entities/models'
+import { IPostFilters } from '@/entities/models'
 
 // interface
-interface IProps extends PostFilters {
+interface IProps extends IPostFilters {
   page?: number
   limit?: number
 }
@@ -20,7 +20,7 @@ const usePostsPaginated = (filters: IProps) => {
     if (!allPosts) return { posts: [], totalCount: 0, totalPages: 0 }
 
     const uniquePosts = allPosts.filter(
-      (post: Post, index: number, arr: Post[]) => arr.findIndex((p: Post) => p.id === post.id) === index,
+      (post: IPost, index: number, arr: IPost[]) => arr.findIndex((p: IPost) => p.id === post.id) === index,
     )
 
     const totalCount = uniquePosts.length

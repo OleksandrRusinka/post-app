@@ -1,26 +1,16 @@
 import { notFound } from 'next/navigation'
 
 import * as Sentry from '@sentry/nextjs'
+import { QueryFunctionContext } from '@tanstack/react-query'
 
-import type { CreatePostDto, Post } from '@/entities/models'
+import type { ICreatePostDto, IPost, IPostByIdQueryParams, ISupabasePost, IUpdatePostDto } from '@/entities/models'
 import { restApiFetcher } from '@/pkg/libraries/rest-api/fetcher'
 
-// interface
-interface ISupabasePost {
-  id: string
-  created_at: string
-  title: string
-  body: string
-}
-
-// fetchSupabasePosts
-export const fetchSupabasePosts = async (): Promise<Post[]> => {
+// fetch supabase posts
+export const supabasePostsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]> => {
   try {
     const response = await fetch('/api/supabase/posts', {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
+      signal: opt.signal,
     })
 
     if (!response.ok) {
@@ -34,47 +24,74 @@ export const fetchSupabasePosts = async (): Promise<Post[]> => {
       source: 'user' as const,
     }))
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'fetchSupabasePosts' },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'supabasePostsQueryApi')
+      Sentry.captureException(error)
     })
     return []
   }
 }
 
-// fetchPostsList
-export const fetchPostsList = async (): Promise<Post[]> => {
+// fetch posts list
+export const postsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]> => {
   try {
-    const data = await restApiFetcher.get('posts').json<Omit<Post, 'source'>[]>()
+    const data = await restApiFetcher
+      .get('posts', {
+        signal: opt.signal,
+      })
+      .json<Omit<IPost, 'source'>[]>()
+
+    if (!data) {
+      throw new Error('Error occurred, posts not found')
+    }
+
     return data.map((post) => ({
       ...post,
       source: 'fakejson' as const,
     }))
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'fetchPostsList' },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'postsQueryApi')
+      Sentry.captureException(error)
     })
-    notFound()
+    return notFound()
   }
 }
 
-// fetchPostById
-export const fetchPostById = async (id: number): Promise<Post> => {
+// fetch post by id
+export const postByIdQueryApi = async (
+  opt: QueryFunctionContext,
+  queryParams: IPostByIdQueryParams,
+): Promise<IPost> => {
+  const { id } = queryParams
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id
+
   try {
-    const data = await restApiFetcher.get(`posts/${id}`).json<Omit<Post, 'source'>>()
+    const data = await restApiFetcher
+      .get(`posts/${numericId}`, {
+        signal: opt.signal,
+      })
+      .json<Omit<IPost, 'source'>>()
+
+    if (!data) {
+      throw new Error(`Post not found: id=${id}`)
+    }
+
     return {
       ...data,
       source: 'fakejson' as const,
     }
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'fetchPostById', id },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'postByIdQueryApi')
+      Sentry.captureException(error)
     })
-    notFound()
+    return notFound()
   }
 }
 
-// createPost
-export const createPost = async (data: CreatePostDto): Promise<Post> => {
+// create post
+export const createPostMutationApi = async (data: ICreatePostDto): Promise<IPost> => {
   try {
     const response = await fetch('/api/supabase/posts', {
       method: 'POST',
@@ -100,45 +117,54 @@ export const createPost = async (data: CreatePostDto): Promise<Post> => {
       source: 'user' as const,
     }
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'createPost', data },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'createPostMutationApi')
+      scope.setContext('data', { data })
+      Sentry.captureException(error)
     })
     throw error
   }
 }
 
-// updatePost
-export const updatePost = async (params: { id: number | string; data: Partial<CreatePostDto> }): Promise<Post> => {
+// update post
+export const updatePostMutationApi = async (params: IUpdatePostDto): Promise<IPost> => {
   try {
-    const { id, data } = params
+    const { id, title, body } = params
     const response = await fetch('/api/supabase/posts', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id, ...data }),
+      body: JSON.stringify({ id, title, body }),
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      const errorData = await response.json()
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
     }
 
     const result = await response.json()
+
+    if (!result.post) {
+      throw new Error('Post data is missing')
+    }
 
     return {
       ...result.post,
       source: 'user' as const,
     }
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'updatePost', id: params.id, data: params.data },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'updatePostMutationApi')
+      scope.setContext('params', { id: params.id, title: params.title, body: params.body })
+      Sentry.captureException(error)
     })
     throw error
   }
 }
 
-// deletePost
-export const deletePost = async (params: { id: number | string }): Promise<void> => {
+// delete post
+export const deletePostMutationApi = async (params: { id: number | string }): Promise<void> => {
   try {
     const { id } = params
     const response = await fetch(`/api/supabase/posts?id=${id}`, {
@@ -146,11 +172,20 @@ export const deletePost = async (params: { id: number | string }): Promise<void>
     })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      const errorData = await response.json()
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+    }
+
+    const result = await response.json()
+
+    if (!result.success) {
+      throw new Error('Failed to delete post')
     }
   } catch (error) {
-    Sentry.captureException(error, {
-      extra: { context: 'deletePost', id: params.id },
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'deletePostMutationApi')
+      scope.setContext('params', { id: params.id })
+      Sentry.captureException(error)
     })
     throw error
   }

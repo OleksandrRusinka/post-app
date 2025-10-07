@@ -8,7 +8,7 @@ import { FC } from 'react'
 import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
 
 import { usePostBySlug } from '@/entities/api/posts'
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
 import { ContainerComponent } from '@/shared/ui/container'
@@ -38,7 +38,7 @@ const PostDetailModule: FC<IProps> = (props) => {
 
   if (error || !post) notFound()
 
-  const postData = post as Post
+  const postData = post as IPost
   const { isUserPost, isFakeJsonPost, isSaved } = getPostType(postData)
 
   const handleDelete = () => handleDeletePost(postData, { redirectTo: '/' })

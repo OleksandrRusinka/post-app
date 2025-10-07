@@ -15,10 +15,10 @@ export async function GET(): Promise<NextResponse> {
 
 // POST
 export async function POST(req: Request): Promise<NextResponse> {
-  const body = await req.json()
-  const { title, body: content } = body
+  const requestBody = await req.json()
+  const { title, body } = requestBody
 
-  if (!title || !content) {
+  if (!title || !body) {
     return NextResponse.json({ error: 'Title and body are required' }, { status: 400 })
   }
 
@@ -29,11 +29,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     .insert([
       {
         title,
-        body: content,
+        body,
       },
     ])
     .select()
-    .single()
+    .maybeSingle()
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
@@ -43,16 +43,18 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 })
   }
 
-  return NextResponse.json({ post: data }, { status: 201 })
+  const newPost = data
+
+  return NextResponse.json({ post: newPost }, { status: 201 })
 }
 
 // PUT
 export async function PUT(req: Request): Promise<NextResponse> {
-  const body = await req.json()
-  const { id, title, body: content } = body
+  const requestBody = await req.json()
+  const { id, title, body } = requestBody
 
-  if (!id || !title || !content) {
-    return NextResponse.json({ error: 'ID, title and body are required' }, { status: 400 })
+  if (!id || !title || !body) {
+    return NextResponse.json({ error: 'Title and body are required' }, { status: 400 })
   }
 
   const supabase = SupabaseManager.getClient()
@@ -61,15 +63,23 @@ export async function PUT(req: Request): Promise<NextResponse> {
     .from('posts')
     .update({
       title,
-      body: content,
+      body,
     })
     .eq('id', id)
     .select()
-    .single()
+    .maybeSingle()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 
-  return NextResponse.json({ post: data }, { status: 200 })
+  if (!data) {
+    return NextResponse.json({ error: 'Post update failed' }, { status: 404 })
+  }
+
+  const updatedPost = data
+
+  return NextResponse.json({ post: updatedPost }, { status: 200 })
 }
 
 // DELETE
@@ -83,9 +93,11 @@ export async function DELETE(req: Request): Promise<NextResponse> {
 
   const supabase = SupabaseManager.getClient()
 
-  const { error } = await supabase.from('posts').delete().eq('id', id)
+  const { error, count } = await supabase.from('posts').delete().eq('id', id)
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 
-  return NextResponse.json({ success: true }, { status: 200 })
+  return NextResponse.json({ success: true, deleted: count }, { status: 200 })
 }

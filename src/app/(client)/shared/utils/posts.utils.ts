@@ -1,8 +1,8 @@
-import { Post, PostFilters } from '@/entities/models'
+import { IPost, IPostFilters } from '@/entities/models'
 
-export const selectUserPosts = (savedPosts: Post[]): Post[] => savedPosts.filter((post) => post.source === 'user')
+export const selectUserPosts = (savedPosts: IPost[]): IPost[] => savedPosts.filter((post) => post.source === 'user')
 
-export const filterPosts = (posts: Post[], filters: PostFilters = {}): Post[] => {
+export const filterPosts = (posts: IPost[], filters: IPostFilters = {}): IPost[] => {
   let filteredPosts = [...posts]
 
   if (filters.search) {
@@ -19,7 +19,7 @@ export const filterPosts = (posts: Post[], filters: PostFilters = {}): Post[] =>
   return filteredPosts
 }
 
-export const sortPosts = (posts: Post[]): Post[] => {
+export const sortPosts = (posts: IPost[]): IPost[] => {
   return [...posts].sort((a, b) => {
     if (a.source === 'user' && b.source !== 'user') return -1
     if (a.source !== 'user' && b.source === 'user') return 1

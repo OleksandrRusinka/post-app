@@ -6,15 +6,15 @@ import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 import { usePostActions } from '@/features/post-actions'
 import { trackPostViewed } from '@/pkg/integration/mixpanel'
 import { Link } from '@/pkg/libraries/locale'
 
 // interface
 interface IProps {
-  post: Post
-  onEdit: (post: Post) => void
+  post: IPost
+  onEdit: (post: IPost) => void
 }
 
 // component

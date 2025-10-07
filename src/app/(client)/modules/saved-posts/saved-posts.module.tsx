@@ -6,7 +6,7 @@ import { FC, useMemo, useState } from 'react'
 import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react'
 
 import { useSupabasePosts } from '@/entities/api/posts'
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 import { EditPostModal } from '@/features/edit-post-modal'
 import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
@@ -22,7 +22,7 @@ const SavedPostsModule: FC<IProps> = () => {
   const localSavedPosts = usePostsStore((state) => state.savedPosts)
   const { data: supabasePosts = [], isLoading } = useSupabasePosts()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const [editingPost, setEditingPost] = useState<Post | null>(null)
+  const [editingPost, setEditingPost] = useState<IPost | null>(null)
 
   const { handleDeletePost, deletePostMutation } = usePostActions()
 
@@ -33,12 +33,12 @@ const SavedPostsModule: FC<IProps> = () => {
     return allPosts.filter((post, index, arr) => arr.findIndex((p) => p.id === post.id) === index)
   }, [localSavedPosts, supabasePosts])
 
-  const handleEdit = (post: Post) => {
+  const handleEdit = (post: IPost) => {
     setEditingPost(post)
     onOpen()
   }
 
-  const handleDelete = (post: Post) => handleDeletePost(post)
+  const handleDelete = (post: IPost) => handleDeletePost(post)
 
   const handleCloseEditModal = () => {
     setEditingPost(null)
@@ -79,7 +79,7 @@ const SavedPostsModule: FC<IProps> = () => {
           </div>
         ) : (
           <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
-            {savedPosts.map((post: Post, index: number) => {
+            {savedPosts.map((post: IPost, index: number) => {
               const isUserPost = post.source === 'user' || (typeof post.id === 'number' && post.id < 0)
 
               return (

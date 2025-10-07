@@ -1,16 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import type { CreatePostDto, PostFilters } from '@/entities/models'
+import type { ICreatePostDto, IPostFilters, IUpdatePostDto } from '@/entities/models'
 import { filterPosts, sortPosts } from '@/shared/utils'
 
-import { createPost, deletePost, fetchSupabasePosts, updatePost } from './posts.api'
-import { postByIdOptions, postsListOptions } from './posts.query'
+import { createPostMutationApi, deletePostMutationApi, updatePostMutationApi } from './posts.api'
+import { postByIdQueryOptions, postsQueryOptions, supabasePostsQueryOptions } from './posts.query'
 
+// CREATE
 export const useCreatePost = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: createPost,
+    mutationFn: (data: ICreatePostDto) => createPostMutationApi(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
       queryClient.invalidateQueries({ queryKey: ['posts'] })
@@ -18,11 +19,12 @@ export const useCreatePost = () => {
   })
 }
 
+// UPDATE
 export const useUpdatePost = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number | string; data: Partial<CreatePostDto> }) => updatePost({ id, data }),
+    mutationFn: (data: IUpdatePostDto) => updatePostMutationApi(data),
     onSuccess: (updatedPost) => {
       queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
       queryClient.invalidateQueries({ queryKey: ['posts'] })
@@ -31,15 +33,16 @@ export const useUpdatePost = () => {
   })
 }
 
+// DELETE
 export const useDeletePost = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: number | string) => deletePost({ id }),
+    mutationFn: (id: number | string) => deletePostMutationApi({ id }),
     onSuccess: (_, deletedId) => {
+      queryClient.removeQueries({ queryKey: ['posts', 'detail', deletedId] })
       queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
       queryClient.invalidateQueries({ queryKey: ['posts'] })
-      queryClient.removeQueries({ queryKey: ['posts', 'detail', deletedId] })
     },
   })
 }
@@ -53,7 +56,7 @@ export const usePost = (id: string | number) => {
   const shouldFetchFakejson = !supabasePost && !supabaseQuery.isLoading && !isNaN(numericId)
 
   const fakejsonQuery = useQuery({
-    ...postByIdOptions(numericId),
+    ...postByIdQueryOptions({ id: numericId }),
     enabled: shouldFetchFakejson,
   })
 
@@ -74,24 +77,12 @@ export const usePost = (id: string | number) => {
 export const usePostBySlug = (slug: string) => usePost(slug)
 
 export const useSupabasePosts = () => {
-  return useQuery({
-    queryKey: ['supabase-posts'],
-    queryFn: fetchSupabasePosts,
-    staleTime: 30 * 1000,
-    gcTime: 5 * 60 * 1000,
-  })
+  return useQuery(supabasePostsQueryOptions())
 }
 
-export const usePosts = (filters: PostFilters = {}) => {
-  const supabaseQuery = useQuery({
-    queryKey: ['supabase-posts'],
-    queryFn: fetchSupabasePosts,
-    staleTime: 30 * 1000,
-    gcTime: 5 * 60 * 1000,
-    refetchInterval: 30 * 1000,
-  })
-
-  const fakejsonQuery = useQuery(postsListOptions())
+export const usePosts = (filters: IPostFilters = {}) => {
+  const supabaseQuery = useQuery(supabasePostsQueryOptions())
+  const fakejsonQuery = useQuery(postsQueryOptions())
 
   const supabasePosts = supabaseQuery.data || []
   const fakejsonPosts = fakejsonQuery.data || []

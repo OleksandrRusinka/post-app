@@ -1,20 +1,34 @@
 import { queryOptions } from '@tanstack/react-query'
 
-import { fetchPostById, fetchPostsList } from './posts.api'
+import { IPostByIdQueryParams } from '@/entities/models'
 
-export const postsListOptions = () =>
-  queryOptions({
-    queryKey: ['posts', 'list'] as const,
-    queryFn: fetchPostsList,
+import { postByIdQueryApi, postsQueryApi, supabasePostsQueryApi } from './posts.api'
+
+//supabase posts
+export const supabasePostsQueryOptions = () => {
+  return queryOptions({
+    queryKey: ['supabase-posts'],
+    queryFn: (params) => supabasePostsQueryApi(params),
   })
+}
 
-export const postByIdOptions = (id: string | number) => {
+//posts list
+export const postsQueryOptions = () => {
+  return queryOptions({
+    queryKey: ['posts', 'list'],
+    queryFn: (params) => postsQueryApi(params),
+  })
+}
+
+//post by id
+export const postByIdQueryOptions = (queryParams: IPostByIdQueryParams) => {
+  const { id } = queryParams
   const numericId = typeof id === 'string' ? parseInt(id, 10) : id
   const isValidId = !isNaN(numericId) && numericId > 0
 
   return queryOptions({
-    queryKey: ['posts', 'detail', id] as const,
-    queryFn: () => fetchPostById(numericId),
+    queryKey: ['posts', 'detail', id],
+    queryFn: (params) => postByIdQueryApi(params, queryParams),
     enabled: isValidId,
   })
 }

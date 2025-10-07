@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 
 import { useDeletePost } from '@/entities/api/posts'
-import type { Post } from '@/entities/models'
+import type { IPost } from '@/entities/models'
 import { CONFIRMATION_MESSAGES, POST_SOURCES } from '@/shared/constants'
 import { usePostsStore } from '@/shared/store'
 
@@ -14,13 +14,13 @@ const usePostActions = () => {
   const addSavedPost = usePostsStore((state) => state.addSavedPost)
   const removeSavedPost = usePostsStore((state) => state.removeSavedPost)
 
-  const getPostType = (post: Post) => ({
+  const getPostType = (post: IPost) => ({
     isUserPost: post.source === POST_SOURCES.USER || (typeof post.id === 'number' && post.id < 0),
     isFakeJsonPost: post.source === POST_SOURCES.FAKEJSON || (typeof post.id === 'number' && post.id > 0),
     isSaved: savedPosts.some((p) => p.id === post.id),
   })
 
-  const handleToggleSave = (post: Post) => {
+  const handleToggleSave = (post: IPost) => {
     const { isSaved } = getPostType(post)
     if (isSaved) {
       removeSavedPost(post.id)
@@ -29,7 +29,7 @@ const usePostActions = () => {
     }
   }
 
-  const handleDeletePost = async (post: Post, options?: { redirectTo?: string }) => {
+  const handleDeletePost = async (post: IPost, options?: { redirectTo?: string }) => {
     const { isFakeJsonPost } = getPostType(post)
 
     const confirmMessage = isFakeJsonPost
