@@ -8,8 +8,8 @@ import { Button, Card, CardBody, CardHeader, useDisclosure } from '@heroui/react
 import { useSupabasePosts } from '@/entities/api/posts'
 import type { IPost } from '@/entities/models'
 import { EditPostModal } from '@/features/edit-post-modal'
-import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
+import { usePostActions } from '@/shared/hooks'
 import { usePostsStore } from '@/shared/store'
 import { ContainerComponent } from '@/shared/ui/container'
 

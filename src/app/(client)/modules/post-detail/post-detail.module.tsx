@@ -9,8 +9,8 @@ import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react
 
 import { usePostBySlug } from '@/entities/api/posts'
 import type { IPost } from '@/entities/models'
-import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
+import { usePostActions } from '@/shared/hooks'
 import { ContainerComponent } from '@/shared/ui/container'
 
 // interface
