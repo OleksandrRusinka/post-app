@@ -1,51 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
-import type { ICreatePostDto, IPostFilters, IUpdatePostDto } from '@/entities/models'
+import type { IPostFilters } from '@/entities/models'
 import { filterPosts, sortPosts } from '@/shared/utils'
 
-import { createPostMutationApi, deletePostMutationApi, updatePostMutationApi } from './posts.api'
-import { postByIdQueryOptions, postsQueryOptions, supabasePostsQueryOptions } from './posts.query'
+import { postByIdQueryOptions, postsQueryOptions } from './posts.query'
 
-// CREATE
-export const useCreatePost = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (data: ICreatePostDto) => createPostMutationApi(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
-    },
-  })
-}
-
-// UPDATE
-export const useUpdatePost = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (data: IUpdatePostDto) => updatePostMutationApi(data),
-    onSuccess: (updatedPost) => {
-      queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
-      queryClient.invalidateQueries({ queryKey: ['posts', 'detail', updatedPost.id] })
-    },
-  })
-}
-
-// DELETE
-export const useDeletePost = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: (id: number | string) => deletePostMutationApi({ id }),
-    onSuccess: (_, deletedId) => {
-      queryClient.removeQueries({ queryKey: ['posts', 'detail', deletedId] })
-      queryClient.invalidateQueries({ queryKey: ['supabase-posts'] })
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
-    },
-  })
-}
+import { useSupabasePosts } from '../database'
 
 // POST
 export const usePost = (id: string | number) => {
@@ -77,14 +37,9 @@ export const usePost = (id: string | number) => {
 
 export const usePostBySlug = (slug: string) => usePost(slug)
 
-// SUPABASE POSTS
-export const useSupabasePosts = () => {
-  return useQuery(supabasePostsQueryOptions())
-}
-
 // POSTS
 export const usePosts = (filters: IPostFilters = {}) => {
-  const supabaseQuery = useQuery(supabasePostsQueryOptions())
+  const supabaseQuery = useSupabasePosts()
   const fakejsonQuery = useQuery(postsQueryOptions())
 
   const supabasePosts = supabaseQuery.data || []

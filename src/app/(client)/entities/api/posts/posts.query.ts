@@ -2,17 +2,9 @@ import { queryOptions } from '@tanstack/react-query'
 
 import { IPostByIdQueryParams } from '@/entities/models'
 
-import { postByIdQueryApi, postsQueryApi, supabasePostsQueryApi } from './posts.api'
+import { postByIdQueryApi, postsQueryApi } from './posts.api'
 
-//supabase posts
-export const supabasePostsQueryOptions = () => {
-  return queryOptions({
-    queryKey: ['supabase-posts'],
-    queryFn: (params) => supabasePostsQueryApi(params),
-  })
-}
-
-//posts list
+// posts list
 export const postsQueryOptions = () => {
   return queryOptions({
     queryKey: ['posts', 'list'],
