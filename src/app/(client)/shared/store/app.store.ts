@@ -24,7 +24,7 @@ const initialState = {
 // store
 export const useAppStore = create<IStore>()(
   devtools(
-    (set, get) => ({
+    (set) => ({
       ...initialState,
 
       setCurrentPage: (page) => set({ currentPage: page }),

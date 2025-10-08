@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import SupabaseManager from '@/pkg/integration/supabase/supabase.client'
+import { SupabaseManager } from '@/pkg/integration/supabase'
 
 // GET
 export async function GET(): Promise<NextResponse> {

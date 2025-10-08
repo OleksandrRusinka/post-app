@@ -5,6 +5,7 @@ const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const initMixpanel = () => {
   if (!MIXPANEL_TOKEN) {
     if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
       console.warn('Mixpanel token is missing! Check your .env file.')
     }
     return
