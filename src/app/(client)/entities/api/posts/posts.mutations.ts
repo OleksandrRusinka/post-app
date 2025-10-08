@@ -47,6 +47,7 @@ export const useDeletePost = () => {
   })
 }
 
+// POST
 export const usePost = (id: string | number) => {
   const supabaseQuery = useSupabasePosts()
   const supabasePosts = supabaseQuery.data || []
@@ -76,10 +77,12 @@ export const usePost = (id: string | number) => {
 
 export const usePostBySlug = (slug: string) => usePost(slug)
 
+// SUPABASE POSTS
 export const useSupabasePosts = () => {
   return useQuery(supabasePostsQueryOptions())
 }
 
+// POSTS
 export const usePosts = (filters: IPostFilters = {}) => {
   const supabaseQuery = useQuery(supabasePostsQueryOptions())
   const fakejsonQuery = useQuery(postsQueryOptions())

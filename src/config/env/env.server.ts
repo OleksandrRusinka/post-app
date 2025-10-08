@@ -6,11 +6,11 @@ import { createEnv } from '@t3-oss/env-nextjs'
 export const envServer = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'production', 'test']).optional().default('development'),
-    SENTRY_ORG: z.string().optional().or(z.literal('')),
-    SENTRY_PROJECT: z.string().optional().or(z.literal('')),
-    SENTRY_AUTH_TOKEN: z.string().optional().or(z.literal('')),
-    GROWTHBOOK_CLIENT_KEY: z.string().optional().or(z.literal('')),
-    GROWTHBOOK_API_HOST: z.string().url().optional().or(z.literal('')),
+    SENTRY_ORG: z.string().optional(),
+    SENTRY_PROJECT: z.string().optional(),
+    SENTRY_AUTH_TOKEN: z.string().optional(),
+    GROWTHBOOK_CLIENT_KEY: z.string().optional(),
+    GROWTHBOOK_API_HOST: z.string().url().optional(),
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   client: {

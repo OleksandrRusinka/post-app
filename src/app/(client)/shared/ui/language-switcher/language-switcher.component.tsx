@@ -19,7 +19,7 @@ const languages = [
 const LanguageSwitcherComponent: FC<IProps> = () => {
   const router = useRouter()
   const pathname = usePathname()
-  const { locale } = useParams() as { locale: string }
+  const { locale } = useParams()
 
   const currentLang = languages.find((lang) => lang.code === locale)
 
