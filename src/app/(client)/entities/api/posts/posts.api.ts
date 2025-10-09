@@ -4,14 +4,16 @@ import * as Sentry from '@sentry/nextjs'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
 import type { IPost, IPostByIdQueryParams } from '@/entities/models'
-import { restApiFetcher } from '@/pkg/libraries/rest-api/fetcher'
+import { localApiFetcher } from '@/pkg/libraries/rest-api/local-fetcher'
 
-// fetch posts list
+// GET JSON
 export const postsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]> => {
   try {
-    const data = await restApiFetcher
+    const data = await localApiFetcher
       .get('posts', {
         signal: opt.signal,
+        cache: 'force-cache',
+        next: { revalidate: 30 },
       })
       .json<Omit<IPost, 'source'>[]>()
 
@@ -19,7 +21,7 @@ export const postsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]>
       throw new Error('Error occurred, posts not found')
     }
 
-    return data.map((post) => ({
+    return data.map((post: Omit<IPost, 'source'>) => ({
       ...post,
       source: 'fakejson' as const,
     }))
@@ -41,9 +43,11 @@ export const postByIdQueryApi = async (
   const numericId = typeof id === 'string' ? parseInt(id, 10) : id
 
   try {
-    const data = await restApiFetcher
+    const data = await localApiFetcher
       .get(`posts/${numericId}`, {
         signal: opt.signal,
+        cache: 'force-cache',
+        next: { revalidate: 30 },
       })
       .json<Omit<IPost, 'source'>>()
 

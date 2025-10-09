@@ -4,7 +4,6 @@ import { IPostByIdQueryParams } from '@/entities/models'
 
 import { postByIdQueryApi, postsQueryApi } from './posts.api'
 
-// posts list
 export const postsQueryOptions = () => {
   return queryOptions({
     queryKey: ['posts', 'list'],
@@ -12,7 +11,6 @@ export const postsQueryOptions = () => {
   })
 }
 
-//post by id
 export const postByIdQueryOptions = (queryParams: IPostByIdQueryParams) => {
   const { id } = queryParams
   const numericId = typeof id === 'string' ? parseInt(id, 10) : id

@@ -1,15 +1,14 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
+import { envServer } from '@/config/env/env.server'
+
 // supabase manager
 class SupabaseManager {
   private static instance: SupabaseClient | null = null
 
   static getClient(): SupabaseClient {
     if (!SupabaseManager.instance) {
-      SupabaseManager.instance = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      )
+      SupabaseManager.instance = createClient(envServer.SUPABASE_URL!, envServer.SUPABASE_ANON_KEY!)
     }
     return SupabaseManager.instance
   }

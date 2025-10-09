@@ -1,6 +1,6 @@
 {
-  "header_all_posts": "Усі статті",
-  "header_saved_posts": "Збережені",
+  "header_all_posts": "Fake статті",
+  "header_supabase_posts": "Мої статті",
   "header_blog_title": "Блог",
   "home_title": "Статті блогу",
   "home_subtitle": "Відкрийте для себе нашу колекцію статей та ідей",
@@ -24,6 +24,8 @@
   "back_to_posts": "Повернутися до всіх статей",
   "saved_posts_title": "Збережені статті",
   "saved_posts_subtitle": "Ваші збережені статті - створюйте, редагуйте та видаляйте",
+  "supabase_posts_title": "Supabase статті",
+  "supabase_posts_subtitle": "Створюйте, редагуйте та керуйте своїми власними статтями",
   "no_saved": "Збережених статей ще немає",
   "no_saved_description": "Створіть свою першу статтю, щоб побачити її тут!",
   "go_to_all_posts": "Перейти до всіх статей",

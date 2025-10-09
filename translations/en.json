@@ -1,6 +1,6 @@
 {
-  "header_all_posts": "All Posts",
-  "header_saved_posts": "Saved Posts",
+  "header_all_posts": "Fake Posts",
+  "header_supabase_posts": "My Posts",
   "header_blog_title": "Blog",
   "home_title": "Blog Posts",
   "home_subtitle": "Discover our collection of articles and insights",
@@ -24,6 +24,8 @@
   "back_to_posts": "Back to All Posts",
   "saved_posts_title": "Saved Posts",
   "saved_posts_subtitle": "Your saved posts - create, edit and delete",
+  "supabase_posts_title": "Supabase Posts",
+  "supabase_posts_subtitle": "Create, edit and manage your own posts",
   "no_saved": "No saved posts yet",
   "no_saved_description": "Create your first post to see it here!",
   "go_to_all_posts": "Go to All Posts",

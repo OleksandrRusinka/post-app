@@ -1,20 +1,20 @@
 'use client'
 
-import { Edit, Heart, Trash2 } from 'lucide-react'
+import { Edit, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader } from '@heroui/react'
 
 import type { IPost } from '@/entities/models'
+import { usePostActions } from '@/features/post-actions'
 import { trackPostViewed } from '@/pkg/integration/mixpanel'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostActions } from '@/shared/hooks'
 
 // interface
 interface IProps {
   post: IPost
-  onEdit: (post: IPost) => void
+  onEdit?: (post: IPost) => void
 }
 
 // component
@@ -22,8 +22,8 @@ const PostCard: FC<IProps> = (props) => {
   const { post, onEdit } = props
   const t = useTranslations()
 
-  const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
-  const { isUserPost, isFakeJsonPost, isSaved } = getPostType(post)
+  const { getPostType, handleDeletePost, deletePostMutation } = usePostActions()
+  const { isUserPost } = getPostType(post)
 
   const handleDelete = () => handleDeletePost(post)
 
@@ -73,52 +73,34 @@ const PostCard: FC<IProps> = (props) => {
               {t('read_more')}
             </Button>
 
-            <div className='flex items-center gap-2'>
-              {isFakeJsonPost && (
-                <>
-                  <Button
-                    isIconOnly
-                    size='sm'
-                    variant='flat'
-                    color={isSaved ? 'danger' : 'default'}
-                    className='h-8 min-w-8'
-                    onPress={() => handleToggleSave(post)}
-                    title={isSaved ? t('remove_from_saved') : t('save_post')}
-                  >
-                    <Heart className={`h-3 w-3 ${isSaved ? 'fill-current' : ''}`} />
-                  </Button>
-                </>
-              )}
+            {isUserPost && onEdit && (
+              <div className='flex items-center gap-2'>
+                <Button
+                  isIconOnly
+                  size='sm'
+                  variant='flat'
+                  color='warning'
+                  className='h-8 min-w-8'
+                  onPress={() => onEdit(post)}
+                  title={t('edit_post')}
+                >
+                  <Edit className='h-3 w-3' />
+                </Button>
 
-              {isUserPost && (
-                <>
-                  <Button
-                    isIconOnly
-                    size='sm'
-                    variant='flat'
-                    color='warning'
-                    className='h-8 min-w-8'
-                    onPress={() => onEdit(post)}
-                    title={t('edit_post')}
-                  >
-                    <Edit className='h-3 w-3' />
-                  </Button>
-
-                  <Button
-                    isIconOnly
-                    size='sm'
-                    variant='flat'
-                    color='danger'
-                    className='h-8 min-w-8'
-                    onPress={handleDelete}
-                    isLoading={deletePostMutation.isPending}
-                    title={t('delete_post')}
-                  >
-                    <Trash2 className='h-3 w-3' />
-                  </Button>
-                </>
-              )}
-            </div>
+                <Button
+                  isIconOnly
+                  size='sm'
+                  variant='flat'
+                  color='danger'
+                  className='h-8 min-w-8'
+                  onPress={handleDelete}
+                  isLoading={deletePostMutation.isPending}
+                  title={t('delete_post')}
+                >
+                  <Trash2 className='h-3 w-3' />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </CardBody>

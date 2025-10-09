@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@heroui/react'
 
-import { useCreatePost } from '@/entities/api/posts'
+import { useCreatePost } from '@/entities/api/database'
 import type { ICreatePostDto } from '@/entities/models'
 
 // interface

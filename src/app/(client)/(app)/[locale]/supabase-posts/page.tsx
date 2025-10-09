@@ -1,13 +1,11 @@
 import { setRequestLocale } from 'next-intl/server'
-import { type FC } from 'react'
+import { FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { postsQueryOptions } from '@/entities/api/posts'
-import { HomeModule } from '@/modules/home'
+import { supabasePostsQueryOptions } from '@/entities/api/database'
+import { SupabasePostsModule } from '@/modules/supabase-posts'
 import { getQueryClient } from '@/pkg/libraries/rest-api/service'
-
-import { supabasePostsQueryOptions } from '../../entities/api/database'
 
 export const revalidate = 30
 
@@ -19,24 +17,21 @@ interface IProps {
 }
 
 // component
-const Page: FC<Readonly<IProps>> = async (props) => {
+const SupabasePostsPage: FC<Readonly<IProps>> = async (props) => {
   const { locale } = await props.params
 
   setRequestLocale(locale)
 
   const queryClient = getQueryClient()
 
-  await Promise.all([
-    queryClient.prefetchQuery(postsQueryOptions()),
-    queryClient.prefetchQuery(supabasePostsQueryOptions()),
-  ])
+  await queryClient.prefetchQuery(supabasePostsQueryOptions())
 
   // return
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <HomeModule />
+      <SupabasePostsModule />
     </HydrationBoundary>
   )
 }
 
-export default Page
+export default SupabasePostsPage

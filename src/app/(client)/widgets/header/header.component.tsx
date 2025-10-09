@@ -1,11 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { FC, useMemo } from 'react'
+import { FC } from 'react'
 
-import { useSupabasePosts } from '@/entities/api/posts'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostsStore } from '@/shared/store'
 import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
 
 // interface
@@ -14,17 +12,6 @@ interface IProps {}
 // component
 const HeaderComponent: FC<IProps> = () => {
   const t = useTranslations()
-  const localSavedPosts = usePostsStore((state) => state.savedPosts)
-  const { data: supabasePosts = [] } = useSupabasePosts()
-
-  const savedPostsCount = useMemo(() => {
-    const localPosts = localSavedPosts.filter((post) => post.source !== 'user')
-    const allPosts = [...supabasePosts, ...localPosts]
-
-    const uniquePosts = allPosts.filter((post, index, arr) => arr.findIndex((p) => p.id === post.id) === index)
-
-    return uniquePosts.length
-  }, [localSavedPosts, supabasePosts])
 
   // return
   return (
@@ -49,15 +36,10 @@ const HeaderComponent: FC<IProps> = () => {
             </Link>
 
             <Link
-              href='/posts/saved'
-              className='flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
+              href='/supabase-posts'
+              className='rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
             >
-              {t('header_saved_posts')}
-              {savedPostsCount > 0 && (
-                <span className='rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800'>
-                  {savedPostsCount}
-                </span>
-              )}
+              {t('header_supabase_posts')}
             </Link>
 
             <LanguageSwitcherComponent />

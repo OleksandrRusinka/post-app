@@ -4,7 +4,6 @@ import { FC, ReactNode } from 'react'
 
 import { fontClassNames } from '@/config/fonts/font'
 import { LayoutModule } from '@/modules/layout'
-import GrowthbookProvider from '@/pkg/integration/growthbook/growthbook.provider'
 import { MixpanelProvider } from '@/pkg/integration/mixpanel'
 import { routing } from '@/pkg/libraries/locale'
 import RestApiProvider from '@/pkg/libraries/rest-api/rest-api.provider'
@@ -36,6 +35,7 @@ export function generateStaticParams() {
 // component
 const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const { children, params } = props
+
   const { locale } = await params
 
   setRequestLocale(locale)
@@ -44,17 +44,15 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
   return (
     <html lang={locale}>
       <body className={fontClassNames} suppressHydrationWarning>
-        <GrowthbookProvider>
-          <MixpanelProvider>
-            <NextIntlClientProvider>
-              <UiProvider>
-                <RestApiProvider>
-                  <LayoutModule>{children}</LayoutModule>
-                </RestApiProvider>
-              </UiProvider>
-            </NextIntlClientProvider>
-          </MixpanelProvider>
-        </GrowthbookProvider>
+        <MixpanelProvider>
+          <NextIntlClientProvider>
+            <UiProvider>
+              <RestApiProvider>
+                <LayoutModule>{children}</LayoutModule>
+              </RestApiProvider>
+            </UiProvider>
+          </NextIntlClientProvider>
+        </MixpanelProvider>
       </body>
     </html>
   )

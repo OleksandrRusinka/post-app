@@ -1,16 +1,18 @@
 'use client'
 
-import { ArrowLeft, Calendar, Edit, Heart, Trash2 } from 'lucide-react'
+import { ArrowLeft, Calendar, Edit, Trash2 } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
+import { useQuery } from '@tanstack/react-query'
 
-import { usePostBySlug } from '@/entities/api/posts'
+import { supabasePostByIdQueryOptions } from '@/entities/api/database'
+import { postByIdQueryOptions } from '@/entities/api/posts'
 import type { IPost } from '@/entities/models'
+import { usePostActions } from '@/features/post-actions'
 import { Link } from '@/pkg/libraries/locale'
-import { usePostActions } from '@/shared/hooks'
 import { ContainerComponent } from '@/shared/ui/container'
 
 // interface
@@ -23,8 +25,22 @@ const PostDetailModule: FC<IProps> = (props) => {
   const { postId } = props
   const t = useTranslations()
 
-  const { data: post, isLoading, error } = usePostBySlug(postId)
-  const { getPostType, handleToggleSave, handleDeletePost, deletePostMutation } = usePostActions()
+  const isNumeric = !postId.includes('-') && !isNaN(parseInt(postId, 10))
+
+  const { data: jsonPost, isLoading: isLoadingJson } = useQuery({
+    ...postByIdQueryOptions({ id: parseInt(postId, 10) }),
+    enabled: isNumeric,
+  })
+
+  const { data: supabasePost, isLoading: isLoadingSupabase } = useQuery({
+    ...supabasePostByIdQueryOptions({ id: postId }),
+    enabled: !isNumeric,
+  })
+
+  const post = isNumeric ? jsonPost : supabasePost
+  const isLoading = isLoadingJson || isLoadingSupabase
+
+  const { getPostType, handleDeletePost, deletePostMutation } = usePostActions()
 
   if (isLoading) {
     return (
@@ -36,10 +52,11 @@ const PostDetailModule: FC<IProps> = (props) => {
     )
   }
 
-  if (error || !post) notFound()
+  if (!isLoading && !post) notFound()
+  if (!post) return null
 
   const postData = post as IPost
-  const { isUserPost, isFakeJsonPost, isSaved } = getPostType(postData)
+  const { isUserPost } = getPostType(postData)
 
   const handleDelete = () => handleDeletePost(postData, { redirectTo: '/' })
 
@@ -76,58 +93,31 @@ const PostDetailModule: FC<IProps> = (props) => {
           </CardBody>
         </Card>
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
-          <div className='flex flex-wrap justify-center gap-3'>
-            {isFakeJsonPost && (
-              <>
-                <Button
-                  color={isSaved ? 'danger' : 'default'}
-                  variant='flat'
-                  size='sm'
-                  onPress={() => handleToggleSave(postData)}
-                  className='flex items-center gap-2 font-medium'
-                >
-                  <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
-                  {isSaved ? t('saved') : t('save')}
-                </Button>
+          {isUserPost && (
+            <div className='flex flex-wrap justify-center gap-3'>
+              <Button
+                as={Link}
+                href='/supabase-posts'
+                color='warning'
+                variant='flat'
+                size='sm'
+                className='flex items-center gap-2 font-medium'
+              >
+                <Edit className='h-4 w-4' /> {t('edit')}
+              </Button>
 
-                <Button
-                  color='danger'
-                  variant='flat'
-                  size='sm'
-                  onPress={handleDelete}
-                  className='flex items-center gap-2 font-medium'
-                >
-                  <Trash2 className='h-4 w-4' /> {t('remove_from_saved')}
-                </Button>
-              </>
-            )}
-
-            {isUserPost && (
-              <>
-                <Button
-                  as={Link}
-                  href='/posts/saved'
-                  color='warning'
-                  variant='flat'
-                  size='sm'
-                  className='flex items-center gap-2 font-medium'
-                >
-                  <Edit className='h-4 w-4' /> {t('edit')}
-                </Button>
-
-                <Button
-                  color='danger'
-                  variant='flat'
-                  size='sm'
-                  onPress={handleDelete}
-                  isLoading={deletePostMutation.isPending}
-                  className='flex items-center gap-2 font-medium'
-                >
-                  <Trash2 className='h-4 w-4' /> {t('delete')}
-                </Button>
-              </>
-            )}
-          </div>
+              <Button
+                color='danger'
+                variant='flat'
+                size='sm'
+                onPress={handleDelete}
+                isLoading={deletePostMutation.isPending}
+                className='flex items-center gap-2 font-medium'
+              >
+                <Trash2 className='h-4 w-4' /> {t('delete')}
+              </Button>
+            </div>
+          )}
 
           <Button as={Link} href='/' color='primary' size='lg' className='flex items-center gap-2 px-8 font-semibold'>
             <ArrowLeft className='h-4 w-4' /> {t('back_to_posts')}

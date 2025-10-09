@@ -1,20 +1,21 @@
+import { notFound } from 'next/navigation'
+
 import * as Sentry from '@sentry/nextjs'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
-import type { ICreatePostDto, IPost, ISupabasePost, IUpdatePostDto } from '@/entities/models'
+import type { ICreatePostDto, IPost, IPostByIdQueryParams, ISupabasePost, IUpdatePostDto } from '@/entities/models'
+import { restApiFetcher } from '@/pkg/libraries/rest-api/fetcher'
 
-// fetch supabase posts
+// GET
 export const supabasePostsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]> => {
   try {
-    const response = await fetch('/api/supabase/posts', {
-      signal: opt.signal,
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const data = await response.json()
+    const data = await restApiFetcher
+      .get('', {
+        signal: opt.signal,
+        cache: 'no-store',
+        next: { revalidate: 30 },
+      })
+      .json<{ posts: ISupabasePost[] }>()
 
     return data.posts.map((post: ISupabasePost) => ({
       ...post,
@@ -25,27 +26,53 @@ export const supabasePostsQueryApi = async (opt: QueryFunctionContext): Promise<
       scope.setTag('api', 'supabasePostsQueryApi')
       Sentry.captureException(error)
     })
-    return []
+    return notFound()
   }
 }
 
-// create post
-export const createPostMutationApi = async (data: ICreatePostDto): Promise<IPost> => {
-  try {
-    const response = await fetch('/api/supabase/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
+// GET post by id
+export const supabasePostByIdQueryApi = async (
+  opt: QueryFunctionContext,
+  queryParams: IPostByIdQueryParams,
+): Promise<IPost> => {
+  const { id } = queryParams
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+  try {
+    const data = await restApiFetcher
+      .get('', {
+        signal: opt.signal,
+        cache: 'no-store',
+        next: { revalidate: 30 },
+      })
+      .json<{ posts: ISupabasePost[] }>()
+
+    const post = data.posts.find((p) => p.id === String(id))
+
+    if (!post) {
+      throw new Error(`Post not found: id=${id}`)
     }
 
-    const result = await response.json()
+    return {
+      ...post,
+      source: 'user' as const,
+    }
+  } catch (error) {
+    Sentry.withScope((scope) => {
+      scope.setTag('api', 'supabasePostByIdQueryApi')
+      Sentry.captureException(error)
+    })
+    return notFound()
+  }
+}
+
+// POST
+export const createPostMutationApi = async (data: ICreatePostDto): Promise<IPost> => {
+  try {
+    const result = await restApiFetcher
+      .post('', {
+        json: data,
+      })
+      .json<{ post: ISupabasePost }>()
 
     if (!result.post) {
       throw new Error('Post data is missing in the response')
@@ -65,24 +92,15 @@ export const createPostMutationApi = async (data: ICreatePostDto): Promise<IPost
   }
 }
 
-// update post
+// PUT
 export const updatePostMutationApi = async (params: IUpdatePostDto): Promise<IPost> => {
   try {
     const { id, title, body } = params
-    const response = await fetch('/api/supabase/posts', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id, title, body }),
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
+    const result = await restApiFetcher
+      .put('', {
+        json: { id, title, body },
+      })
+      .json<{ post: ISupabasePost }>()
 
     if (!result.post) {
       throw new Error('Post data is missing')
@@ -102,20 +120,15 @@ export const updatePostMutationApi = async (params: IUpdatePostDto): Promise<IPo
   }
 }
 
-// delete post
+// DELETE
 export const deletePostMutationApi = async (params: { id: number | string }): Promise<void> => {
   try {
     const { id } = params
-    const response = await fetch(`/api/supabase/posts?id=${id}`, {
-      method: 'DELETE',
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
+    const result = await restApiFetcher
+      .delete('', {
+        searchParams: { id: String(id) },
+      })
+      .json<{ success: boolean }>()
 
     if (!result.success) {
       throw new Error('Failed to delete post')
