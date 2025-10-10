@@ -13,12 +13,9 @@ export const postsQueryOptions = () => {
 
 export const postByIdQueryOptions = (queryParams: IPostByIdQueryParams) => {
   const { id } = queryParams
-  const numericId = typeof id === 'string' ? parseInt(id, 10) : id
-  const isValidId = !isNaN(numericId) && numericId > 0
 
   return queryOptions({
     queryKey: ['posts', 'detail', id],
     queryFn: (params) => postByIdQueryApi(params, queryParams),
-    enabled: isValidId,
   })
 }

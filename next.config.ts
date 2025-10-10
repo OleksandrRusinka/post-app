@@ -35,14 +35,9 @@ const nextConfig: NextConfig = {
 }
 
 export default withSentryConfig(withNextIntl(nextConfig), {
-  org: process.env.SENTRY_ORG || 'myself-2jp',
-  project: process.env.SENTRY_PROJECT || 'javascript-nextjs',
-  silent: !process.env.CI,
+  project: 'nextjs-post-app',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
   widenClientFileUpload: true,
-  tunnelRoute: '/monitoring',
-  sourcemaps: {
-    disable: false,
-  },
   disableLogger: true,
-  automaticVercelMonitors: true,
 })

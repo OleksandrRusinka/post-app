@@ -8,3 +8,5 @@ export const POST_SOURCES = {
   USER: 'user',
   FAKEJSON: 'fakejson',
 } as const
+
+export const MIXPANEL_API_HOST = 'https://api-eu.mixpanel.com'

@@ -19,6 +19,7 @@ export const supabasePostsQueryApi = async (opt: QueryFunctionContext): Promise<
 
     return data.posts.map((post: ISupabasePost) => ({
       ...post,
+      created_at: post.createdAt || new Date().toISOString(),
       source: 'user' as const,
     }))
   } catch (error) {
@@ -54,6 +55,7 @@ export const supabasePostByIdQueryApi = async (
 
     return {
       ...post,
+      created_at: post.createdAt || new Date().toISOString(),
       source: 'user' as const,
     }
   } catch (error) {
@@ -80,6 +82,7 @@ export const createPostMutationApi = async (data: ICreatePostDto): Promise<IPost
 
     return {
       ...result.post,
+      created_at: result.post.createdAt || new Date().toISOString(),
       source: 'user' as const,
     }
   } catch (error) {
@@ -108,6 +111,7 @@ export const updatePostMutationApi = async (params: IUpdatePostDto): Promise<IPo
 
     return {
       ...result.post,
+      created_at: result.post.createdAt || new Date().toISOString(),
       source: 'user' as const,
     }
   } catch (error) {

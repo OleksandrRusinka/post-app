@@ -21,6 +21,7 @@ const NotFoundComponent: FC<IProps> = () => {
       <div className='absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-purple-100 opacity-50 blur-3xl'></div>
       <div className='relative z-10'>
         <div className='mb-4 animate-bounce text-8xl'>🔍</div>
+
         <h1 className='text-center text-4xl font-extrabold text-gray-900'>{t('not_found_title')}</h1>
 
         <p className='m-4 mx-auto max-w-xs text-lg leading-relaxed text-gray-600'>{t('not_found_description')}</p>

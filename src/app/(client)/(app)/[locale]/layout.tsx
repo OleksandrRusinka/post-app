@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { FC, ReactNode } from 'react'
@@ -17,19 +18,33 @@ interface IProps {
   params: Promise<{ locale: string }>
 }
 
-// metadata
-export const metadata = {
-  title: {
-    default: 'Blog',
-    template: '%s | Blog',
-  },
-  description: 'Modern blog application built with Next.js',
-  keywords: 'blog, nextjs, react, typescript',
-}
-
 // generate static params
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
+}
+
+// metadata
+export const generateMetadata = async (): Promise<Metadata> => {
+  const title = 'nextJs Blog'
+  const description = 'Modern blog application built with Next.js'
+
+  return {
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+    description: description,
+    applicationName: title,
+    openGraph: {
+      title: {
+        default: title,
+        template: `%s | ${title}`,
+      },
+      description: description,
+      siteName: title,
+      type: 'website',
+    },
+  }
 }
 
 // component

@@ -6,7 +6,7 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 import type { IPost, IPostByIdQueryParams } from '@/entities/models'
 import { localApiFetcher } from '@/pkg/libraries/rest-api/local-fetcher'
 
-// GET JSON
+// GET
 export const postsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]> => {
   try {
     const data = await localApiFetcher
@@ -34,7 +34,7 @@ export const postsQueryApi = async (opt: QueryFunctionContext): Promise<IPost[]>
   }
 }
 
-// fetch post by id
+// FETCH POST BY ID
 export const postByIdQueryApi = async (
   opt: QueryFunctionContext,
   queryParams: IPostByIdQueryParams,

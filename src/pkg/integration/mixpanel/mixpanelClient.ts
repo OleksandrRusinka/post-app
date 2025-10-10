@@ -1,10 +1,12 @@
 import mixpanel from 'mixpanel-browser'
 
-const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
+import { envClient } from '@/config/env/env.client'
+import { envServer } from '@/config/env/env.server'
+import { MIXPANEL_API_HOST } from '@/shared/constants/common.constants'
 
 export const initMixpanel = () => {
-  if (!MIXPANEL_TOKEN) {
-    if (process.env.NODE_ENV === 'development') {
+  if (!envClient.NEXT_PUBLIC_MIXPANEL_TOKEN) {
+    if (envServer.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
       console.warn('Mixpanel token is missing! Check your .env file.')
     }
@@ -12,11 +14,11 @@ export const initMixpanel = () => {
   }
 
   if (typeof window !== 'undefined') {
-    mixpanel.init(MIXPANEL_TOKEN, {
+    mixpanel.init(envClient.NEXT_PUBLIC_MIXPANEL_TOKEN, {
       autocapture: true,
       debug: false,
       ignore_dnt: true,
-      api_host: 'https://api-eu.mixpanel.com',
+      api_host: MIXPANEL_API_HOST,
     })
   }
 }

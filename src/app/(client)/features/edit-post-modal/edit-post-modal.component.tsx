@@ -19,6 +19,7 @@ interface IProps {
 // component
 const EditPostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange, post } = props
+
   const t = useTranslations()
 
   const updatePostMutation = useUpdatePost()

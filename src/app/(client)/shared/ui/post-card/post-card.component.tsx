@@ -20,6 +20,7 @@ interface IProps {
 // component
 const PostCard: FC<IProps> = (props) => {
   const { post, onEdit } = props
+
   const t = useTranslations()
 
   const { getPostType, handleDeletePost, deletePostMutation } = usePostActions()
@@ -65,7 +66,7 @@ const PostCard: FC<IProps> = (props) => {
               as={Link}
               href={`/posts/${post.id}`}
               size='sm'
-              color='primary'
+              color='secondary'
               variant='flat'
               className='font-medium'
               onPress={handleReadMore}

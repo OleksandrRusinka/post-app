@@ -4,7 +4,7 @@ import { IPostByIdQueryParams } from '@/entities/models'
 
 import { supabasePostByIdQueryApi, supabasePostsQueryApi } from './database.api'
 
-// supabase posts query options
+// supabase posts
 export const supabasePostsQueryOptions = () => {
   return queryOptions({
     queryKey: ['supabase-posts'],
@@ -12,7 +12,7 @@ export const supabasePostsQueryOptions = () => {
   })
 }
 
-// supabase post by id query options
+// supabase post by id
 export const supabasePostByIdQueryOptions = (queryParams: IPostByIdQueryParams) => {
   const { id } = queryParams
 

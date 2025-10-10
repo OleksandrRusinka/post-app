@@ -25,19 +25,10 @@ export interface IPostByIdQueryParams {
   id: string | number
 }
 
-// filters
-export interface IPostFilters {
-  search?: string
-  userId?: number
-  source?: 'fakejson' | 'user'
-  page?: number
-  limit?: number
-}
-
 // supabase post response
 export interface ISupabasePost {
   id: string
-  created_at: string
+  createdAt: string | null
   title: string
   body: string
 }

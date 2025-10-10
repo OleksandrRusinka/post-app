@@ -18,6 +18,7 @@ interface IProps {
 // component
 const CreatePostModal: FC<IProps> = (props) => {
   const { isOpen, onOpenChange } = props
+
   const t = useTranslations()
 
   const createPostMutation = useCreatePost()

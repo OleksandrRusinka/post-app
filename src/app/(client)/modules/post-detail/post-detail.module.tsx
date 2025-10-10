@@ -1,7 +1,6 @@
 'use client'
 
 import { ArrowLeft, Calendar, Edit, Trash2 } from 'lucide-react'
-import { notFound } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
@@ -23,6 +22,7 @@ interface IProps {
 // component
 const PostDetailModule: FC<IProps> = (props) => {
   const { postId } = props
+
   const t = useTranslations()
 
   const isNumeric = !postId.includes('-') && !isNaN(parseInt(postId, 10))
@@ -38,6 +38,7 @@ const PostDetailModule: FC<IProps> = (props) => {
   })
 
   const post = isNumeric ? jsonPost : supabasePost
+
   const isLoading = isLoadingJson || isLoadingSupabase
 
   const { getPostType, handleDeletePost, deletePostMutation } = usePostActions()
@@ -52,10 +53,8 @@ const PostDetailModule: FC<IProps> = (props) => {
     )
   }
 
-  if (!isLoading && !post) notFound()
-  if (!post) return null
-
   const postData = post as IPost
+
   const { isUserPost } = getPostType(postData)
 
   const handleDelete = () => handleDeletePost(postData, { redirectTo: '/' })
@@ -72,8 +71,11 @@ const PostDetailModule: FC<IProps> = (props) => {
 
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
               <Chip size='sm' variant='flat' className='flex items-center gap-1 p-2'>
+
                 <Calendar className='h-3 w-3' />
+
                 <span>{new Date(postData.created_at).toLocaleDateString()}</span>
+
               </Chip>
 
               {isUserPost && (
@@ -92,6 +94,7 @@ const PostDetailModule: FC<IProps> = (props) => {
             </div>
           </CardBody>
         </Card>
+
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
           {isUserPost && (
             <div className='flex flex-wrap justify-center gap-3'>
@@ -115,12 +118,14 @@ const PostDetailModule: FC<IProps> = (props) => {
                 className='flex items-center gap-2 font-medium'
               >
                 <Trash2 className='h-4 w-4' /> {t('delete')}
+
               </Button>
             </div>
           )}
 
           <Button as={Link} href='/' color='primary' size='lg' className='flex items-center gap-2 px-8 font-semibold'>
             <ArrowLeft className='h-4 w-4' /> {t('back_to_posts')}
+
           </Button>
         </div>
       </div>

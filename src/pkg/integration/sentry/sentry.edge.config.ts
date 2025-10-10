@@ -1,11 +1,13 @@
 import * as Sentry from '@sentry/nextjs'
 
+import { envServer } from '@/config/env/env.server'
+
 Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  environment: process.env.NEXT_PUBLIC_SENTRY_ENV || process.env.NODE_ENV,
+  dsn: envServer.SENTRY_DSN,
+  environment: envServer.SENTRY_ENV || envServer.NODE_ENV,
   debug: false,
   enableLogs: false,
-  tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
+  tracesSampleRate: envServer.NODE_ENV === 'production' ? 0.1 : 1.0,
 
   integrations: [],
 

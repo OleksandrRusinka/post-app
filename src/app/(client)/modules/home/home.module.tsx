@@ -20,6 +20,7 @@ const HomeModule: FC<IProps> = () => {
 
           <p className='mx-auto max-w-2xl text-lg text-gray-600'>{t('home_subtitle')}</p>
         </div>
+
         <PostListModule />
       </div>
     </ContainerComponent>
