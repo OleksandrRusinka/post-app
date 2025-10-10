@@ -13,10 +13,14 @@ import { POSTS_PER_PAGE } from '@/shared/constants/common.constants'
 import { PostCard } from '@/shared/ui/post-card'
 
 // interface
-interface IProps {}
+interface IProps {
+  isChangeText: boolean
+}
 
 // component
-const PostListModule: FC<IProps> = () => {
+const PostListModule: FC<IProps> = (props) => {
+  const { isChangeText } = props
+
   const t = useTranslations()
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -54,7 +58,7 @@ const PostListModule: FC<IProps> = () => {
 
       <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
         {paginatedPosts.map((post: IPost, index: number) => (
-          <PostCard key={`post-${post.id}-${index}`} post={post} />
+          <PostCard key={`post-${post.id}-${index}`} post={post} isChangeText={isChangeText} />
         ))}
       </div>
 

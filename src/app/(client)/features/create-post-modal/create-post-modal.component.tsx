@@ -64,6 +64,7 @@ const CreatePostModal: FC<IProps> = (props) => {
         footer: 'bg-transparent border-t border-gray-200/60 px-6 py-5',
       }}
     >
+
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>

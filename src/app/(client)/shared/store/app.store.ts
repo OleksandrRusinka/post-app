@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
+import { envServer } from '@/config/env'
+
 // interface
 interface IState {}
 
@@ -13,6 +15,6 @@ export const useAppStore = create<IStore>()(
     (set) => ({
       handleAppStore: (value: Partial<IState>) => set((state: IState) => ({ ...state, ...value })),
     }),
-    { enabled: process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' },
+    { enabled: envServer.NODE_ENV !== 'production' && typeof window !== 'undefined' },
   ),
 )

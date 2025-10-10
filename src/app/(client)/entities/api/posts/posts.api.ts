@@ -51,10 +51,6 @@ export const postByIdQueryApi = async (
       })
       .json<Omit<IPost, 'source'>>()
 
-    if (!data) {
-      throw new Error(`Post not found: id=${id}`)
-    }
-
     return {
       ...data,
       source: 'fakejson' as const,

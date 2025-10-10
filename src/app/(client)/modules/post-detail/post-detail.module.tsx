@@ -67,6 +67,7 @@ const PostDetailModule: FC<IProps> = (props) => {
           className={`border-2 p-2 shadow-lg ${isUserPost ? 'border-green-100 bg-green-50/30' : 'border-gray-100'}`}
         >
           <CardHeader className='justify-between pb-4'>
+
             <h1 className='p-2 text-center text-3xl font-bold text-gray-900 md:text-4xl'>{postData.title}</h1>
 
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
@@ -93,6 +94,7 @@ const PostDetailModule: FC<IProps> = (props) => {
               <p className='whitespace-pre-wrap text-gray-700'>{postData.body}</p>
             </div>
           </CardBody>
+
         </Card>
 
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
@@ -124,6 +126,7 @@ const PostDetailModule: FC<IProps> = (props) => {
           )}
 
           <Button as={Link} href='/' color='primary' size='lg' className='flex items-center gap-2 px-8 font-semibold'>
+
             <ArrowLeft className='h-4 w-4' /> {t('back_to_posts')}
 
           </Button>

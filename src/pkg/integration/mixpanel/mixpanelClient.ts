@@ -23,11 +23,12 @@ export const initMixpanel = () => {
   }
 }
 
-export const trackPostViewed = (postData: { post_id: string | number; title: string }) => {
+export const trackPostViewed = (postData: { post_id: string | number; title: string; variant: string }) => {
   if (typeof window !== 'undefined' && mixpanel && mixpanel.track) {
     mixpanel.track('PostViewed', {
       post_id: postData.post_id,
       title: postData.title,
+      variant: postData.variant,
       timestamp: new Date().toISOString(),
       source: 'post_card',
     })

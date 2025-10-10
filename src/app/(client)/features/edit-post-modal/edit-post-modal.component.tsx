@@ -79,10 +79,12 @@ const EditPostModal: FC<IProps> = (props) => {
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>
+
             <ModalHeader className='text-2xl font-bold text-gray-900'>{t('edit_post_title')}</ModalHeader>
 
             <ModalBody>
               <div className='space-y-6'>
+
                 <Controller
                   name='title'
                   control={control}

@@ -15,13 +15,17 @@ import { Link } from '@/pkg/libraries/locale'
 interface IProps {
   post: IPost
   onEdit?: (post: IPost) => void
+  isChangeText: boolean
 }
 
 // component
 const PostCard: FC<IProps> = (props) => {
-  const { post, onEdit } = props
+  const { post, onEdit, isChangeText } = props
 
   const t = useTranslations()
+
+  // Different text for A/B test
+  const readMoreButtonText = isChangeText ? t('view_details') : t('read_more')
 
   const { getPostType, handleDeletePost, deletePostMutation } = usePostActions()
   const { isUserPost } = getPostType(post)
@@ -32,6 +36,7 @@ const PostCard: FC<IProps> = (props) => {
     trackPostViewed({
       post_id: post.id,
       title: post.title,
+      variant: isChangeText ? 'text_variant' : 'control',
     })
   }
 
@@ -71,7 +76,7 @@ const PostCard: FC<IProps> = (props) => {
               className='font-medium'
               onPress={handleReadMore}
             >
-              {t('read_more')}
+              {readMoreButtonText}
             </Button>
 
             {isUserPost && onEdit && (

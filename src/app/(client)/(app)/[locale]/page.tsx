@@ -5,9 +5,11 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { postsQueryOptions } from '@/entities/api/posts'
 import { HomeModule } from '@/modules/home'
+import { getFeatureValue } from '@/pkg/integration/growthbook'
 import { getQueryClient } from '@/pkg/libraries/rest-api/service'
 
 import { supabasePostsQueryOptions } from '../../entities/api/database'
+import { IPost } from '../../entities/models'
 
 export const revalidate = 30
 
@@ -15,6 +17,7 @@ export const revalidate = 30
 interface IProps {
   params: Promise<{
     locale: string
+    post: IPost
   }>
 }
 
@@ -23,6 +26,8 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   const { locale } = await props.params
 
   setRequestLocale(locale)
+
+  const isChangeText = await getFeatureValue<boolean>('my-feature_text', false, { id: 'anonymous' })
 
   const queryClient = getQueryClient()
 
@@ -34,7 +39,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   // return
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <HomeModule />
+      <HomeModule isChangeText={isChangeText} />
     </HydrationBoundary>
   )
 }

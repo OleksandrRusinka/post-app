@@ -6,7 +6,7 @@ import { envServer } from '@/config/env'
 const gb = new GrowthBook({
   apiHost: envServer.GROWTHBOOK_API_HOST,
   clientKey: envServer.GROWTHBOOK_CLIENT_KEY,
-  enableDevMode: process.env.NODE_ENV !== 'production',
+  enableDevMode: envServer.NODE_ENV !== 'production',
 })
 
 let initialized = false

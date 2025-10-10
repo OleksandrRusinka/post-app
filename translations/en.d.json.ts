@@ -11,6 +11,7 @@ declare const messages: {
   no_posts_description: string
   create_first_post: string
   read_more: string
+  view_details: string
   your_post: string
   save_post: string
   remove_from_saved: string

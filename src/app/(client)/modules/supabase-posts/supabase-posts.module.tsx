@@ -73,7 +73,7 @@ const SupabasePostsModule: FC<IProps> = () => {
 
           <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
             {supabasePosts.map((post: IPost) => (
-              <PostCard key={post.id} post={post} onEdit={handleEditPost} />
+              <PostCard key={post.id} post={post} onEdit={handleEditPost} isChangeText={false} />
             ))}
           </div>
         </div>

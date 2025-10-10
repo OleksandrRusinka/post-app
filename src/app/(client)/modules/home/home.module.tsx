@@ -5,10 +5,14 @@ import { PostListModule } from '@/modules/post-list'
 import { ContainerComponent } from '@/shared/ui/container'
 
 // interface
-interface IProps {}
+interface IProps {
+  isChangeText: boolean
+}
 
 // component
-const HomeModule: FC<IProps> = () => {
+const HomeModule: FC<IProps> = (props) => {
+  const { isChangeText } = props
+
   const t = useTranslations()
 
   // return
@@ -21,7 +25,7 @@ const HomeModule: FC<IProps> = () => {
           <p className='mx-auto max-w-2xl text-lg text-gray-600'>{t('home_subtitle')}</p>
         </div>
 
-        <PostListModule />
+        <PostListModule isChangeText={isChangeText} />
       </div>
     </ContainerComponent>
   )

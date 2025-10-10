@@ -18,7 +18,7 @@ class SupabaseManager {
       try {
         await SupabaseManager.instance.removeAllChannels()
       } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
+        if (envServer.NODE_ENV === 'development') {
           // eslint-disable-next-line no-console
           console.error('Error while disconnecting Supabase:', err)
         }
