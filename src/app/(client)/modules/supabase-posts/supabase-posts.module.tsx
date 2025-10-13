@@ -81,6 +81,7 @@ const SupabasePostsModule: FC<IProps> = () => {
         <CreatePostModal isOpen={isCreateOpen} onOpenChange={onCreateOpenChange} />
 
         <EditPostModal isOpen={isEditOpen} onOpenChange={handleCloseEditModal} post={editingPost} />
+
       </ContainerComponent>
     </>
   )

@@ -10,6 +10,7 @@ interface IProps {}
 // hook
 const usePostActions = () => {
   const router = useRouter()
+
   const deletePostMutation = useDeletePost()
 
   const getPostType = (post: IPost) => ({

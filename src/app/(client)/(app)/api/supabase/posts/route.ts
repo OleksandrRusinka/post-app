@@ -11,9 +11,7 @@ export async function GET(): Promise<NextResponse> {
 
     return NextResponse.json({ posts: data }, { status: 200 })
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Database error:', error)
-    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 })
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 })
   }
 }
 
@@ -41,9 +39,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     return NextResponse.json({ post: newPost }, { status: 201 })
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Database error:', error)
-    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 })
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 })
   }
 }
 
@@ -66,15 +62,9 @@ export async function PUT(req: Request): Promise<NextResponse> {
       .where(eq(posts.id, id))
       .returning()
 
-    if (!updatedPost) {
-      return NextResponse.json({ error: 'Post not found' }, { status: 404 })
-    }
-
     return NextResponse.json({ post: updatedPost }, { status: 200 })
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Database error:', error)
-    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 })
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 })
   }
 }
 
@@ -90,14 +80,8 @@ export async function DELETE(req: Request): Promise<NextResponse> {
 
     const deletedPosts = await db.delete(posts).where(eq(posts.id, id)).returning()
 
-    if (deletedPosts.length === 0) {
-      return NextResponse.json({ error: 'Post not found' }, { status: 404 })
-    }
-
     return NextResponse.json({ success: true, deleted: deletedPosts.length }, { status: 200 })
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Database error:', error)
-    return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 })
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 })
   }
 }

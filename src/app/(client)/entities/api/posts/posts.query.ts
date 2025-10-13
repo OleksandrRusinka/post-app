@@ -4,6 +4,7 @@ import { IPostByIdQueryParams } from '@/entities/models'
 
 import { postByIdQueryApi, postsQueryApi } from './posts.api'
 
+// posts FakeJson
 export const postsQueryOptions = () => {
   return queryOptions({
     queryKey: ['posts', 'list'],
@@ -11,6 +12,7 @@ export const postsQueryOptions = () => {
   })
 }
 
+// post by id
 export const postByIdQueryOptions = (queryParams: IPostByIdQueryParams) => {
   const { id } = queryParams
 

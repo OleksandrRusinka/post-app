@@ -63,6 +63,7 @@ const PostDetailModule: FC<IProps> = (props) => {
   return (
     <ContainerComponent className='py-8'>
       <div className='mx-auto max-w-4xl space-y-8'>
+
         <Card
           className={`border-2 p-2 shadow-lg ${isUserPost ? 'border-green-100 bg-green-50/30' : 'border-gray-100'}`}
         >

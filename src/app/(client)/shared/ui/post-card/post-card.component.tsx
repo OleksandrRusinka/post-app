@@ -48,6 +48,7 @@ const PostCard: FC<IProps> = (props) => {
       }`}
       shadow='none'
     >
+
       <CardHeader className='pb-2'>
         <div className='flex w-full items-start justify-between gap-3'>
           <h3 className='line-clamp-2 flex-1 text-lg font-semibold text-gray-900'>{post.title}</h3>
@@ -104,6 +105,7 @@ const PostCard: FC<IProps> = (props) => {
                   title={t('delete_post')}
                 >
                   <Trash2 className='h-3 w-3' />
+
                 </Button>
               </div>
             )}

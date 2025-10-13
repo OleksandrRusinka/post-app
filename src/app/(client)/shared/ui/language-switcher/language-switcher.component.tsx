@@ -56,6 +56,7 @@ const LanguageSwitcherComponent: FC<IProps> = () => {
                 }`}
               >
                 <Globe className='h-4 w-4' />
+
                 <span>{name}</span>
 
                 {isActive && <Check className='ml-auto h-4 w-4' />}

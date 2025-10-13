@@ -22,11 +22,11 @@ async function ensureInitialized() {
 export async function getFeatureValue<T>(
   key: string,
   defaultValue: T,
-  attributes: Record<string, unknown>,
+  attributes?: Record<string, unknown>,
 ): Promise<T> {
   await ensureInitialized()
 
-  gb.setAttributes(attributes)
+  if (attributes) gb.setAttributes(attributes)
 
   const result = gb.evalFeature<T>(key)
 
