@@ -50,6 +50,13 @@ declare const messages: {
   error_title: string
   error_description: string
   error_retry: string
+
+  home_page_want_to_know: string
+  home_page_real_score: string
+  home_page_take_your_score: string
+
+  home_page_iq_start_button: string
+  home_page_how_iq_works: string
 }
 
 export default messages

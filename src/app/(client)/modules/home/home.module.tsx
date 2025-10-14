@@ -1,8 +1,8 @@
-import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { PostListModule } from '@/modules/post-list'
 import { ContainerComponent } from '@/shared/ui/container'
+
+import IntroComponent from './elements/intro-result/intro-result.component'
 
 // interface
 interface IProps {
@@ -10,23 +10,11 @@ interface IProps {
 }
 
 // component
-const HomeModule: FC<IProps> = (props) => {
-  const { isChangeText } = props
-
-  const t = useTranslations()
-
+const HomeModule: FC<IProps> = () => {
   // return
   return (
-    <ContainerComponent className='py-8'>
-      <div className='space-y-8'>
-        <div className='space-y-4 text-center'>
-          <h1 className='text-4xl font-bold text-gray-900'>{t('home_title')}</h1>
-
-          <p className='mx-auto max-w-2xl text-lg text-gray-600'>{t('home_subtitle')}</p>
-        </div>
-
-        <PostListModule isChangeText={isChangeText} />
-      </div>
+    <ContainerComponent className='max-w-full'>
+      <IntroComponent />
     </ContainerComponent>
   )
 }

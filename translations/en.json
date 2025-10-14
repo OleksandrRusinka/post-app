@@ -51,5 +51,12 @@
   "not_found_button": "Go Back Home",
   "error_title": "Something went wrong",
   "error_description": "An unexpected error occurred. Please try again.",
-  "error_retry": "Try Again"
+  "error_retry": "Try Again",
+
+  "home_page_want_to_know": "Want to know your real score?",
+  "home_page_real_score": "Take your score now!",
+  "home_page_take_your_score": "Take your score now and see how you compare to others!",
+
+  "home_page_iq_start_button": "Start IQ Test Now",
+  "home_page_how_iq_works": "How it Works"
 }
