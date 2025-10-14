@@ -58,5 +58,14 @@
   "home_page_take_your_score": "Пройдіть наш IQ тест і відкрийте свій шлях до самопізнання та розвитку",
 
   "home_page_iq_start_button": "Почніть тест IQ зараз",
-  "home_page_how_iq_works": "Як це працює"
+  "home_page_how_iq_works": "Як це працює",
+
+  "home_page_how_it_works_header": "Як це працює",
+
+  "how_it_works_cards_title_1": "Пройдіть тест",
+  "how_it_works_cards_title_2": "Отримайте детальний звіт",
+  "how_it_works_cards_title_3": "Розпочніть свою подорож",
+  "how_it_works_cards_description_1": "Отримайте неупереджений погляд на себе",
+  "how_it_works_cards_description_2": "Дізнайтеся свої сильні сторони та відкрийте сфери для розвитку",
+  "how_it_works_cards_description_3": "Почніть покращуватися з експертними курсами та тренуванням мозку"
 }

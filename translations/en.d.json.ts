@@ -57,6 +57,15 @@ declare const messages: {
 
   home_page_iq_start_button: string
   home_page_how_iq_works: string
+
+  home_page_how_it_works_header: string
+
+  how_it_works_cards_title_1: string
+  how_it_works_cards_title_2: string
+  how_it_works_cards_title_3: string
+  how_it_works_cards_description_1: string
+  how_it_works_cards_description_2: string
+  how_it_works_cards_description_3: string
 }
 
 export default messages

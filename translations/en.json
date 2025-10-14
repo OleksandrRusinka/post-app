@@ -58,5 +58,15 @@
   "home_page_take_your_score": "Take your score now and see how you compare to others!",
 
   "home_page_iq_start_button": "Start IQ Test Now",
-  "home_page_how_iq_works": "How it Works"
+  "home_page_how_iq_works": "How it Works",
+
+  "home_page_how_it_works_header": "How it Works",
+
+
+  "how_it_works_cards_title_1": "Take the test",
+  "how_it_works_cards_title_2": "Get detailed report",
+  "how_it_works_cards_title_3": "Start your journey",
+  "how_it_works_cards_description_1": "Get an unbiased view of yourself",
+  "how_it_works_cards_description_2": "Learn about your strengths and areas for growth",
+  "how_it_works_cards_description_3": "Improve with expert courses and brain training"
 }
