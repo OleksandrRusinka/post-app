@@ -68,5 +68,16 @@
   "how_it_works_cards_title_3": "Start your journey",
   "how_it_works_cards_description_1": "Get an unbiased view of yourself",
   "how_it_works_cards_description_2": "Learn about your strengths and areas for growth",
-  "how_it_works_cards_description_3": "Improve with expert courses and brain training"
+  "how_it_works_cards_description_3": "Improve with expert courses and brain training",
+
+  "home_page_available_tests_header": "Available Tests",
+  "home_page_available_tests_subtitle": "Each test reveals a new part of you. Start with intelligence, new tests will soon appear",
+  "home_page_available_tests_title_1": "IQ Test",
+  "home_page_available_tests_button_text_1": "IQ Test Now",
+  "home_page_available_tests_title_2": "Personality Type",
+  "home_page_available_tests_button_text_2": "Personality Test Now",
+  "home_page_available_tests_title_4": "Love Style",
+  "home_page_available_tests_button_text_4": "Love Test Now",
+  "home_page_available_tests_title_3": "Career",
+  "home_page_available_tests_button_text_3": "Career Test Now"
 }

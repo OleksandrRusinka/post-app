@@ -66,6 +66,17 @@ declare const messages: {
   how_it_works_cards_description_1: string
   how_it_works_cards_description_2: string
   how_it_works_cards_description_3: string
+
+  home_page_available_tests_header: string
+  home_page_available_tests_subtitle: string
+  home_page_available_tests_title_1: string
+  home_page_available_tests_button_text_1: string
+  home_page_available_tests_title_2: string
+  home_page_available_tests_button_text_2: string
+  home_page_available_tests_title_4: string
+  home_page_available_tests_button_text_4: string
+  home_page_available_tests_title_3: string
+  home_page_available_tests_button_text_3: string
 }
 
 export default messages
