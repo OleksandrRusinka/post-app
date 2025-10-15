@@ -102,6 +102,12 @@ declare const messages: {
   home_page_what_you_get_3: string
   home_page_what_you_get_4: string
   home_page_what_you_get_5: string
+
+  home_page_community_title: string
+  home_page_community_subtitle: string
+
+  home_page_pricing_title: string
+  home_page_pricing_description: string
 }
 
 export default messages
