@@ -2,13 +2,15 @@ import { type FC } from 'react'
 
 import { ContainerComponent } from '@/shared/ui/container'
 
-import AvailableTestsComponent from './elements/available-tests/available-tests.component'
+import { AvailableTestsComponent } from './elements/available-tests'
 import { BoostAbilitiesComponent } from './elements/boost-abilities'
 import { CommunityComponent } from './elements/community'
-import HowItWorksComponent from './elements/how-it-works/how-it-works'
-import IntroComponent from './elements/intro-result/intro-result.component'
+import { FaqsQuestionsComponent } from './elements/faqs-questions'
+import { HowItWorksComponent } from './elements/how-it-works'
+import { IntroResultComponent } from './elements/intro-result'
+import { LatestResultsComponent } from './elements/latest-result'
 import { ExplorePlansComponent } from './elements/plan-pricing'
-import TrustedByPeopleComponent from './elements/trusted-by-people/trusted-by-people.component'
+import { TrustedByPeopleComponent } from './elements/trusted-by-people'
 import { WhatYouGetComponent } from './elements/what-you-get'
 
 // interface
@@ -20,15 +22,26 @@ interface IProps {
 const HomeModule: FC<IProps> = () => {
   // return
   return (
-    <ContainerComponent className='max-w-full'>
-      <IntroComponent />
+    <ContainerComponent>
+      <IntroResultComponent />
+
       <HowItWorksComponent />
+
       <AvailableTestsComponent />
+
       <BoostAbilitiesComponent />
+
       <WhatYouGetComponent />
+
       <TrustedByPeopleComponent />
+
       <CommunityComponent />
+
       <ExplorePlansComponent />
+
+      <FaqsQuestionsComponent />
+
+      <LatestResultsComponent />
     </ContainerComponent>
   )
 }

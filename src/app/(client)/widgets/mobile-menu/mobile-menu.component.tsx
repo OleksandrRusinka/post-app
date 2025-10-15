@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
-import { LanguageSwitcherComponent } from '@/app/(client)/shared/ui/language-switcher'
+import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
 
 // interface
 interface IProps {
@@ -24,7 +24,7 @@ const mobileMenuVariant = {
 }
 
 // component
-const ModalMenuComponent: FC<IProps> = (props) => {
+const MobileMenuComponent: FC<IProps> = (props) => {
   const { isMobileMenuOpen, handleCloseMobileMenu } = props
 
   const t = useTranslations()
@@ -34,7 +34,7 @@ const ModalMenuComponent: FC<IProps> = (props) => {
       {isMobileMenuOpen && (
         <>
           <motion.div
-            className='fixed inset-0 z-[90] bg-black/30 lg:hidden'
+            className='fixed inset-0 z-[90] lg:hidden'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -42,7 +42,7 @@ const ModalMenuComponent: FC<IProps> = (props) => {
           />
 
           <motion.div
-            className='fixed top-16 right-0 z-[95] flex h-[calc(100vh-4rem)] w-full flex-col overflow-y-auto bg-white shadow-xl md:w-[384px] lg:hidden'
+            className='fixed top-16 right-0 z-[95] flex h-[calc(100vh-4rem)] w-full max-w-full flex-col overflow-y-auto bg-white shadow-xl md:w-[384px] lg:hidden'
             variants={mobileMenuVariant}
             initial='closed'
             animate='opened'
@@ -65,9 +65,7 @@ const ModalMenuComponent: FC<IProps> = (props) => {
                 {t('header_supabase_posts')}
               </Link>
 
-              <div className='px-4 py-2'>
-                <LanguageSwitcherComponent />
-              </div>
+              <LanguageSwitcherComponent />
 
               <div className='my-2 border-t border-gray-200'></div>
 
@@ -93,4 +91,4 @@ const ModalMenuComponent: FC<IProps> = (props) => {
   )
 }
 
-export default ModalMenuComponent
+export default MobileMenuComponent

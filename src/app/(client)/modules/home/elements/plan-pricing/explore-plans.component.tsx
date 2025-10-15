@@ -18,6 +18,7 @@ const ExplorePlansComponent: FC<Readonly<IProps>> = () => {
   return (
     <section className='relative py-6 md:py-10'>
       <div className='mx-auto w-full max-w-[740px]'>
+
         <h3 className='text-2.7xl text-dark-custom order-4 text-center font-semibold md:text-4xl'>
           {t('home_page_pricing_title')}
         </h3>
@@ -38,6 +39,7 @@ const ExplorePlansComponent: FC<Readonly<IProps>> = () => {
         </Link>{' '}
         щоб дізнатися більше деталей.
       </p>
+
     </section>
   )
 }

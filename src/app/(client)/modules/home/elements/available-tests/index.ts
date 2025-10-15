@@ -1,1 +1,1 @@
-export { default as AvailableComponent } from './available-tests.component'
+export { default as AvailableTestsComponent } from './available-tests.component'

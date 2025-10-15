@@ -17,7 +17,7 @@ const LayoutModule: FC<IProps> = (props) => {
     <>
       <Header />
 
-      <main className='min-h-[calc(100vh-160px)] flex-1'>{children}</main>
+      <main className='flex-1 overflow-hidden'>{children}</main>
 
       <Footer />
     </>

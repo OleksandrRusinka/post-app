@@ -3,16 +3,16 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import PeopleReviewsComponent from '../people-reviews/people-reviews.componet'
+import { PeopleReviewsComponent } from '../people-reviews'
 
 // interface
 interface IProps {}
 
 // component
-const IntroComponent: FC<Readonly<IProps>> = () => {
+const IntroResultComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations()
 
-  // return
+// return
   return (
     <section id={'skills'} className={'relative z-0 flex h-full w-full flex-col overflow-hidden pt-14 lg:pt-[84px]'}>
       <div className={'flex h-full w-full flex-col-reverse items-center gap-5 lg:flex-row lg:justify-between'}>
@@ -48,6 +48,7 @@ const IntroComponent: FC<Readonly<IProps>> = () => {
           <div className={'mt-2 flex gap-3 max-sm:flex-col max-sm:px-4 lg:flex-row lg:gap-6'}>
             <button className='flex w-full max-w-[280px] items-center justify-center rounded-xl bg-[#0D766E] px-6 py-3 text-base font-medium whitespace-nowrap text-white transition-colors hover:bg-[#0b6a63] max-sm:max-w-none sm:px-8 lg:w-auto'>
               <span>{t('home_page_iq_start_button')}</span>
+
               <ArrowRight size={16} className='ml-2' />
             </button>
 
@@ -55,12 +56,12 @@ const IntroComponent: FC<Readonly<IProps>> = () => {
               <span>{t('home_page_how_iq_works')}</span>
             </button>
           </div>
+
           <PeopleReviewsComponent />
         </div>
+
         <div
-          className={
-            'relative mx-auto flex aspect-[517/296] h-full w-full max-w-[517px] items-center justify-center max-lg:mt-[-28px]'
-          }
+          className={'relative mx-auto flex h-full w-full max-w-[517px] items-center justify-center max-lg:mt-[-28px]'}
         >
           <Image src={'/images/graph.svg'} alt='intro-result' width={517} height={296} />
         </div>
@@ -69,4 +70,4 @@ const IntroComponent: FC<Readonly<IProps>> = () => {
   )
 }
 
-export default IntroComponent
+export default IntroResultComponent

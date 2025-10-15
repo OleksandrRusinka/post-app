@@ -8,7 +8,8 @@ import { type FC } from 'react'
 import { Button } from '@heroui/button'
 import { Card, CardBody } from '@heroui/card'
 
-import { availableTestsCards } from './constants/available.constant'
+import { availableTestsCards } from './constants'
+
 // interface
 interface IProps {}
 
@@ -45,22 +46,27 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
                   <Clock className='h-4 w-4' />
                   {' 30 хв'}
                 </div>
+
                 <div className='flex items-center gap-1.5'>
                   <Check className='h-4 w-4' />
                   {' 120 питань'}
                 </div>
               </div>
 
-              <Button className='mt-auto h-12 w-full rounded-xl bg-[#0D766E] px-6 text-sm leading-tight whitespace-normal text-white sm:px-1 lg:max-w-[306px] xl:px-8 xl:!text-base'>
+              <Button className='mt-auto h-12 w-full rounded-xl bg-[#0D766E] px-6 text-sm whitespace-normal text-white sm:px-1 lg:max-w-[306px] xl:px-8 xl:text-base'>
+
                 <span className='flex items-center justify-center gap-2'>
                   {card.buttonText}
+
                   <ArrowRight className='h-4 w-4' />
                 </span>
               </Button>
+
             </CardBody>
           </Card>
         ))}
       </div>
+
       <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />
     </div>
   )

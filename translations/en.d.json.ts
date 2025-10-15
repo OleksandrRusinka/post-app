@@ -108,6 +108,8 @@ declare const messages: {
 
   home_page_pricing_title: string
   home_page_pricing_description: string
+
+  home_page_faq_header: string
 }
 
 export default messages

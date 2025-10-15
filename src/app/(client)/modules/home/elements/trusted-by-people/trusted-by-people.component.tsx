@@ -63,6 +63,7 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
               className='absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-full bg-white shadow-md lg:left-4'
             >
               <ChevronLeft className='size-4 text-[#2C3345] sm:size-5' />
+
             </Button>
 
             <Button
@@ -73,6 +74,7 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
               className='absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-full bg-white shadow-md lg:right-4'
             >
               <ChevronRight className='size-4 text-[#2C3345] sm:size-5' />
+
             </Button>
           </>
         )}
@@ -92,8 +94,10 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
                 className='flex h-full flex-col border border-[#E2E8F0] p-2 transition-all hover:shadow-md sm:p-3'
               >
                 <CardHeader className='flex flex-none flex-col items-start pb-1 sm:pb-2'>
+
                   <div className='flex justify-start gap-2'>
                     <p className='text-xs font-semibold sm:text-sm'>{card.name}</p>
+
                     <div className='flex items-center gap-0.5'>
                       {[...Array(5)].map((_, i) => (
                         <Star
@@ -104,20 +108,24 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
                       ))}
                     </div>
                   </div>
+
                   <span className='text-[10px] text-gray-500 sm:text-xs'>{card.timeAgo}</span>
                 </CardHeader>
 
                 <CardBody className='flex-1 py-0'>
                   <p className='line-clamp-3 text-xs leading-relaxed text-[#2C3345] sm:text-sm'>{card.description}</p>
+
                 </CardBody>
 
                 <CardFooter className='flex flex-none justify-end px-1 pt-2 text-[10px] text-gray-500 sm:px-2 sm:pt-3 sm:text-xs'>
                   {card.location}
                 </CardFooter>
+
               </Card>
             </div>
           ))}
         </div>
+
         <div className='absolute right-0 -bottom-6 sm:-bottom-8 md:right-4 lg:right-8'>
           <Image
             src='/images/reviews-io.svg'

@@ -26,7 +26,9 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
       <div className='flex gap-3 pt-5 max-lg:flex-col md:gap-6 md:pt-8'>
         {useAbilitiesCards().map((card, index) => (
           <Card key={`${card.title}-${card.id}`} shadow={'none'} className={'border-1 border-[#E2E8F0]'} fullWidth>
+
             <CardBody className={'gap-3 p-4 md:py-6'}>
+
               <div className='size-[42px] rounded-full bg-[#007AFF] p-[3px]'>
                 <div className='flex h-full w-full items-center justify-center rounded-full bg-white text-[20px] font-semibold text-[#2B2D42]'>
                   {index + 1}
@@ -38,6 +40,7 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
               <ul className='flex flex-col gap-2 max-md:pt-0.5'>
                 {card.cases.map((item, idx) => (
                   <li key={idx} className={'flex items-start gap-1.5'}>
+
                     <div className='p-1'>
                       <Check className='h-3.5 w-4 min-w-4 text-[#007AFF]' />
                     </div>
@@ -46,6 +49,7 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
                   </li>
                 ))}
               </ul>
+
             </CardBody>
           </Card>
         ))}

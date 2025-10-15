@@ -30,6 +30,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
         <div className={'flex min-w-max gap-6'}>
           {DiiffText(t).map((card) => (
             <Card key={card.id} className='w-[236px] rounded-lg border border-[#D9E7FF]'>
+
               <CardBody className='!flex-row items-start gap-4 p-4 md:py-6'>
                 <div className='p-1'>
                   <Image
@@ -46,7 +47,10 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
             </Card>
           ))}
         </div>
+
       </ScrollShadow>
+
+      <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />
     </div>
   )
 }

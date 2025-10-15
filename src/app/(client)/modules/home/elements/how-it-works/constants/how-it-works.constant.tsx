@@ -6,6 +6,7 @@ export const HowItWorksCardsConstant = (t: ReturnType<typeof useTranslations>) =
       icon: '/images/task.svg',
       title: t('how_it_works_cards_title_1'),
       description: t('how_it_works_cards_description_1'),
+
       id: 1,
     },
     {

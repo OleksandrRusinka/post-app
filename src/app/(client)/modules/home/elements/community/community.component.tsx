@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { socialsNetwork } from './constants'
+import { socialsNetwork } from '@/shared/constants'
 // interface
 interface IProps {}
 
@@ -15,7 +15,7 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
     <section
-      className={`relative z-0 flex flex-col items-center justify-between gap-6 bg-[#F6FBFF] px-4 py-8 md:flex-row md:gap-8 md:px-12 md:py-10`}
+      className={`relative z-0 flex flex-col items-center justify-between gap-6 px-4 py-8 md:flex-row md:gap-8 md:px-12 md:py-10`}
     >
       <div className='flex w-full flex-1 flex-col items-center text-center md:items-start md:text-left'>
         <h3 className='w-full text-[28px] leading-[42px] font-semibold text-[#2B2D42] md:text-[36px]'>
@@ -45,6 +45,8 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
           </a>
         ))}
       </div>
+
+      <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />
     </section>
   )
 }
