@@ -19,7 +19,7 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
     <div className='relative z-0 py-6 md:py-8'>
-      <h3 className='text-2.7xl text-dark-custom text-center font-semibold md:text-4xl'>
+      <h3 className='text-2.7xl text-dark text-center font-semibold md:text-4xl'>
         {t('home_page_available_tests_header')}
       </h3>
 
@@ -35,10 +35,8 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
             className={'border-1 border-[#E2E8F0] font-sans'}
             fullWidth
           >
-            <CardBody className={'max-xs-l:items-start gap-2.5 px-4 py-6 antialiased max-md:items-center md:gap-3'}>
-              {card.icon && (
-                <Image src={card.icon} alt={card.title} width={38} height={38} className='h-[38px] w-[38px]' />
-              )}
+            <CardBody className={'max-xs-l:items-start gap-2.5 px-4 py-6 max-md:items-center md:gap-3'}>
+              {card.icon && <Image src={card.icon} alt={card.title} width={38} height={38} className='size-[38px]' />}
 
               <p className={'text-start text-[18px] font-semibold text-[#2C3345]'}>{card.title}</p>
 

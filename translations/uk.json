@@ -78,5 +78,32 @@
   "home_page_available_tests_title_4": "Стиль кохання",
   "home_page_available_tests_button_text_4": "Тест на стиль кохання ",
   "home_page_available_tests_title_3": "Кар'єра",
-  "home_page_available_tests_button_text_3": "Незабаром "
+  "home_page_available_tests_button_text_3": "Незабаром ",
+
+  "home_page_boost_abilities_header": "Розвивайте свої здібності",
+  "home_page_boost_abilities_subtitle": "Розкрийте свій потенціал з нашим комплексним навчальним пакетом",
+
+  "home_page_boost_abilities_title_1": "Експертні відеокурси",
+  "home_page_boost_abilities_subtitle_1_1": "20+ годин експертного навчання",
+  "home_page_boost_abilities_subtitle_1_2": "Легкі для сприйняття уроки",
+  "home_page_boost_abilities_subtitle_1_3": "Навчайтеся у власному темпі",
+  "home_page_boost_abilities_subtitle_1_4": "Відстежуйте свій прогрес",
+
+  "home_page_boost_abilities_title_2": "Ігри для тренування мозку",
+  "home_page_boost_abilities_subtitle_2_1": "Різноманітні вправи для тренування когнітивних здібностей",
+  "home_page_boost_abilities_subtitle_2_2": "Прогресивні рівні складності",
+  "home_page_boost_abilities_subtitle_2_3": "Покращте 5 основних розумових навичок: Пам'ять, логічне мислення, майстерність у вирішенні проблем, фокус і концентрація.",
+
+  "home_page_boost_abilities_title_3": "Головоломки",
+  "home_page_boost_abilities_subtitle_3_1": "150+ головоломок для розвитку інтелекту",
+  "home_page_boost_abilities_subtitle_3_2": "Розумне прогресування складності",
+  "home_page_boost_abilities_subtitle_3_3": "Опануйте основні функції мозку: Розпізнавання Закономірностей, Стратегічне Мислення, Аналітичне Міркування.",
+
+  "home_page_what_you_get_header": "Що ви отримаєте",
+
+  "home_page_what_you_get_1": "Сертифікація інтелекту з автентифікацією, підтверджена експертами з когнітивних наук",
+  "home_page_what_you_get_2": "Глибокий аналіз, що розкриває ваш повний когнітивний потенціал та можливості",
+  "home_page_what_you_get_3": "Науково калібровані тренувальні інструменти, розроблені спеціалістами з нейронауки",
+  "home_page_what_you_get_4": "Експертно розроблений освітній контент на основі провідних когнітивних досліджень",
+  "home_page_what_you_get_5": "Вправи на поглиблене мислення, розроблені нейробіологами"
 }

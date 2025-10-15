@@ -3,8 +3,10 @@ import { type FC } from 'react'
 import { ContainerComponent } from '@/shared/ui/container'
 
 import AvailableTestsComponent from './elements/available-tests/available-tests.component'
+import { BoostAbilitiesComponent } from './elements/boost-abilities'
 import HowItWorksComponent from './elements/how-it-works/how-it-works'
 import IntroComponent from './elements/intro-result/intro-result.component'
+import { WhatYouGetComponent } from './elements/what-you-get'
 
 // interface
 interface IProps {
@@ -19,6 +21,8 @@ const HomeModule: FC<IProps> = () => {
       <IntroComponent />
       <HowItWorksComponent />
       <AvailableTestsComponent />
+      <BoostAbilitiesComponent />
+      <WhatYouGetComponent />
     </ContainerComponent>
   )
 }

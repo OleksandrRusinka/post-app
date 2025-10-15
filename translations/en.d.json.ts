@@ -77,6 +77,31 @@ declare const messages: {
   home_page_available_tests_button_text_4: string
   home_page_available_tests_title_3: string
   home_page_available_tests_button_text_3: string
+
+  home_page_boost_abilities_header: string
+  home_page_boost_abilities_subtitle: string
+
+  home_page_boost_abilities_title_1: string
+  home_page_boost_abilities_subtitle_1_1: string
+  home_page_boost_abilities_subtitle_1_2: string
+  home_page_boost_abilities_subtitle_1_3: string
+  home_page_boost_abilities_subtitle_1_4: string
+  home_page_boost_abilities_title_2: string
+  home_page_boost_abilities_subtitle_2_1: string
+  home_page_boost_abilities_subtitle_2_2: string
+  home_page_boost_abilities_subtitle_2_3: string
+  home_page_boost_abilities_title_3: string
+  home_page_boost_abilities_subtitle_3_1: string
+  home_page_boost_abilities_subtitle_3_2: string
+  home_page_boost_abilities_subtitle_3_3: string
+
+  home_page_what_you_get_header: string
+
+  home_page_what_you_get_1: string
+  home_page_what_you_get_2: string
+  home_page_what_you_get_3: string
+  home_page_what_you_get_4: string
+  home_page_what_you_get_5: string
 }
 
 export default messages

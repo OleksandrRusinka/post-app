@@ -18,9 +18,7 @@ const HowItWorksComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
     <div id='how-it-works' className='w-full pt-[60px] pb-6 md:pb-10'>
-      <h3 className='text-dark-custom text-center text-3xl font-semibold md:text-4xl'>
-        {t('home_page_how_it_works_header')}
-      </h3>
+      <h3 className='text-dark text-center text-3xl font-semibold md:text-4xl'>{t('home_page_how_it_works_header')}</h3>
 
       <div className='flex w-full gap-3 pt-6 max-md:flex-col md:gap-6 md:pt-8'>
         {HowItWorksCardsConstant(t).map((card) => (
