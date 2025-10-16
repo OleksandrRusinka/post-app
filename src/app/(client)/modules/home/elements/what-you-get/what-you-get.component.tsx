@@ -6,7 +6,7 @@ import { type FC } from 'react'
 
 import { Card, CardBody, ScrollShadow } from '@heroui/react'
 
-import { DiiffText } from './constants'
+import { IWhatYouGet } from './constants'
 
 // interface
 interface IProps {}
@@ -27,7 +27,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
         className='overflow-x-auto pt-5 max-lg:w-[calc(100vw-48px)]'
       >
         <div className={'flex min-w-max gap-6'}>
-          {DiiffText(t).map((card) => (
+          {IWhatYouGet(t).map((card) => (
             <Card key={card.id} className='w-[236px] rounded-lg border border-[#D9E7FF]'>
 
               <CardBody className='!flex-row items-start gap-4 p-4 md:py-6'>

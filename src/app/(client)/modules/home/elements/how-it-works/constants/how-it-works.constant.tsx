@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const HowItWorksCardsConstant = (t: ReturnType<typeof useTranslations>) => {
+export const IHowItWorksCards = (t: ReturnType<typeof useTranslations>) => {
   return [
     {
       icon: '/images/task.svg',

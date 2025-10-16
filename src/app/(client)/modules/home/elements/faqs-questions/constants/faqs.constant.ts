@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const useFaqsListQuestion = () => {
+export const IFaqsListQuestion = () => {
   const t = useTranslations()
 
   return [

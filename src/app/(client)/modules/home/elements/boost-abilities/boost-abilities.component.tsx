@@ -6,7 +6,8 @@ import { type FC } from 'react'
 
 import { Card, CardBody } from '@heroui/card'
 
-import { useAbilitiesCards } from './constants'
+import { IAbilities } from './constants'
+
 // interface
 interface IProps {}
 
@@ -25,7 +26,7 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
       <p className='text-center text-base md:pt-0.5 md:text-[18px]'>{t('home_page_boost_abilities_subtitle')}</p>
 
       <div className='flex gap-3 pt-5 max-lg:flex-col md:gap-6 md:pt-8'>
-        {useAbilitiesCards().map((card, index) => (
+        {IAbilities().map((card, index) => (
           <Card key={`${card.title}-${card.id}`} shadow={'none'} className={'border-1 border-[#E2E8F0]'} fullWidth>
 
             <CardBody className={'gap-3 p-4 md:py-6'}>

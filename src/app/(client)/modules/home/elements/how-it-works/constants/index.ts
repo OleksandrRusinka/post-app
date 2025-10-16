@@ -1,1 +1,1 @@
-export { HowItWorksCardsConstant } from './how-it-works.constant'
+export { IHowItWorksCards } from './how-it-works.constant'

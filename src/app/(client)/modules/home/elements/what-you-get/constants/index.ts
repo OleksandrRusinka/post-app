@@ -1,1 +1,1 @@
-export { DiiffText } from './what-you-get.constant'
+export { IWhatYouGet } from './what-you-get.constant'

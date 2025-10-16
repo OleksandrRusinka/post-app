@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { socialsNetwork } from '@/shared/constants'
+
 // interface
 interface IProps {}
 

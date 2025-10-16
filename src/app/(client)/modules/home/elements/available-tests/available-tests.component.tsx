@@ -7,7 +7,7 @@ import { type FC } from 'react'
 
 import { Button, Card, CardBody } from '@heroui/react'
 
-import { availableTestsCards } from './constants'
+import { IAvailableTests } from './constants'
 
 // interface
 interface IProps {}
@@ -28,7 +28,7 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
       </p>
 
       <div className='grid grid-rows-4 gap-4 pt-6 max-lg:grid-cols-2 max-lg:grid-rows-2 max-md:grid-cols-1 md:gap-6 md:pt-8 lg:grid-cols-4 lg:grid-rows-1'>
-        {availableTestsCards(t).map((card) => (
+        {IAvailableTests(t).map((card) => (
           <Card
             key={`${card.title}-${card.id}`}
             shadow={'none'}

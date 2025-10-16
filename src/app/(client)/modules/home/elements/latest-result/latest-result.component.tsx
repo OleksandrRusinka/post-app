@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { ResultCards } from './constants/result.constant'
+import { ILatestResult } from './constants'
 
 // interface
 interface IProps {}
@@ -13,7 +13,7 @@ interface IProps {}
 const LatestResultsComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations()
 
-  const results = ResultCards()
+  const results = ILatestResult()
 
   // return
   return (

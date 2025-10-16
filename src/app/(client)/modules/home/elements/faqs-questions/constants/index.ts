@@ -1,1 +1,1 @@
-export { useFaqsListQuestion } from './faqs.constant'
+export { IFaqsListQuestion } from './faqs.constant'

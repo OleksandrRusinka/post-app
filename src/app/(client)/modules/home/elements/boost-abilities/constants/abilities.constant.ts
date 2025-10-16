@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const useAbilitiesCards = () => {
+export const IAbilities = () => {
   const t = useTranslations()
 
   return [

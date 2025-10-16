@@ -1,1 +1,1 @@
-export { useAbilitiesCards } from './abilities.constant'
+export { IAbilities } from './abilities.constant'

@@ -6,7 +6,7 @@ import { type FC } from 'react'
 
 import { Card, CardBody } from '@heroui/card'
 
-import { HowItWorksCardsConstant } from './constants'
+import { IHowItWorksCards } from './constants'
 
 // interface
 interface IProps {}
@@ -22,7 +22,7 @@ const HowItWorksComponent: FC<Readonly<IProps>> = () => {
 
       <div className='flex w-full gap-3 pt-6 max-md:flex-col md:gap-6 md:pt-8'>
 
-        {HowItWorksCardsConstant(t).map((card) => (
+        {IHowItWorksCards(t).map((card) => (
           <Card key={`${card.title}-${card.id}`} shadow={'none'} className={'border-1 border-[#D9E7FF]'} fullWidth>
 
             <CardBody className={'gap-3 p-4 md:px-8 md:pt-[42px]'}>

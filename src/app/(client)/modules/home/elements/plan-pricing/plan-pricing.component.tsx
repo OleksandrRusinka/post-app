@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { PricingCardComponent } from '../pricing-card'
-import { pricingCardOffer } from '../pricing-card/constants/pricing-card-offer'
+import { IPricingCardOffer } from '../pricing-card/constants/pricing-card-offer'
 
 // interfaces
 interface IProps {}
@@ -27,7 +27,7 @@ const PlanPricingComponent: FC<Readonly<IProps>> = () => {
       <p className='text-center text-base md:pt-0.5 md:text-[18px]'>{t('home_page_pricing_description')}</p>
 
       <div className='flex flex-wrap items-stretch justify-center gap-6 pt-5 md:gap-8 md:pt-8'>
-        {pricingCardOffer.map((plan) => (
+        {IPricingCardOffer.map((plan) => (
           <PricingCardComponent key={plan.id} plan={plan} />
         ))}
       </div>

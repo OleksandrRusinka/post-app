@@ -1,1 +1,1 @@
-export * from './result.constant'
+export { ILatestResult } from './latest-result.constant'

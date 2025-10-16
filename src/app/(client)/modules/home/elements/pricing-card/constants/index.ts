@@ -1,1 +1,1 @@
-export { pricingCardOffer } from './pricing-card-offer'
+export { IPricingCardOffer } from './pricing-card-offer'

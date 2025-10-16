@@ -7,7 +7,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react'
 
-import { trustedByPeopleCards } from './constants/trusted-by-people.constant'
+import { ITrustedByPeopleCards } from './constants/trusted-by-people.constant'
 
 // interface
 interface IProps {}
@@ -16,7 +16,7 @@ interface IProps {}
 const TrustedByPeopleComponent: FC<IProps> = () => {
   const t = useTranslations()
 
-  const cards = trustedByPeopleCards()
+  const cards = ITrustedByPeopleCards()
 
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [showNavigation, setShowNavigation] = useState(false)

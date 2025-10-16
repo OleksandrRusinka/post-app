@@ -5,10 +5,12 @@ import { type FC } from 'react'
 
 import { Accordion, AccordionItem } from '@heroui/accordion'
 
-import { useFaqsListQuestion } from './constants'
+import { IFaqsListQuestion } from './constants'
 
+// interface
 interface IProps {}
 
+// component
 const FaqsQuestionsComponent: FC<IProps> = () => {
   const t = useTranslations()
 
@@ -34,12 +36,12 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
             content: 'pt-0 pb-6 text-sm md:text-base text-[#444F69]',
             indicator: 'text-lg text-[#2B2D42]',
           }}
-          items={useFaqsListQuestion()}
+          items={IFaqsListQuestion()}
           selectionMode='multiple'
           variant='splitted'
         >
 
-          {useFaqsListQuestion().map((item) => (
+          {IFaqsListQuestion().map((item) => (
             <AccordionItem
               key={item.id}
               classNames={{

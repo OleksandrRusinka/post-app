@@ -1,1 +1,1 @@
-export { availableTestsCards } from './available.constant'
+export { IAvailableTests } from './available.constant'

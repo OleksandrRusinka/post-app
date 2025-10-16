@@ -1,4 +1,4 @@
-export const ResultCards = () => {
+export const ILatestResult = () => {
   return [
     {
       id: 1,

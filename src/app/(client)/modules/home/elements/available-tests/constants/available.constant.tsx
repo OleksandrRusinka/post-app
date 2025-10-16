@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const availableTestsCards = (t: ReturnType<typeof useTranslations>) => [
+export const IAvailableTests = (t: ReturnType<typeof useTranslations>) => [
   {
     id: 1,
     icon: '/images/available-tests/availableTest-Brain.svg',

@@ -1,1 +1,1 @@
-export { trustedByPeopleCards } from './trusted-by-people.constant'
+export { ITrustedByPeopleCards } from './trusted-by-people.constant'

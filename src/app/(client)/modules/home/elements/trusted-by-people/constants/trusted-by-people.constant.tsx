@@ -1,4 +1,4 @@
-export const trustedByPeopleCards = () => {
+export const ITrustedByPeopleCards = () => {
   return [
     {
       id: 1,
