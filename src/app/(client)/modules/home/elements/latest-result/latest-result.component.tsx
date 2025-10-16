@@ -13,8 +13,6 @@ interface IProps {}
 const LatestResultsComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations()
 
-  const results = ILatestResult()
-
   // return
   return (
     <section id='latest-results' className='mx-auto w-full max-w-6xl items-center pt-6 max-lg:pb-6 md:pt-[42px]'>
@@ -25,7 +23,7 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
 
       <div className='pt-4 md:pt-6'>
         <div className='flex w-full flex-wrap gap-x-6 gap-y-4 text-left'>
-          {results.map((person, id) => (
+          {ILatestResult().map((person, id) => (
             <div
               key={person.id}
               className={`flex basis-full items-center rounded-[18px] border border-transparent px-6 py-[18px] transition-colors lg:basis-[48%] ${

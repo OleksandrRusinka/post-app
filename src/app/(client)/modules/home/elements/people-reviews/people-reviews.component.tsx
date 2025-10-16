@@ -6,6 +6,8 @@ interface IProps {}
 
 // component
 const PeopleReviewsComponent: FC<IProps> = () => {
+
+  // return
   return (
     <div className='mt-[11px] flex items-center md:mt-4'>
       <div className='relative mr-6 flex md:mr-12'>

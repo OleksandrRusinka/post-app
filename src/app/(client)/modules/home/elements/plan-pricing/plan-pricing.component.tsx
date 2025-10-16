@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { PricingCardComponent } from '../pricing-card'
-import { IPricingCardOffer } from '../pricing-card/constants/pricing-card-offer'
+import { IPricingCardOffer } from '../pricing-card/constants'
 
 // interfaces
 interface IProps {}

@@ -16,8 +16,6 @@ interface IProps {}
 const TrustedByPeopleComponent: FC<IProps> = () => {
   const t = useTranslations()
 
-  const cards = ITrustedByPeopleCards()
-
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [showNavigation, setShowNavigation] = useState(false)
 
@@ -31,9 +29,8 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
 
     checkScrollable()
     window.addEventListener('resize', checkScrollable)
-
     return () => window.removeEventListener('resize', checkScrollable)
-  }, [cards.length])
+  }, [ITrustedByPeopleCards.length])
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -88,7 +85,7 @@ const TrustedByPeopleComponent: FC<IProps> = () => {
           className='scrollbar-hide flex w-full gap-3 overflow-x-auto scroll-smooth px-3 pb-4 sm:gap-4 sm:px-4 lg:px-14'
           style={{ scrollSnapType: 'x mandatory' }}
         >
-          {cards.map((card) => (
+          {ITrustedByPeopleCards.map((card) => (
             <div
               key={card.id}
               className='scroll-snap-align-start w-[85vw] flex-shrink-0 sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1rem)]'
