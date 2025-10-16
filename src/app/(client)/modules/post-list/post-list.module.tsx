@@ -51,7 +51,7 @@ const PostListModule: FC<IProps> = (props) => {
   // return
   return (
     <div className='space-y-8 pt-16'>
-      <div className='flex  justify-center'>
+      <div className='flex justify-center'>
         <h2 className='text-2xl font-bold'>{t('latest_posts')}</h2>
       </div>
 

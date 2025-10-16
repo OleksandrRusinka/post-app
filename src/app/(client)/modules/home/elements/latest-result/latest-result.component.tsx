@@ -18,6 +18,7 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
     <section id='latest-results' className='mx-auto w-full max-w-6xl items-center pt-6 max-lg:pb-6 md:pt-[42px]'>
+
       <h3 className='text-center text-[28px] font-semibold text-[#2C3345] md:text-[39px]'>
         {t('home_page_latest_result')}
       </h3>
@@ -46,6 +47,7 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
               <div className='rounded-small ml-auto px-2 py-1 text-center text-base font-semibold text-[#006FEE] md:text-lg'>
                 IQ {person.iqResult}
               </div>
+
             </div>
           ))}
         </div>

@@ -72,9 +72,9 @@
   "home_page_available_tests_header": "Доступні тести",
   "home_page_available_tests_subtitle": "Кожен тест розкриває нову частину вас. Почніть з інтелекту, незабаром з'являться нові тести",
   "home_page_available_tests_title_1": "Тест на IQ / інтелект",
-  "home_page_available_tests_button_text_1": "Тест на IQ зараз",
+  "home_page_available_tests_button_text_1": "Почніть тест IQ зараз",
   "home_page_available_tests_title_2": "Тип особистості",
-  "home_page_available_tests_button_text_2": "Тест на тип особистості",
+  "home_page_available_tests_button_text_2": "Тест на особистості",
   "home_page_available_tests_title_4": "Стиль кохання",
   "home_page_available_tests_button_text_4": "Тест на стиль кохання ",
   "home_page_available_tests_title_3": "Кар'єра",
@@ -126,5 +126,5 @@
 
   "home_page_faq_answer_2": "Ми впевнені, що ви побачите цінність і переваги myIQ, але якщо ви не задоволені або у вас виникли технічні проблеми, ви можете мати право на повернення коштів. Ознайомтеся з нашою ",
 
-  "home_page_latest_result": "Останні результати" 
+  "home_page_latest_result": "Останні результати"
 }

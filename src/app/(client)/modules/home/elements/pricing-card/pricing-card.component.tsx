@@ -50,14 +50,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
       </CardBody>
 
       <CardFooter>
-        <Button
-          fullWidth
-          onPress={() => {}}
-          className='text-medium h-[42px] w-full gap-3 bg-[#0D766E] text-white'
-          size='md'
-          radius='sm'
-          variant='shadow'
-        >
+        <Button onPress={() => {}} className='text-medium h-[42px] w-full gap-3 bg-[#0D766E] text-white'>
           Почати
         </Button>
       </CardFooter>

@@ -35,6 +35,7 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
             className={'border-1 border-[#E2E8F0] font-sans'}
             fullWidth
           >
+
             <CardBody className={'max-xs-l:items-start gap-2.5 px-4 py-6 max-md:items-center md:gap-3'}>
               {card.icon && <Image src={card.icon} alt={card.title} width={38} height={38} className='size-[38px]' />}
 
@@ -42,12 +43,14 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
 
               <div className='flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#454F69]'>
                 <div className='flex items-center gap-1.5'>
+
                   <Clock className='h-4 w-4' />
                   {' 30 хв'}
                 </div>
 
                 <div className='flex items-center gap-1.5'>
                   <Check className='h-4 w-4' />
+
                   {' 120 питань'}
                 </div>
               </div>

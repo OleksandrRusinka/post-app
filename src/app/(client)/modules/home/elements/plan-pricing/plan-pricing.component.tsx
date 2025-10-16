@@ -11,7 +11,7 @@ import { pricingCardOffer } from '../pricing-card/constants/pricing-card-offer'
 interface IProps {}
 
 // component
-const ExplorePlansComponent: FC<Readonly<IProps>> = () => {
+const PlanPricingComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations()
 
   // return
@@ -34,8 +34,10 @@ const ExplorePlansComponent: FC<Readonly<IProps>> = () => {
 
       <p className={'mt-4 text-center text-[15px] leading-5'}>
         Відвідайте нашу{' '}
+
         <Link href='/pricing' className='underline'>
           сторінку з цінами
+
         </Link>{' '}
         щоб дізнатися більше деталей.
       </p>
@@ -44,4 +46,4 @@ const ExplorePlansComponent: FC<Readonly<IProps>> = () => {
   )
 }
 
-export default ExplorePlansComponent
+export default PlanPricingComponent

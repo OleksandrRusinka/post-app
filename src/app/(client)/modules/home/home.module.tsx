@@ -9,7 +9,7 @@ import { FaqsQuestionsComponent } from './elements/faqs-questions'
 import { HowItWorksComponent } from './elements/how-it-works'
 import { IntroResultComponent } from './elements/intro-result'
 import { LatestResultsComponent } from './elements/latest-result'
-import { ExplorePlansComponent } from './elements/plan-pricing'
+import { PlanPricingComponent } from './elements/plan-pricing'
 import { TrustedByPeopleComponent } from './elements/trusted-by-people'
 import { WhatYouGetComponent } from './elements/what-you-get'
 
@@ -37,7 +37,7 @@ const HomeModule: FC<IProps> = () => {
 
       <CommunityComponent />
 
-      <ExplorePlansComponent />
+      <PlanPricingComponent />
 
       <FaqsQuestionsComponent />
 
