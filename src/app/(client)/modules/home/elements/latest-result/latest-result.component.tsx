@@ -17,7 +17,7 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <section className='mx-auto w-full max-w-6xl items-center pt-6 max-lg:pb-6 md:pt-[42px]'>
+    <section id='latest-results' className='mx-auto w-full max-w-6xl items-center pt-6 max-lg:pb-6 md:pt-[42px]'>
       <h3 className='text-center text-[28px] font-semibold text-[#2C3345] md:text-[39px]'>
         {t('reviews_page_latest_result')}
       </h3>

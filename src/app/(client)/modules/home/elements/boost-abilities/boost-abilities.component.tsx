@@ -16,7 +16,8 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <div className='py-6 md:py-10'>
+    <div id='boost-abilities' className='py-6 md:py-10'>
+
       <h3 className='text-2.7xl text-dark text-center font-semibold md:text-4xl'>
         {t('home_page_boost_abilities_header')}
       </h3>
@@ -43,6 +44,7 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
 
                     <div className='p-1'>
                       <Check className='h-3.5 w-4 min-w-4 text-[#007AFF]' />
+
                     </div>
 
                     <p className='text-start text-sm'>{item.text}</p>

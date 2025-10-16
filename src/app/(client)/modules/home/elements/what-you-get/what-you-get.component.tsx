@@ -4,10 +4,9 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { Card, CardBody } from '@heroui/card'
-import { ScrollShadow } from '@heroui/scroll-shadow'
+import { Card, CardBody, ScrollShadow } from '@heroui/react'
 
-import { DiiffText } from './constants/what-you-get.constant'
+import { DiiffText } from './constants'
 
 // interface
 interface IProps {}
@@ -18,7 +17,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <div className='relative z-0 flex flex-col items-center gap-2 py-6 md:py-10'>
+    <div id='what-you-get' className='relative z-0 flex flex-col items-center gap-2 py-6 md:py-10'>
       <h4 className='text-[28px] font-semibold text-[#2C3345] md:text-[39px]'>{t('home_page_what_you_get_header')}</h4>
 
       <ScrollShadow
@@ -47,7 +46,6 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
             </Card>
           ))}
         </div>
-
       </ScrollShadow>
 
       <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />

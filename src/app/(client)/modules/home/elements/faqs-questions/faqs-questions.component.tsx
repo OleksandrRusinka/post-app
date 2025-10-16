@@ -14,12 +14,13 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
 
   // return
   return (
-    <div className='relative z-0 w-full py-6 md:py-10'>
+    <div id='faqs-questions' className='relative z-0 w-full py-6 md:py-10'>
 
       <section className='relative mx-auto w-full gap-6 text-left lg:grid lg:grid-cols-[1fr_4fr] lg:gap-14'>
 
         <h2 className='text-[28px] font-semibold text-[#2B2D42] max-lg:text-center md:mb-8 md:text-[39px] lg:max-w-[200px]'>
           <span className='inline-block'>{t('home_page_faq_header')}</span>
+
         </h2>
 
         <Accordion
@@ -50,9 +51,11 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
               title={item.question}
             >
               <p>{item.answer}</p>
+
             </AccordionItem>
           ))}
         </Accordion>
+
       </section>
 
       <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />

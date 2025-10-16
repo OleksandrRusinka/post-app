@@ -14,12 +14,12 @@ import { PostCard } from '@/shared/ui/post-card'
 
 // interface
 interface IProps {
-  isChangeText: boolean
+  isChangeText?: boolean
 }
 
 // component
 const PostListModule: FC<IProps> = (props) => {
-  const { isChangeText } = props
+  const { isChangeText = false } = props
 
   const t = useTranslations()
 
@@ -52,9 +52,7 @@ const PostListModule: FC<IProps> = (props) => {
   return (
     <div className='space-y-8'>
       <div className='flex items-center justify-between'>
-
         <h2 className='text-2xl font-bold'>{t('latest_posts')}</h2>
-
       </div>
 
       <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>

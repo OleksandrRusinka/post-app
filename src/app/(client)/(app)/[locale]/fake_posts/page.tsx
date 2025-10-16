@@ -3,22 +3,21 @@ import React, { FC } from 'react'
 
 import PostListModule from '@/app/(client)/modules/post-list/post-list.module'
 
+export const revalidate = 30
+
 // interface
 interface IProps {
   params: Promise<{ locale: string }>
-  isChangeText: boolean
 }
 
 // component
 const Page: FC<Readonly<IProps>> = async (props) => {
   const { locale } = await props.params
 
-  const { isChangeText } = props
-
   setRequestLocale(locale)
 
   // return
-  return <PostListModule isChangeText={isChangeText} />
+  return <PostListModule />
 }
 
 export default Page

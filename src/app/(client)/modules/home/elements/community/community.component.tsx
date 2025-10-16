@@ -14,10 +14,11 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <section
+    <section id='community'
       className={`relative z-0 flex flex-col items-center justify-between gap-6 px-4 py-8 md:flex-row md:gap-8 md:px-12 md:py-10`}
     >
       <div className='flex w-full flex-1 flex-col items-center text-center md:items-start md:text-left'>
+
         <h3 className='w-full text-[28px] leading-[42px] font-semibold text-[#2B2D42] md:text-[36px]'>
           {t('home_page_community_title')}
         </h3>
@@ -26,9 +27,9 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
       </div>
 
       <div className='flex flex-wrap justify-center gap-3 md:justify-end'>
-        {socialsNetwork.map((el, idx) => (
+        {socialsNetwork.map((el, id) => (
           <a
-            key={idx}
+            key={id}
             href={el.link}
             target='_blank'
             rel='noopener noreferrer'

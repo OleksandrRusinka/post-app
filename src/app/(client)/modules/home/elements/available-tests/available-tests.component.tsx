@@ -5,8 +5,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { Button } from '@heroui/button'
-import { Card, CardBody } from '@heroui/card'
+import { Button, Card, CardBody } from '@heroui/react'
 
 import { availableTestsCards } from './constants'
 
@@ -19,7 +18,7 @@ const AvailableTestsComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <div className='relative z-0 py-6 md:py-8'>
+    <div id='available-tests' className='relative z-0 py-6 md:py-8'>
       <h3 className='text-2.7xl text-dark text-center font-semibold md:text-4xl'>
         {t('home_page_available_tests_header')}
       </h3>

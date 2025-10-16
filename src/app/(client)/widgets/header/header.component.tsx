@@ -41,14 +41,14 @@ const HeaderComponent: FC<IProps> = () => {
             <nav className='hidden items-center space-x-1 lg:flex'>
               <Link
                 href='/fake_posts'
-                className='rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
+                className='rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
               >
                 {t('header_all_posts')}
               </Link>
 
               <Link
                 href='/supabase-posts'
-                className='rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
+                className='rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
               >
                 {t('header_supabase_posts')}
               </Link>
@@ -61,14 +61,14 @@ const HeaderComponent: FC<IProps> = () => {
             <div className='hidden items-center gap-3 lg:flex'>
               <Link
                 href='/login'
-                className='rounded-lg border border-[#0D766E] px-4 py-2 text-sm font-medium whitespace-nowrap text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white'
+                className='rounded-lg border border-[#0D766E] px-4 py-2 text-sm font-medium text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white'
               >
                 Log In
               </Link>
 
               <Link
                 href='/start'
-                className='rounded-lg bg-[#0D766E] px-6 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-[#0b6a63]'
+                className='rounded-lg bg-[#0D766E] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[#0b6a63]'
               >
                 Start Test
               </Link>

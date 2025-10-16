@@ -1,4 +1,6 @@
-export const pricingCardOffer = [
+import { IPlan } from '../interface/plan.interface'
+
+export const pricingCardOffer: IPlan[] = [
   {
     id: 1,
     title: 'ДВОТИЖНЕВА ПІДПИСКА',

@@ -103,6 +103,8 @@ declare const messages: {
   home_page_what_you_get_4: string
   home_page_what_you_get_5: string
 
+  home_page_trusted_by_people_header: string
+
   home_page_community_title: string
   home_page_community_subtitle: string
 
