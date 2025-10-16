@@ -62,7 +62,7 @@ const SupabasePostsModule: FC<IProps> = () => {
   return (
     <>
       <ContainerComponent className='py-8'>
-        <div className='space-y-8'>
+        <div className='space-y-8 pt-16'>
           <div className='flex items-center justify-between'>
             <h2 className='text-2xl font-bold'>{t('supabase_posts_title')}</h2>
 

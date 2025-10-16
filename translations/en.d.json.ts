@@ -112,6 +112,15 @@ declare const messages: {
   home_page_pricing_description: string
 
   home_page_faq_header: string
+
+  home_page_faq_question_1: string
+  home_page_faq_question_2: string
+  home_page_faq_question_3: string
+  home_page_faq_question_4: string
+  home_page_faq_question_5: string
+  home_page_faq_question_6: string
+
+  home_page_latest_result: string
 }
 
 export default messages

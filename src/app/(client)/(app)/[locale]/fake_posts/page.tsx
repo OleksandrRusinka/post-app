@@ -11,7 +11,7 @@ interface IProps {
 }
 
 // component
-const Page: FC<Readonly<IProps>> = async (props) => {
+const FakePostsPage: FC<Readonly<IProps>> = async (props) => {
   const { locale } = await props.params
 
   setRequestLocale(locale)
@@ -20,4 +20,4 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   return <PostListModule />
 }
 
-export default Page
+export default FakePostsPage

@@ -43,10 +43,8 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
               <ArrowRight size={16} className='ml-2' />
             </button>
 
-            <button className='flex w-full max-w-[280px] items-center justify-center rounded-2xl border-2 border-[#0D766E] px-6 py-3 text-base font-medium  text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white max-sm:max-w-none lg:w-auto'>
-
-              <span className='text-[#0D766E]'>{t('home_page_how_iq_works')}</span>
-
+            <button className='flex w-full max-w-[280px] items-center justify-center rounded-2xl border-2 border-[#0D766E] px-6 py-3 text-base font-medium text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white max-sm:max-w-none lg:w-auto'>
+              {t('home_page_how_iq_works')}
             </button>
           </div>
 
@@ -56,7 +54,7 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
         <div
           className={'relative mx-auto flex h-full w-full max-w-[520px] items-center justify-center max-lg:mt-[-28px]'}
         >
-          <Image src={'/images/graph.svg'} alt='intro-result' width={517} height={296} />
+          <Image src={'/images/intro-result/graph.svg'} alt='intro-result' width={517} height={296} />
         </div>
 
       </div>

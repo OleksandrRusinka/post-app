@@ -50,8 +50,8 @@ const PostListModule: FC<IProps> = (props) => {
 
   // return
   return (
-    <div className='space-y-8'>
-      <div className='flex items-center justify-between'>
+    <div className='space-y-8 pt-16'>
+      <div className='flex  justify-center'>
         <h2 className='text-2xl font-bold'>{t('latest_posts')}</h2>
       </div>
 
@@ -62,7 +62,7 @@ const PostListModule: FC<IProps> = (props) => {
       </div>
 
       {totalPages > 1 && (
-        <div className='flex justify-center py-8'>
+        <div className='flex justify-center py-2'>
           <Pagination
             page={currentPage}
             total={totalPages}

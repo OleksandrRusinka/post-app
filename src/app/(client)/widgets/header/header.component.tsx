@@ -52,10 +52,6 @@ const HeaderComponent: FC<IProps> = () => {
               >
                 {t('header_supabase_posts')}
               </Link>
-
-              <div className='ml-2'>
-                <LanguageSwitcherComponent />
-              </div>
             </nav>
 
             <div className='hidden items-center gap-3 lg:flex'>
