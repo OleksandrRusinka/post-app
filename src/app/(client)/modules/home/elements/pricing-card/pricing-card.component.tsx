@@ -5,7 +5,7 @@ import { type FC } from 'react'
 
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from '@heroui/react'
 
-import { CheckIcon } from '@/app/(client)/shared/ui/check-icon'
+import { CheckIcon } from '@/shared/ui/check-icon'
 
 import { IPlan } from './interface'
 
@@ -22,12 +22,11 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
 
   // return
   return (
-    <Card
-      className='max-w-[362px] border border-gray-100 p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg'
-      shadow='md'
-    >
+    <Card className='max-w-[362px] border border-gray-100 p-6 transition-all duration-300 hover:scale-105' shadow='md'>
+
       <CardHeader className='flex flex-col items-start gap-2 pb-4'>
         <h2 className='text-large font-medium'>{plan.title}</h2>
+
       </CardHeader>
 
       <Divider />
@@ -42,17 +41,22 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
         <ul className='flex flex-col gap-3'>
           {plan.features.map((feature, index) => (
             <li key={index} className='flex items-start gap-2'>
+
               <CheckIcon width={24} className='text-blue-600' />
+
               <span className='text-default-600 text-sm'>{feature}</span>
+
             </li>
           ))}
         </ul>
       </CardBody>
 
       <CardFooter>
+        
         <Button onPress={() => {}} className='text-medium bg-primary h-[42px] w-full gap-3 text-white'>
           Почати
         </Button>
+
       </CardFooter>
     </Card>
   )

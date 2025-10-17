@@ -17,8 +17,10 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
   // return
   return (
     <div id='faqs-questions' className='relative z-0 w-full py-6 md:py-10'>
+
       <section className='relative mx-auto w-full gap-6 text-left lg:grid lg:grid-cols-[1fr_4fr] lg:gap-14'>
         <h2 className='text-base-dark text-[28px] font-semibold max-lg:text-center md:mb-8 md:text-[39px] lg:max-w-[200px]'>
+
           <span className='inline-block'>{t('home_page_faq_header')}</span>
         </h2>
 
@@ -30,13 +32,14 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
             base: 'md:px-5 shadow-none bg-transparent border-b-1 border-border-gray rounded-none',
             title: 'font-semibold',
             trigger: 'py-6',
-            content: 'pt-0 pb-6 text-sm md:text-base text-gray-dark',
-            indicator: 'text-lg text-base-dark',
+            content: 'pt-0 pb-6 text-sm md:text-base text-gray-DEFAULT',
+            indicator: 'text-lg text-base-DEFAULT',
           }}
           items={IFaqsListQuestion(t)}
           selectionMode='multiple'
           variant='splitted'
         >
+
           {IFaqsListQuestion(t).map((item) => (
             <AccordionItem
               key={item.id}
@@ -48,9 +51,11 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
               className='text-left'
               title={item.question}
             >
+
               <p>{item.answer}</p>
             </AccordionItem>
           ))}
+
         </Accordion>
       </section>
 

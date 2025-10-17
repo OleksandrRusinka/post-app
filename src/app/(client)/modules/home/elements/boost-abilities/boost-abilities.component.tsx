@@ -1,10 +1,11 @@
 'use client'
 
-import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { Card, CardBody } from '@heroui/card'
+
+import { CheckIcon } from '@/shared/ui/check-icon'
 
 import { IAbilities } from './constants'
 
@@ -27,6 +28,7 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
       <div className='flex gap-3 pt-5 max-lg:flex-col md:gap-6 md:pt-8'>
         {IAbilities(t).map((card, index) => (
           <Card key={`${card.title}-${card.id}`} shadow={'none'} className={'border-border-light border-1'} fullWidth>
+
             <CardBody className={'gap-3 p-4 md:py-6'}>
               <div className='bg-blue-primary size-[42px] rounded-full p-[3px]'>
                 <div className='text-base-dark flex h-full w-full items-center justify-center rounded-full bg-white text-[20px] font-semibold'>
@@ -39,8 +41,9 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
               <ul className='flex flex-col gap-2 max-md:pt-0.5'>
                 {card.cases.map((item, idx) => (
                   <li key={idx} className={'flex items-start gap-1.5'}>
+
                     <div className='p-1'>
-                      <Check className='text-blue-primary h-3.5 w-4 min-w-4' />
+                      <CheckIcon width={16} className='text-blue-600' />
                     </div>
 
                     <p className='text-start text-sm'>{item.text}</p>

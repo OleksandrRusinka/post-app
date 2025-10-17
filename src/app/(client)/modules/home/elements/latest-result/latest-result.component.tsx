@@ -20,13 +20,13 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
 
       <div className='pt-4 md:pt-6'>
         <div className='flex w-full flex-wrap gap-x-6 gap-y-4 text-left'>
-          {ILatestResult.map((person, id) => (
+
+          {ILatestResult.map((person) => (
             <div
               key={person.id}
-              className={`flex basis-full items-center rounded-[18px] border border-transparent px-6 py-[18px] transition-colors lg:basis-[48%] ${
-                (id > 1 && id < 4) || (id > 5 && id < 8) ? 'lg:bg-background-light' : 'lg:bg-white'
-              } ${id === 1 || id === 3 ? 'max-lg:bg-background-light' : ''} ${id > 3 ? 'max-lg:hidden' : ''}`}
+              className={`flex basis-full items-center rounded-[18px] border border-transparent px-6 py-[18px] transition-colors lg:basis-[48%]`}
             >
+
               <div className='h-6 w-9 shrink-0 overflow-hidden rounded md:h-7 md:w-10 lg:h-8 lg:w-11'>
                 <Image
                   src={person.img}
@@ -39,9 +39,10 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
 
               <p className='ml-4 flex-1 text-base font-medium md:text-lg'>{person.name}</p>
 
-              <div className='rounded-small text-blue-default ml-auto px-2 py-1 text-center text-base font-semibold md:text-lg'>
+              <div className='rounded-small text-blue-default ml-auto px-2 py-1 text-center font-semibold md:text-lg'>
                 IQ {person.iqResult}
               </div>
+              
             </div>
           ))}
         </div>

@@ -37,6 +37,7 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
             aria-label={el.name}
             className='group border-blue-primary hover:border-blue-hover hover:bg-blue-light flex h-12 w-24 items-center justify-center rounded-lg border bg-white px-6 transition-all duration-300 hover:scale-105'
           >
+
             <Image
               src={el.src}
               alt={el.name}

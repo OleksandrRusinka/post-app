@@ -26,6 +26,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
         hideScrollBar
         className='overflow-x-auto pt-5 max-lg:w-[calc(100vw-48px)]'
       >
+        
         <div className={'flex min-w-max gap-6'}>
           {IWhatYouGet(t).map((card) => (
             <Card key={card.id} className='border-border-blue w-[236px] rounded-lg border'>

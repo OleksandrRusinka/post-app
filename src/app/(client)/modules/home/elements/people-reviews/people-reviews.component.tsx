@@ -12,6 +12,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
   return (
     <div className='mt-[11px] flex items-center md:mt-4'>
       <div className='relative mr-6 flex md:mr-12'>
+
         <div className='relative h-10 w-10 overflow-hidden rounded-full border-3 border-white md:h-[50px] md:w-[50px] md:border-4'>
           <Image
             src={'/images/people-avatars/avatar1.png'}
@@ -69,6 +70,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
         <p>
           <span className='font-semibold'>12024</span> IQ тестів пройдено сьогодні!
         </p>
+
       </div>
     </div>
   )
