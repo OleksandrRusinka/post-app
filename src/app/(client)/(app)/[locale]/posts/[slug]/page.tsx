@@ -35,17 +35,14 @@ const PostPage: FC<Readonly<IProps>> = async (props) => {
 
   await Promise.all([
     queryClient.prefetchQuery(postByIdQueryOptions({ id: slug })),
-
     queryClient.prefetchQuery(supabasePostByIdQueryOptions({ id: slug })),
   ])
 
   // return
   return (
-    <>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostDetailModule postId={slug} />
-      </HydrationBoundary>
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostDetailModule postId={slug} />
+    </HydrationBoundary>
   )
 }
 

@@ -1,7 +1,11 @@
 import { setRequestLocale } from 'next-intl/server'
 import React, { FC } from 'react'
 
-import PostListModule from '@/app/(client)/modules/post-list/post-list.module'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+
+import { postsQueryOptions } from '@/entities/api/posts'
+import PostListModule from '@/modules/post-list/post-list.module'
+import { getQueryClient } from '@/pkg/libraries/rest-api/service'
 
 export const revalidate = 30
 
@@ -16,8 +20,16 @@ const FakePostsPage: FC<Readonly<IProps>> = async (props) => {
 
   setRequestLocale(locale)
 
+  const queryClient = getQueryClient()
+
+  await queryClient.prefetchQuery(postsQueryOptions())
+
   // return
-  return <PostListModule />
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostListModule />
+    </HydrationBoundary>
+  )
 }
 
 export default FakePostsPage

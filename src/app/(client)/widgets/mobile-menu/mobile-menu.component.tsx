@@ -27,6 +27,7 @@ const MobileMenuComponent: FC<IProps> = (props) => {
 
   const t = useTranslations()
 
+  // return
   return (
     <AnimatePresence>
       {isMobileMenuOpen && (

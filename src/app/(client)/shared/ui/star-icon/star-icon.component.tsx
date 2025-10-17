@@ -3,6 +3,7 @@ import { FC } from 'react'
 // interface
 interface IProps {}
 
+// component
 const StarIconComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
