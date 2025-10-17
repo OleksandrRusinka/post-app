@@ -1,8 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const IFaqsListQuestion = () => {
-  const t = useTranslations()
-
+export const IFaqsListQuestion = (t: ReturnType<typeof useTranslations>) => {
   return [
     { id: 1, question: t('home_page_faq_question_1'), answer: t('home_page_faq_answer_2') },
     { id: 2, question: t('home_page_faq_question_2'), answer: t('home_page_faq_answer_3') },

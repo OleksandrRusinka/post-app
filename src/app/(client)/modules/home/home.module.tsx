@@ -10,7 +10,6 @@ import { HowItWorksComponent } from './elements/how-it-works'
 import { IntroResultComponent } from './elements/intro-result'
 import { LatestResultsComponent } from './elements/latest-result'
 import { PlanPricingComponent } from './elements/plan-pricing'
-import { TrustedByPeopleComponent } from './elements/trusted-by-people'
 import { WhatYouGetComponent } from './elements/what-you-get'
 
 // interface
@@ -32,8 +31,6 @@ const HomeModule: FC<IProps> = () => {
       <BoostAbilitiesComponent />
 
       <WhatYouGetComponent />
-
-      <TrustedByPeopleComponent />
 
       <CommunityComponent />
 

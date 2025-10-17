@@ -51,6 +51,9 @@ declare const messages: {
   error_description: string
   error_retry: string
 
+  btn_login: string
+  btn_start_test: string
+
   home_page_want_to_know: string
   home_page_real_score: string
   home_page_take_your_score: string

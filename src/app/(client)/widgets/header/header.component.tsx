@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { type FC, useEffect, useState } from 'react'
 
-import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
 import { MobileMenuComponent } from '@/widgets/mobile-menu'
 
 // interface
@@ -57,16 +56,16 @@ const HeaderComponent: FC<IProps> = () => {
             <div className='hidden items-center gap-3 lg:flex'>
               <Link
                 href='/login'
-                className='rounded-lg border border-[#0D766E] px-4 py-2 text-sm font-medium text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white'
+                className='border-primary text-primary hover:bg-primary rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:text-white'
               >
-                Log In
+                {t('btn_login')}
               </Link>
 
               <Link
                 href='/start'
-                className='rounded-lg bg-[#0D766E] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[#0b6a63]'
+                className='bg-primary hover:bg-primary-hover rounded-lg px-6 py-2 text-sm font-medium text-white transition-colors'
               >
-                Start Test
+                {t('btn_start_test')}
               </Link>
             </div>
 

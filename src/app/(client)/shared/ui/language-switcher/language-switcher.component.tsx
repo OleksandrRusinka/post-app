@@ -1,95 +1,65 @@
 'use client'
 
-import { Check, ChevronDown, Globe } from 'lucide-react'
+import { Check, ChevronDown } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC } from 'react'
+
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react'
 
 import { usePathname, useRouter } from '@/pkg/libraries/locale'
 
-// interface
-interface IProps {}
+// interfaces
+interface IProps {
+  className?: string
+}
 
-// languages
+// constants
 const languages = [
   { code: 'en', name: 'English' },
   { code: 'uk', name: 'Українська' },
 ]
 
 // component
-const LanguageSwitcherComponent: FC<IProps> = () => {
+const LanguageSwitcherComponent: FC<Readonly<IProps>> = (props) => {
+  const { className = '' } = props
+
   const router = useRouter()
   const pathname = usePathname()
   const { locale } = useParams()
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const currentLang = languages.find((lang) => lang.code === locale)
+  const currentLang = languages.find((lang) => lang.code === locale) || languages[0]
 
   const handleChange = (newLocale: string) => {
     if (newLocale !== locale) {
       router.replace(pathname, { locale: newLocale })
-      setIsOpen(false)
     }
   }
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
-
   // return
   return (
-    <div className='relative' ref={dropdownRef}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className='flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
-        aria-label='Change language'
-        aria-expanded={isOpen}
-      >
-        <Globe className='h-4 w-4' />
+    <Dropdown placement='bottom-end'>
+      <DropdownTrigger>
+        <Button
+          variant='bordered'
+          className={`flex items-center gap-2 rounded-xl border border-[#5a6b82] bg-[#0b2239] px-4 py-2 text-sm font-medium text-white transition-colors hover:border-gray-400 hover:text-gray-300 ${className}`}
+        >
+          {currentLang.name}
+          <ChevronDown className='h-4 w-4' />
+        </Button>
+      </DropdownTrigger>
 
-        <span className='hidden sm:inline'>{currentLang?.name}</span>
-
-        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-
-      {isOpen && (
-        <div className='absolute top-full right-0 z-[110] mt-2 w-48'>
-          <div className='rounded-lg border border-gray-200 bg-white py-1 shadow-lg'>
-            {languages.map(({ code, name }) => {
-              const isActive = locale === code
-              return (
-                <button
-                  key={code}
-                  onClick={() => handleChange(code)}
-                  className={`flex w-full items-center gap-3 px-4 py-2 text-sm transition-colors hover:bg-gray-100 ${
-                    isActive ? 'bg-blue-50 font-medium text-blue-600' : 'text-gray-700'
-                  }`}
-                >
-                  <Globe className='h-4 w-4' />
-
-                  <span>{name}</span>
-
-                  {isActive && <Check className='ml-auto h-4 w-4' />}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      )}
-    </div>
+      <DropdownMenu aria-label='Change language' onAction={(key) => handleChange(String(key))} className='bg-white'>
+        {languages.map(({ code, name }) => (
+          <DropdownItem
+            key={code}
+            endContent={locale === code ? <Check className='h-4 w-4 text-blue-500' /> : null}
+            className={`text-sm ${locale === code ? 'font-semibold text-blue-600' : 'text-gray-800'}`}
+          >
+            {name}
+          </DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>
   )
 }
 

@@ -3,8 +3,6 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
-import { LanguageSwitcherComponent } from '@/shared/ui/language-switcher'
-
 // interface
 interface IProps {
   isMobileMenuOpen: boolean
@@ -51,7 +49,7 @@ const MobileMenuComponent: FC<IProps> = (props) => {
             <nav className='flex flex-col gap-2 px-6 py-6'>
               <Link
                 href='/fake_posts'
-                className='rounded-lg px-4 py-3 text-left text-base font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
+                className='rounded-lg px-4 py-3 text-left font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
                 onClick={handleCloseMobileMenu}
               >
                 {t('header_all_posts')}
@@ -59,26 +57,24 @@ const MobileMenuComponent: FC<IProps> = (props) => {
 
               <Link
                 href='/supabase-posts'
-                className='rounded-lg px-4 py-3 text-left text-base font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
+                className='rounded-lg px-4 py-3 text-left font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900'
                 onClick={handleCloseMobileMenu}
               >
                 {t('header_supabase_posts')}
               </Link>
 
-              <LanguageSwitcherComponent />
-
               <div className='my-2 border-t border-gray-200'></div>
 
               <Link
                 href='/login'
-                className='rounded-lg border border-[#0D766E] px-4 py-3 text-center text-base font-medium text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white'
+                className='rounded-lg border border-[#0D766E] px-4 py-3 text-center  font-medium text-[#0D766E] transition-colors hover:bg-[#0D766E] hover:text-white'
                 onClick={handleCloseMobileMenu}
               >
                 Log In
               </Link>
               <Link
                 href='/start'
-                className='rounded-lg bg-[#0D766E] px-4 py-3 text-center text-base font-semibold text-white transition-colors hover:bg-[#0b6a63]'
+                className='rounded-lg bg-[#0D766E] px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-[#0b6a63]'
                 onClick={handleCloseMobileMenu}
               >
                 Start Test

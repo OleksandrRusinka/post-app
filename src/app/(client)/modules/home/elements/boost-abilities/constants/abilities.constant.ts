@@ -1,8 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export const IAbilities = () => {
-  const t = useTranslations()
-
+export const IAbilities = (t: ReturnType<typeof useTranslations>) => {
   return [
     {
       id: 1,

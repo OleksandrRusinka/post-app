@@ -18,7 +18,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
   // return
   return (
     <div id='what-you-get' className='relative z-0 flex flex-col items-center gap-2 py-6 md:py-10'>
-      <h4 className='text-[28px] font-semibold text-[#2C3345] md:text-[39px]'>{t('home_page_what_you_get_header')}</h4>
+      <h4 className='text-base text-[28px] font-semibold md:text-[39px]'>{t('home_page_what_you_get_header')}</h4>
 
       <ScrollShadow
         size={20}
@@ -28,8 +28,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
       >
         <div className={'flex min-w-max gap-6'}>
           {IWhatYouGet(t).map((card) => (
-            <Card key={card.id} className='w-[236px] rounded-lg border border-[#D9E7FF]'>
-
+            <Card key={card.id} className='border-border-blue w-[236px] rounded-lg border'>
               <CardBody className='!flex-row items-start gap-4 p-4 md:py-6'>
                 <div className='p-1'>
                   <Image
@@ -41,14 +40,14 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
                   />
                 </div>
 
-                <p className='max-w-[80%] text-start text-sm text-[#2C3345]'>{card.text}</p>
+                <p className='max-w-[80%] text-start text-base text-sm'>{card.text}</p>
               </CardBody>
             </Card>
           ))}
         </div>
       </ScrollShadow>
 
-      <div className={'absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'} />
+      <div className={'bg-background-light absolute top-0 -left-1/2 z-[-1] h-full w-[200vw]'} />
     </div>
   )
 }

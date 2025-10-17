@@ -6,12 +6,10 @@ interface IProps {}
 
 // component
 const PeopleReviewsComponent: FC<IProps> = () => {
-
   // return
   return (
     <div className='mt-[11px] flex items-center md:mt-4'>
       <div className='relative mr-6 flex md:mr-12'>
-
         <div className='relative h-10 w-10 overflow-hidden rounded-full border-3 border-white md:h-[50px] md:w-[50px] md:border-4'>
           <Image
             src={'/images/avatar1.png'}
@@ -53,9 +51,8 @@ const PeopleReviewsComponent: FC<IProps> = () => {
         </div>
       </div>
 
-      <div className='-ml-4 flex flex-col text-sm text-[#2B2D42] md:-ml-8 md:text-base md:leading-6'>
+      <div className='text-base-dark -ml-4 flex flex-col text-sm md:-ml-8 md:text-base md:leading-6'>
         <div className='flex flex-wrap max-md:flex-col md:items-center md:gap-1'>
-
           <p>Відмінні відгуки користувачів</p>
 
           <div className='flex text-yellow-400 max-md:mt-1'>{'★'.repeat(5)}</div>
