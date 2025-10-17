@@ -1,10 +1,11 @@
 'use client'
 
-import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from '@heroui/react'
+
+import { CheckIcon } from '@/app/(client)/shared/ui/check-icon'
 
 import { IPlan } from './interface'
 
@@ -41,8 +42,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
         <ul className='flex flex-col gap-3'>
           {plan.features.map((feature, index) => (
             <li key={index} className='flex items-start gap-2'>
-              <Check className='text-primary mt-0.5 shrink-0' width={18} />
-
+              <CheckIcon width={24} className='text-blue-600' />
               <span className='text-default-600 text-sm'>{feature}</span>
             </li>
           ))}
@@ -50,7 +50,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
       </CardBody>
 
       <CardFooter>
-        <Button onPress={() => {}} className='text-medium h-[42px] w-full gap-3 bg-[#0D766E] text-white'>
+        <Button onPress={() => {}} className='text-medium bg-primary h-[42px] w-full gap-3 text-white'>
           Почати
         </Button>
       </CardFooter>

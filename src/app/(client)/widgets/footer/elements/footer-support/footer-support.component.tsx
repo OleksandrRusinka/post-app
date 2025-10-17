@@ -26,7 +26,7 @@ export const FooterSupportComponent: FC<Readonly<IProps>> = () => {
         className='group mt-3 flex max-w-[200px] items-center justify-center gap-3 rounded-full border-2 border-white px-4 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-[#001B36]'
       >
         <Image
-          src='/images/huddle.svg'
+          src='/icons/huddle.svg'
           alt='Support icon'
           width={24}
           height={24}

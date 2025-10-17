@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React, { FC } from 'react'
 
+import { StarIconComponent } from '@/shared/ui/star-icon'
+
 // interface
 interface IProps {}
 
@@ -55,7 +57,13 @@ const PeopleReviewsComponent: FC<IProps> = () => {
         <div className='flex flex-wrap max-md:flex-col md:items-center md:gap-1'>
           <p>Відмінні відгуки користувачів</p>
 
-          <div className='flex text-yellow-400 max-md:mt-1'>{'★'.repeat(5)}</div>
+          <div className='flex max-md:mt-1'>
+            <StarIconComponent />
+            <StarIconComponent />
+            <StarIconComponent />
+            <StarIconComponent />
+            <StarIconComponent />
+          </div>
         </div>
 
         <p>

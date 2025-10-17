@@ -14,7 +14,7 @@ export const FooterLogoComponent: FC<Readonly<IProps>> = () => {
   //return
   return (
     <div className='flex flex-col justify-start gap-6'>
-      <Image src='/images/main-logo.svg' alt='Main logo' width={108} height={31} className='brightness-0 invert' />
+      <Image src='/icons/main-logo.svg' alt='Main logo' width={108} height={31} className='brightness-0 invert' />
 
       <ul className='flex gap-4'>
         {socialsNetwork.map((social) => (

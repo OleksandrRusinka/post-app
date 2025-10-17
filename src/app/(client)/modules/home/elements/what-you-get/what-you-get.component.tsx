@@ -29,15 +29,11 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
         <div className={'flex min-w-max gap-6'}>
           {IWhatYouGet(t).map((card) => (
             <Card key={card.id} className='border-border-blue w-[236px] rounded-lg border'>
+
               <CardBody className='!flex-row items-start gap-4 p-4 md:py-6'>
                 <div className='p-1'>
-                  <Image
-                    src='/images/IconCheckmark.svg'
-                    alt='IconCheckmark'
-                    width={22}
-                    height={22}
-                    className='size-[22px]'
-                  />
+                  <Image src='/icons/IconCheckmark.svg' alt='IconCheckmark' width={40} height={30} />
+
                 </div>
 
                 <p className='max-w-[80%] text-start text-base text-sm'>{card.text}</p>
@@ -45,6 +41,7 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
             </Card>
           ))}
         </div>
+
       </ScrollShadow>
 
       <div className={'bg-background-light absolute top-0 -left-1/2 z-[-1] h-full w-[200vw]'} />
