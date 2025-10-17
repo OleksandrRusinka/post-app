@@ -12,7 +12,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
       <div className='relative mr-6 flex md:mr-12'>
         <div className='relative h-10 w-10 overflow-hidden rounded-full border-3 border-white md:h-[50px] md:w-[50px] md:border-4'>
           <Image
-            src={'/images/avatar1.png'}
+            src={'/images/people-avatars/avatar1.png'}
             alt='people-reviews'
             fill
             className='object-cover'
@@ -22,7 +22,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
 
         <div className='relative -ml-5 h-10 w-10 overflow-hidden rounded-full border-3 border-white md:-ml-6 md:h-[50px] md:w-[50px] md:border-4'>
           <Image
-            src={'/images/avatar1.png'}
+            src={'/images/people-avatars/avatar2.png'}
             alt='people-reviews'
             fill
             className='object-cover'
@@ -32,7 +32,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
 
         <div className='relative -ml-5 h-10 w-10 overflow-hidden rounded-full border-3 border-white md:-ml-6 md:h-[50px] md:w-[50px] md:border-4'>
           <Image
-            src={'/images/avatar3.png'}
+            src={'/images/people-avatars/avatar3.png'}
             alt='people-reviews'
             fill
             className='object-cover'
@@ -42,7 +42,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
 
         <div className='relative -ml-5 h-10 w-10 overflow-hidden rounded-full border-3 border-white max-md:hidden md:-ml-6 md:h-[50px] md:w-[50px] md:border-4'>
           <Image
-            src={'/images/avatar4.png'}
+            src={'/images/people-avatars/avatar4.png'}
             alt='people-reviews'
             fill
             className='object-cover'
