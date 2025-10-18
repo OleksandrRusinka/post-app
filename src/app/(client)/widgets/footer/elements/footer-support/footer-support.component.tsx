@@ -1,8 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { type FC } from 'react'
+
+import { HuddleIcon } from '@/shared/assets/icons'
 
 import { FOOTER_SECTIONS } from '../../constants'
 
@@ -25,13 +26,10 @@ export const FooterSupportComponent: FC<Readonly<IProps>> = () => {
         href='/'
         className='group mt-3 flex max-w-[200px] items-center justify-center gap-3 rounded-full border-2 border-white px-4 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-[#001B36]'
       >
-        <Image
-          src='/icons/huddle.svg'
-          alt='Support icon'
-          width={24}
-          height={24}
-          className='h-6 w-6 shrink-0 brightness-0 invert transition-all group-hover:brightness-100 group-hover:invert-0'
-        />
+
+        <div className='size-[24px] h-6 w-6 shrink-0 brightness-0 invert transition-all group-hover:brightness-100 group-hover:invert-0'>
+          <HuddleIcon />
+        </div>
 
         <p className='text-white group-hover:text-[#001B36]'>
           <span className='whitespace-nowrap'>{FOOTER_SECTIONS.support.support247}</span>

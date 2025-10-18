@@ -1,19 +1,32 @@
-import { cache } from 'react'
+import { defaultShouldDehydrateQuery, isServer, QueryClient } from '@tanstack/react-query'
 
-import { keepPreviousData, QueryClient } from '@tanstack/react-query'
+let browserQueryClient: QueryClient | undefined = undefined
 
-// get query client
-export const getQueryClient = cache(
-  () =>
-    new QueryClient({
-      defaultOptions: {
-        queries: {
-          staleTime: 30 * 1000,
-          gcTime: 5 * 60 * 1000,
-          placeholderData: keepPreviousData,
-          refetchOnWindowFocus: false,
-          retry: 1,
+// make query client
+const makeQueryClient = () => {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 30 * 1000,
+        gcTime: 5 * 60 * 1000,
+        networkMode: 'offlineFirst',
+        refetchOnWindowFocus: false,
+      },
+      dehydrate: {
+        shouldDehydrateQuery: (query) => {
+          return defaultShouldDehydrateQuery(query) || query.state.status === 'pending'
         },
       },
-    }),
-)
+    },
+  })
+}
+
+// query client
+export const getQueryClient = () => {
+  if (isServer) {
+    return makeQueryClient()
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient()
+    return browserQueryClient
+  }
+}

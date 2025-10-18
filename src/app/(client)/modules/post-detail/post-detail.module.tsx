@@ -4,7 +4,7 @@ import { ArrowLeft, Calendar, Edit, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
-import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
+import { Button, Card, CardBody, CardHeader, Chip, Divider, Skeleton } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
 import { supabasePostByIdQueryOptions } from '@/entities/api/database'
@@ -45,11 +45,37 @@ const PostDetailModule: FC<IProps> = (props) => {
 
   if (isLoading) {
     return (
-      <>
-        <ContainerComponent className='py-8'>
-          <div className='mx-auto max-w-4xl text-center text-gray-500'>{t('loading_post')}</div>
-        </ContainerComponent>
-      </>
+      <ContainerComponent className='py-8'>
+        <div className='mx-auto max-w-4xl space-y-8'>
+          <Card className='border-2 border-gray-100 p-2 shadow-lg'>
+
+            <CardHeader className='flex-col gap-4 pb-4'>
+              <Skeleton className='h-10 w-3/4 rounded-lg' />
+
+              <div className='flex gap-4'>
+                <Skeleton className='h-6 w-32 rounded-full' />
+              </div>
+
+            </CardHeader>
+
+            <Divider />
+
+            <CardBody className='gap-3 pt-6'>
+              <Skeleton className='h-4 w-full rounded-lg' />
+              <Skeleton className='h-4 w-full rounded-lg' />
+              <Skeleton className='h-4 w-4/5 rounded-lg' />
+              <Skeleton className='h-4 w-full rounded-lg' />
+              <Skeleton className='h-4 w-3/4 rounded-lg' />
+            </CardBody>
+
+          </Card>
+
+          <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
+            <Skeleton className='h-12 w-48 rounded-lg' />
+          </div>
+
+        </div>
+      </ContainerComponent>
     )
   }
 
@@ -63,21 +89,18 @@ const PostDetailModule: FC<IProps> = (props) => {
   return (
     <ContainerComponent className='py-8'>
       <div className='mx-auto max-w-4xl space-y-8'>
-
         <Card
           className={`border-2 p-2 shadow-lg ${isUserPost ? 'border-green-100 bg-green-50/30' : 'border-gray-100'}`}
         >
-          <CardHeader className='justify-between pb-4'>
 
+          <CardHeader className='justify-between pb-4'>
             <h1 className='p-2 text-center text-3xl font-bold text-gray-900 md:text-4xl'>{postData.title}</h1>
 
             <div className='mt-3 flex flex-wrap justify-center gap-4 text-sm text-gray-600'>
               <Chip size='sm' variant='flat' className='flex items-center gap-1 p-2'>
-
                 <Calendar className='h-3 w-3' />
 
                 <span>{new Date(postData.created_at).toLocaleDateString()}</span>
-
               </Chip>
 
               {isUserPost && (
@@ -93,9 +116,9 @@ const PostDetailModule: FC<IProps> = (props) => {
           <CardBody className='pt-6'>
             <div className='prose prose-lg prose-gray max-w-none'>
               <p className='whitespace-pre-wrap text-gray-700'>{postData.body}</p>
+
             </div>
           </CardBody>
-
         </Card>
 
         <div className='flex flex-col items-center gap-3 border-t border-gray-200 pt-6'>
@@ -109,7 +132,9 @@ const PostDetailModule: FC<IProps> = (props) => {
                 size='sm'
                 className='flex items-center gap-2 font-medium'
               >
+
                 <Edit className='h-4 w-4' /> {t('edit')}
+
               </Button>
 
               <Button

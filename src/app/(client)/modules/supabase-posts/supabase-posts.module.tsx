@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { FC, useState } from 'react'
 
-import { Button, useDisclosure } from '@heroui/react'
+import { Button, Card, Skeleton, useDisclosure } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
 import { supabasePostsQueryOptions } from '@/entities/api/database'
@@ -37,7 +37,45 @@ const SupabasePostsModule: FC<IProps> = () => {
     onEditOpenChange()
   }
 
-  if (isLoading) return <div className='py-16 text-center text-gray-500'>{t('loading_posts')}</div>
+  if (isLoading)
+    return (
+      <ContainerComponent className='py-8'>
+        <div className='min-h-[calc(100vh-300px)] space-y-8 pt-16'>
+
+          <div className='flex items-center justify-between'>
+            <Skeleton className='h-8 w-48 rounded-lg' />
+
+            <Skeleton className='h-10 w-36 rounded-lg' />
+          </div>
+
+          <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
+            {Array.from({ length: 6 }).map((_, i) => (
+
+              <Card key={i} className='space-y-5 p-4' radius='lg'>
+                <Skeleton className='rounded-lg'>
+                  <div className='bg-default-300 h-24 rounded-lg'></div>
+                </Skeleton>
+
+                <div className='space-y-3'>
+                  <Skeleton className='w-3/5 rounded-lg'>
+                    <div className='bg-default-200 h-3 w-3/5 rounded-lg'></div>
+                  </Skeleton>
+
+                  <Skeleton className='w-4/5 rounded-lg'>
+                    <div className='bg-default-200 h-3 w-4/5 rounded-lg'></div>
+                  </Skeleton>
+
+                  <Skeleton className='w-2/5 rounded-lg'>
+                    <div className='bg-default-300 h-3 w-2/5 rounded-lg'></div>
+                  </Skeleton>
+
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </ContainerComponent>
+    )
 
   if (supabasePosts.length === 0 && !isLoading)
     return (

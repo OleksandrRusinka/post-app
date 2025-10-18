@@ -1,0 +1,5 @@
+export { default as BLFlagIcon } from './bl.svg'
+export { default as ESTFlagIcon } from './est.svg'
+export { default as PLFlagIcon } from './pl.svg'
+export { default as RUFlagIcon } from './ru.svg'
+export { default as UKFlagIcon } from './uk.svg'

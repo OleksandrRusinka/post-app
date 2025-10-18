@@ -1,10 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
 import { Card, CardBody, ScrollShadow } from '@heroui/react'
+
+import { CheckmarkIcon } from '@/shared/assets/icons/what-you-get'
 
 import { IWhatYouGet } from './constants'
 
@@ -26,15 +27,15 @@ const WhatYouGetComponent: FC<Readonly<IProps>> = () => {
         hideScrollBar
         className='overflow-x-auto pt-5 max-lg:w-[calc(100vw-48px)]'
       >
-        
+
         <div className={'flex min-w-max gap-6'}>
           {IWhatYouGet(t).map((card) => (
+
             <Card key={card.id} className='border-border-blue w-[236px] rounded-lg border'>
-
               <CardBody className='!flex-row items-start gap-4 p-4 md:py-6'>
-                <div className='p-1'>
-                  <Image src='/icons/IconCheckmark.svg' alt='IconCheckmark' width={40} height={30} />
 
+                <div className='p-1'>
+                  <CheckmarkIcon className='size-[22px]' />
                 </div>
 
                 <p className='max-w-[80%] text-start text-base text-sm'>{card.text}</p>

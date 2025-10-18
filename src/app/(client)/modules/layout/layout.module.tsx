@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from 'react'
 
-import { Footer } from '@/widgets/footer'
-import { Header } from '@/widgets/header'
+import { FooterComponent } from '@/widgets/footer'
+import { HeaderComponent } from '@/widgets/header'
 
 // interface
 interface IProps {
@@ -15,11 +15,11 @@ const LayoutModule: FC<IProps> = (props) => {
   // return
   return (
     <>
-      <Header />
+      <HeaderComponent />
 
       <main className='flex-1 overflow-hidden'>{children}</main>
 
-      <Footer />
+      <FooterComponent />
     </>
   )
 }

@@ -1,50 +1,52 @@
+import { BLFlagIcon, ESTFlagIcon, RUFlagIcon, UKFlagIcon } from '@/shared/assets/icons/country-flags'
+
 export const ILatestResult = [
   {
     id: 1,
     name: 'Бондар Софія',
     iqResult: '98',
-    img: '/images/country-flags/uk.svg',
+    icon: <UKFlagIcon />,
   },
   {
     id: 2,
     name: 'Wójcik Franciszek',
     iqResult: '103',
-    img: '/images/country-flags/pl.svg',
+    icon: <UKFlagIcon />,
   },
   {
     id: 3,
     name: 'Zielińska Maja',
     iqResult: '105',
-    img: '/images/country-flags/est.svg',
+    icon: <ESTFlagIcon />,
   },
   {
     id: 4,
     name: 'Kowalski Jan',
     iqResult: '99',
-    img: '/images/country-flags/bl.svg',
+    icon: <BLFlagIcon />,
   },
   {
     id: 5,
     name: 'Stoica Elena',
     iqResult: '119',
-    img: '/images/country-flags/ru.svg',
+    icon: <RUFlagIcon />,
   },
   {
     id: 6,
     name: 'Ivanov Andriy',
     iqResult: '107',
-    img: '/images/country-flags/uk.svg',
+    icon: <UKFlagIcon />,
   },
   {
     id: 7,
     name: 'Kovalenko Oleksandr',
     iqResult: '102',
-    img: '/images/country-flags/ru.svg',
+    icon: <RUFlagIcon />,
   },
   {
     id: 8,
     name: 'Popa Andreea',
     iqResult: '112',
-    img: '/images/country-flags/est.svg',
+    icon: <ESTFlagIcon />,
   },
 ]

@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
@@ -23,11 +22,9 @@ const HowItWorksComponent: FC<Readonly<IProps>> = () => {
       <div className='flex w-full gap-3 pt-6 max-md:flex-col md:gap-6 md:pt-8'>
         {IHowItWorksCards(t).map((card) => (
           <Card key={`${card.title}-${card.id}`} shadow={'none'} className={'border-border-blue border-1'} fullWidth>
-
+            
             <CardBody className={'gap-3 p-4 md:px-8 md:pt-[42px]'}>
-              {card.icon && (
-                <Image src={card.icon} alt={card.title} width={38} height={38} className='h-[38px] w-[38px]' />
-              )}
+              {card.icon && <div className='size-[38px]'>{card.icon}</div>}
 
               <p className={'text-start text-base text-[18px] font-semibold'}>{card.title}</p>
 

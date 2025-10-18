@@ -1,10 +1,8 @@
 'use client'
-
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { socialsNetwork } from '@/shared/constants'
+import { ISocialNetworks } from '@/shared/constants'
 
 // interface
 interface IProps {}
@@ -19,6 +17,7 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
       id='community'
       className={`relative z-0 flex flex-col items-center justify-between gap-6 px-4 py-8 md:flex-row md:gap-8 md:px-12 md:py-10`}
     >
+
       <div className='flex w-full flex-1 flex-col items-center text-center md:items-start md:text-left'>
         <h3 className='text-base-dark w-full text-[28px] leading-[42px] font-semibold md:text-[36px]'>
           {t('home_page_community_title')}
@@ -28,23 +27,19 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
       </div>
 
       <div className='flex flex-wrap justify-center gap-3 md:justify-end'>
-        {socialsNetwork.map((el, id) => (
+        {ISocialNetworks.map((network, index) => (
           <a
-            key={id}
-            href={el.link}
+            key={index}
+            href={network.link}
             target='_blank'
-            rel='noopener noreferrer'
-            aria-label={el.name}
+            aria-label={network.name}
             className='group border-blue-primary hover:border-blue-hover hover:bg-blue-light flex h-12 w-24 items-center justify-center rounded-lg border bg-white px-6 transition-all duration-300 hover:scale-105'
           >
 
-            <Image
-              src={el.src}
-              alt={el.name}
-              width={24}
-              height={24}
-              className='opacity-80 transition-opacity duration-200 group-hover:opacity-100'
-            />
+            <div className='size-[24px] opacity-80 transition-opacity duration-200 group-hover:opacity-100'>
+              {network.icon}
+            </div>
+
           </a>
         ))}
       </div>

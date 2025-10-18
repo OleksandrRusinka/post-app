@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
@@ -20,7 +19,6 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
 
       <div className='pt-4 md:pt-6'>
         <div className='flex w-full flex-wrap gap-x-6 gap-y-4 text-left'>
-
           {ILatestResult.map((person) => (
             <div
               key={person.id}
@@ -28,13 +26,9 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
             >
 
               <div className='h-6 w-9 shrink-0 overflow-hidden rounded md:h-7 md:w-10 lg:h-8 lg:w-11'>
-                <Image
-                  src={person.img}
-                  alt='person-country'
-                  width={44}
-                  height={32}
-                  className='h-full w-full object-cover'
-                />
+
+                <div className='size-[24px] h-full w-full object-cover'>{person.icon}</div>
+
               </div>
 
               <p className='ml-4 flex-1 text-base font-medium md:text-lg'>{person.name}</p>
@@ -42,7 +36,7 @@ const LatestResultsComponent: FC<Readonly<IProps>> = () => {
               <div className='rounded-small text-blue-default ml-auto px-2 py-1 text-center font-semibold md:text-lg'>
                 IQ {person.iqResult}
               </div>
-              
+
             </div>
           ))}
         </div>

@@ -1,11 +1,11 @@
 'use client'
 
 import { Menu, X } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { type FC, useEffect, useState } from 'react'
 
+import { MainLogoIcon } from '@/shared/assets/icons'
 import { MobileMenuComponent } from '@/widgets/mobile-menu'
 
 // interface
@@ -32,11 +32,14 @@ const HeaderComponent: FC<IProps> = () => {
     <>
       <header className='fixed top-0 right-0 left-0 z-[100] w-full border-b border-gray-200 bg-white shadow-sm'>
         <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8'>
+
           <Link href='/' className='flex shrink-0 items-center gap-1.5 transition-opacity hover:opacity-80 sm:gap-2'>
-            <Image src='/icons/main-logo.svg' alt='logo' width={100} height={100} />
+            <MainLogoIcon />
+
           </Link>
 
           <div className='flex items-center gap-2 sm:gap-3'>
+
             <nav className='hidden items-center space-x-1 lg:flex'>
               <Link
                 href='/fake_posts'
@@ -76,6 +79,7 @@ const HeaderComponent: FC<IProps> = () => {
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+
           </div>
         </div>
       </header>

@@ -9,8 +9,9 @@ interface IProps extends SVGProps<SVGSVGElement> {
 
 // component
 const CheckIconComponent: FC<Readonly<IProps>> = (props) => {
-  const { size = 18, className = '', ...rest } = props
+  const { size = 18, className = '' } = props
 
+  // return
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -19,7 +20,6 @@ const CheckIconComponent: FC<Readonly<IProps>> = (props) => {
       width={size}
       height={size}
       className={`shrink-0 ${className}`}
-      {...rest}
     >
       <path
         fill='currentColor'

@@ -1,0 +1,5 @@
+export { default as ApplePayIcon } from './apple-pay.svg'
+export { default as GooglePayIcon } from './google-pay.svg'
+export { default as MasterCardIcon } from './master-card.svg'
+export { default as PayPalIcon } from './paypal.svg'
+export { default as VisaCardIcon } from './visa-card.svg'

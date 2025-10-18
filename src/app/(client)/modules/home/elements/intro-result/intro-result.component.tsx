@@ -1,7 +1,8 @@
 import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
+
+import { IntroGraphIcon } from '@/shared/assets/icons/intro-result'
 
 import { PeopleReviewsComponent } from '../people-reviews'
 
@@ -19,6 +20,7 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
         <div className={'flex w-full max-w-[630px] flex-col gap-3 lg:gap-4'}>
 
           <h1 className='text-[28px] leading-[36px] font-extrabold sm:text-[32px] sm:leading-[40px] lg:text-[48px] lg:leading-[62px]'>
+
             <span className='inline-block text-base'>{t('home_page_want_to_know')}</span>
 
             <br className='max-lg:hidden' />
@@ -35,8 +37,8 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
           </p>
 
           <div className={'mt-2 flex gap-3 max-sm:flex-col max-sm:px-4 lg:flex-row lg:gap-6'}>
-            <button className='bg-primary hover:bg-primary-hover flex w-full max-w-[280px] items-center justify-center rounded-xl px-6 py-3 font-medium text-white transition-colors max-sm:max-w-none sm:px-8 lg:w-auto'>
 
+            <button className='bg-primary hover:bg-primary-hover flex w-full max-w-[280px] items-center justify-center rounded-xl px-6 py-3 font-medium text-white transition-colors max-sm:max-w-none sm:px-8 lg:w-auto'>
               <span>{t('home_page_iq_start_button')}</span>
 
               <ArrowRight size={16} className='ml-2' />
@@ -50,10 +52,9 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
           <PeopleReviewsComponent />
         </div>
 
-        <div
-          className={'relative mx-auto flex h-full w-full max-w-[520px] items-center justify-center max-lg:mt-[-28px]'}
-        >
-          <Image src={'/images/intro-result/graph.svg'} alt='intro-result' width={517} height={296} />
+        <div className='relative mx-auto flex aspect-[517/296] h-full w-full max-w-[517px] items-center justify-center max-lg:mt-[-28px]'>
+          <IntroGraphIcon className='h-full w-full scale-[1.2]' />
+
         </div>
       </div>
     </section>
