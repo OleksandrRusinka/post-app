@@ -1,10 +1,22 @@
 import { config } from 'dotenv'
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import postgres, { Sql } from 'postgres'
 
 import { envServer } from '@/config/env'
 
 config({ path: '.env.local' })
 
-const client = postgres(envServer.DATABASE_URL!)
-export const db = drizzle({ client })
+class DrizzleManager {
+  private static instance: PostgresJsDatabase
+  private static client: Sql
+
+  static getDb(): PostgresJsDatabase {
+    if (!DrizzleManager.instance) {
+      DrizzleManager.client = postgres(envServer.DATABASE_URL!)
+      DrizzleManager.instance = drizzle({ client: DrizzleManager.client })
+    }
+    return DrizzleManager.instance
+  }
+}
+
+export const db = DrizzleManager.getDb()

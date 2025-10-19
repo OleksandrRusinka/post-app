@@ -2,33 +2,36 @@ import { GrowthBook } from '@growthbook/growthbook'
 
 import { envServer } from '@/config/env'
 
-// growthbook
-const gb = new GrowthBook({
-  apiHost: envServer.GROWTHBOOK_API_HOST,
-  clientKey: envServer.GROWTHBOOK_CLIENT_KEY,
-  enableDevMode: envServer.NODE_ENV !== 'production',
-})
+class GrowthBookManager {
+  private static instance: GrowthBook
+  private static initialized = false
 
-let initialized = false
+  private static getClient(): GrowthBook {
+    if (!GrowthBookManager.instance) {
+      GrowthBookManager.instance = new GrowthBook({
+        apiHost: envServer.GROWTHBOOK_API_HOST,
+        clientKey: envServer.GROWTHBOOK_CLIENT_KEY,
+        enableDevMode: envServer.NODE_ENV !== 'production',
+      })
+    }
+    return GrowthBookManager.instance
+  }
 
-async function ensureInitialized() {
-  if (!initialized) {
-    await gb.init({ timeout: 3000 })
-    initialized = true
+  private static async ensureInitialized(): Promise<void> {
+    if (!GrowthBookManager.initialized) {
+      await GrowthBookManager.getClient().init({ timeout: 3000 })
+      GrowthBookManager.initialized = true
+    }
+  }
+
+  static async getFeatureValue<T>(key: string, defaultValue: T, attributes?: Record<string, unknown>): Promise<T> {
+    await GrowthBookManager.ensureInitialized()
+    const client = GrowthBookManager.getClient()
+
+    if (attributes) client.setAttributes(attributes)
+
+    return client.evalFeature<T>(key)?.value ?? defaultValue
   }
 }
 
-// get feature flags
-export async function getFeatureValue<T>(
-  key: string,
-  defaultValue: T,
-  attributes?: Record<string, unknown>,
-): Promise<T> {
-  await ensureInitialized()
-
-  if (attributes) gb.setAttributes(attributes)
-
-  const result = gb.evalFeature<T>(key)
-
-  return result?.value ?? defaultValue
-}
+export const getFeatureValue = GrowthBookManager.getFeatureValue.bind(GrowthBookManager)
