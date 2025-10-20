@@ -52,8 +52,8 @@ const nextConfig: NextConfig = {
 
 export default withSentryConfig(withNextIntl(nextConfig), {
   project: 'nextjs-post-app',
-  authToken: process.env.SENTRY_AUTH_TOKEN,
-
+  silent: !process.env.CI,
   widenClientFileUpload: true,
   disableLogger: true,
+  automaticVercelMonitors: true,
 })
