@@ -24,7 +24,7 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
 
             <br className='max-lg:hidden' />
 
-            <span className='text-blue-primary inline-block pr-2'>{t('home_page_real_score')}</span>
+            <span className='inline-block bg-gradient-to-r from-[#27415F] via-[#007AFF] to-[#007AFF] bg-clip-text pr-2 text-transparent'>{t('home_page_real_score')}</span>
           </h1>
 
           <p className={'text-base-dark text-sm sm:text-base lg:max-w-[325px] lg:text-[18px]'}>
