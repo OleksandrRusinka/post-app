@@ -57,7 +57,7 @@ const RootLayout: FC<Readonly<IProps>> = async (props) => {
 
   // return
   return (
-    <html lang={locale} className='overflow-x-hidden'>
+    <html lang={locale}>
       <body className={`${fontClassNames} overflow-x-hidden`} suppressHydrationWarning>
         <MixpanelProvider>
           <NextIntlClientProvider>

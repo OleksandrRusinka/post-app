@@ -19,7 +19,7 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
     >
 
       <div className='flex w-full flex-1 flex-col items-center text-center md:items-start md:text-left'>
-        <h3 className='text-base-dark w-full text-[28px] leading-[42px] font-semibold md:text-[36px]'>
+        <h3 className='text-base-dark w-full text-[28px] font-semibold md:text-[36px]'>
           {t('home_page_community_title')}
         </h3>
 

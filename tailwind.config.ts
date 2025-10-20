@@ -20,10 +20,12 @@ const config: Config = {
           default: '#006FEE',
         },
         base: {
+          main: '#0D0D0E',
           DEFAULT: '#2C3345',
           dark: '#2B2D42',
         },
         gray: {
+          main: '#71717A',
           DEFAULT: '#454F69',
           dark: '#444F69',
         },

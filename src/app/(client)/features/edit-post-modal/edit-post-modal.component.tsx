@@ -76,6 +76,7 @@ const EditPostModal: FC<IProps> = (props) => {
         footer: 'bg-transparent border-t border-gray-200/60 px-6 py-5',
       }}
     >
+
       <ModalContent>
         {(onClose) => (
           <form onSubmit={handleSubmit(onSubmit)} className='bg-transparent'>
@@ -128,8 +129,7 @@ const EditPostModal: FC<IProps> = (props) => {
                       classNames={{
                         inputWrapper:
                           'border-2 border-gray-300/70 hover:border-blue-400 focus-within:border-blue-500 bg-gray-50/50 rounded-lg px-4 py-3 w-full data-[invalid=true]:border-red-400',
-                        input:
-                          'text-gray-900 text-base placeholder-gray-500 font-medium resize-none leading-relaxed outline-none',
+                        input: 'text-gray-900 text-base placeholder-gray-500 font-medium resize-none outline-none',
                       }}
                     />
                   )}

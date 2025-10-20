@@ -16,7 +16,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
   return (
     <div className='mt-[11px] flex items-center md:mt-4'>
       <div className='relative mr-6 flex md:mr-12'>
-        
+
         {IPeopleReviewsAvatars.map((avatar, index) => (
           <div
             key={index}
@@ -38,7 +38,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
         ))}
       </div>
 
-      <div className='text-base-dark -ml-4 flex flex-col text-sm md:-ml-8 md:text-base md:leading-6'>
+      <div className='text-base-dark -ml-4 flex flex-col text-sm md:-ml-8 md:text-base'>
         <div className='flex flex-wrap max-md:flex-col md:items-center md:gap-1'>
           <p>Відмінні відгуки користувачів</p>
 

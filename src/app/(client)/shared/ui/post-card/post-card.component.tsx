@@ -64,7 +64,7 @@ const PostCard: FC<IProps> = (props) => {
       </CardHeader>
 
       <CardBody className='flex flex-1 flex-col pt-0'>
-        <p className='mb-4 line-clamp-3 text-sm leading-relaxed text-gray-600'>{post.body}</p>
+        <p className='mb-4 line-clamp-3 text-sm text-gray-600'>{post.body}</p>
 
         <div className='mt-auto border-t border-gray-100 pt-3'>
           <div className='flex items-center justify-between gap-2'>

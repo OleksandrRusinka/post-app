@@ -25,7 +25,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
     <Card className='max-w-[362px] border border-gray-100 p-6 transition-all duration-300 hover:scale-105' shadow='md'>
 
       <CardHeader className='flex flex-col items-start gap-2 pb-4'>
-        <h2 className='text-large font-medium'>{plan.title}</h2>
+        <h2 className='text-large text-base-main font-medium'>{plan.title}</h2>
 
       </CardHeader>
 
@@ -33,7 +33,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
 
       <CardBody className='gap-6 py-4'>
         <div className='flex items-baseline gap-1'>
-          <span className='text-foreground inline text-4xl leading-7 font-semibold'>{plan.price}</span>
+          <span className='text-base-main inline text-4xl font-semibold'>{plan.price}</span>
 
           <span className='text-default-400 text-small font-medium'>/{plan.period}</span>
         </div>
@@ -44,7 +44,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
 
               <CheckIcon width={24} className='text-blue-600' />
 
-              <span className='text-default-600 text-sm'>{feature}</span>
+              <span className='text-default-600 text-gray-main text-sm'>{feature}</span>
 
             </li>
           ))}
@@ -52,7 +52,7 @@ const PricingCardComponent: FC<Readonly<IProps>> = (props) => {
       </CardBody>
 
       <CardFooter>
-        
+
         <Button onPress={() => {}} className='text-medium bg-primary h-[42px] w-full gap-3 text-white'>
           Почати
         </Button>

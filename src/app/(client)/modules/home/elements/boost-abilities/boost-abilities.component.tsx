@@ -39,8 +39,8 @@ const BoostAbilitiesComponent: FC<Readonly<IProps>> = () => {
               <p className={'text-start text-base text-[18px] font-semibold'}>{card.title}</p>
 
               <ul className='flex flex-col gap-2 max-md:pt-0.5'>
-                {card.cases.map((item, idx) => (
-                  <li key={idx} className={'flex items-start gap-1.5'}>
+                {card.cases.map((item, id) => (
+                  <li key={id} className={'flex items-start gap-1.5'}>
 
                     <div className='p-1'>
                       <CheckIcon width={16} className='text-blue-600' />

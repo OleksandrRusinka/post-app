@@ -26,12 +26,10 @@ const FaqsQuestionsComponent: FC<IProps> = () => {
 
         <Accordion
           fullWidth
-          keepContentMounted
           className='px-0 pt-4 max-md:gap-0'
           itemClasses={{
-            base: 'md:px-5 shadow-none bg-transparent border-b-1 border-border-gray rounded-none',
+            base: 'shadow-none bg-transparent border-b-1 border-border-gray rounded-none',
             title: 'font-semibold',
-            trigger: 'py-6',
             content: 'pt-0 pb-6 text-sm md:text-base text-gray-DEFAULT',
             indicator: 'text-lg text-base-DEFAULT',
           }}
