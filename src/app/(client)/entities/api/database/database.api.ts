@@ -31,7 +31,7 @@ export const supabasePostsQueryApi = async (opt: QueryFunctionContext): Promise<
   }
 }
 
-// GET post by id
+// GET SUPABASE POST BY ID
 export const supabasePostByIdQueryApi = async (
   opt: QueryFunctionContext,
   queryParams: IPostByIdQueryParams,
@@ -47,10 +47,10 @@ export const supabasePostByIdQueryApi = async (
       })
       .json<{ posts: ISupabasePost[] }>()
 
-    const post = data.posts.find((p) => p.id === String(id))
+    const post = data.posts.find((post) => post.id === String(id))
 
     if (!post) {
-      throw new Error(`Post not found: id=${id}`)
+      return notFound()
     }
 
     return {

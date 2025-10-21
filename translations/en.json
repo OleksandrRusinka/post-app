@@ -65,7 +65,6 @@
 
   "home_page_how_it_works_header": "How it Works",
 
-
   "how_it_works_cards_title_1": "Take the test",
   "how_it_works_cards_title_2": "Get detailed report",
   "how_it_works_cards_title_3": "Start your journey",
@@ -131,9 +130,9 @@
   "home_page_faq_answer_1": "We believe you'll see the value and benefits of myIQ, but if you're not satisfied or have technical issues, you may have a right to a refund. Please refer to our ",
   "home_page_faq_answer_2": "Cancellation is simple and takes less than a few minutes. Visit our Help Center and follow the instructions. You will retain access until the end of your current billing period.",
   "home_page_faq_answer_3": "Our IQ test takes 20 minutes. Each test must be completed in one session and cannot be paused, as this ensures the most accurate results. Please plan your time without breaks before starting any test.",
-  "home_page_faq_answer_4":"Yes! You can retake tests after completing recommended training modules to track your progress and improvement over time.",
-  "home_page_faq_answer_5":"Yes! Your subscription works across all devices - smartphones, tablets, and computers. Your progress automatically syncs everywhere you log in.",
-  "home_page_faq_answer_6":"We take your privacy seriously. Your data is securely stored and in compliance with all applicable laws. Data is encrypted using bank-grade security, and we never share your personal information with third parties. Your payment information is processed in accordance with industry standards PCI-DSS. You can learn more in our Privacy Policy.",
+  "home_page_faq_answer_4": "Yes! You can retake tests after completing recommended training modules to track your progress and improvement over time.",
+  "home_page_faq_answer_5": "Yes! Your subscription works across all devices - smartphones, tablets, and computers. Your progress automatically syncs everywhere you log in.",
+  "home_page_faq_answer_6": "We take your privacy seriously. Your data is securely stored and in compliance with all applicable laws. Data is encrypted using bank-grade security, and we never share your personal information with third parties. Your payment information is processed in accordance with industry standards PCI-DSS. You can learn more in our Privacy Policy.",
 
   "home_page_latest_result": "Latest Results"
 }

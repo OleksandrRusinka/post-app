@@ -2,6 +2,8 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 import { envServer } from '@/config/env/env.server'
 
+import 'server-only'
+
 // supabase manager
 class SupabaseManager {
   private static instance: SupabaseClient | null = null

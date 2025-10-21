@@ -2,6 +2,8 @@ import * as Sentry from '@sentry/nextjs'
 
 import { envServer } from '@/config/env/env.server'
 
+import 'server-only'
+
 class SentryManager {
   private static initialized = false
 

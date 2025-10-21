@@ -10,7 +10,7 @@ const makeQueryClient = () => {
         staleTime: 30 * 1000,
         gcTime: 5 * 60 * 1000,
         networkMode: 'offlineFirst',
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
       },
       dehydrate: {
         shouldDehydrateQuery: (query) => {

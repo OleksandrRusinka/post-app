@@ -126,7 +126,7 @@ const PostDetailModule: FC<IProps> = (props) => {
             <div className='flex flex-wrap justify-center gap-3'>
               <Button
                 as={Link}
-                href='/supabase-posts'
+                href={`/supabase-posts/${postData.id}`}
                 color='warning'
                 variant='flat'
                 size='sm'
@@ -134,7 +134,6 @@ const PostDetailModule: FC<IProps> = (props) => {
               >
 
                 <Edit className='h-4 w-4' /> {t('edit')}
-
               </Button>
 
               <Button
@@ -151,8 +150,13 @@ const PostDetailModule: FC<IProps> = (props) => {
             </div>
           )}
 
-          <Button as={Link} href='/' color='primary' size='lg' className='flex items-center gap-2 px-8 font-semibold'>
-
+          <Button
+            as={Link}
+            href='/supabase-posts'
+            color='primary'
+            size='lg'
+            className='flex items-center gap-2 px-8 font-semibold'
+          >
             <ArrowLeft className='h-4 w-4' /> {t('back_to_posts')}
 
           </Button>

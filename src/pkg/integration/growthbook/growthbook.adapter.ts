@@ -2,6 +2,8 @@ import { GrowthBook } from '@growthbook/growthbook'
 
 import { envServer } from '@/config/env'
 
+import 'server-only'
+
 class GrowthBookManager {
   private static instance: GrowthBook
   private static initialized = false
