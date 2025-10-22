@@ -38,7 +38,7 @@ const PeopleReviewsComponent: FC<IProps> = () => {
         ))}
       </div>
 
-      <div className='text-base-dark -ml-4 flex flex-col text-sm md:-ml-8 md:text-base'>
+      <div className='text-base-dark -ml-4 flex flex-col text-[14px] md:-ml-8 md:text-[16px]'>
         <div className='flex flex-wrap max-md:flex-col md:items-center md:gap-1'>
           <p>Відмінні відгуки користувачів</p>
 

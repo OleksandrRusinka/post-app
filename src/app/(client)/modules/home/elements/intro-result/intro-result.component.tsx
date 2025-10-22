@@ -19,15 +19,19 @@ const IntroResultComponent: FC<Readonly<IProps>> = () => {
       <div className={'flex h-full w-full flex-col-reverse items-center gap-5 lg:flex-row lg:justify-between'}>
         <div className={'flex w-full max-w-[630px] flex-col gap-3 lg:gap-4'}>
 
-          <h1 className='text-[28px] font-extrabold sm:text-[32px] lg:text-[48px]'>
-            <span className='inline-block text-base'>{t('home_page_want_to_know')}</span>
+          <h1 className='text-[32px] font-extrabold lg:text-[48px]'>
+            <span className='inline bg-gradient-to-r from-[#2C3345] to-[#424D6A] bg-clip-text text-transparent'>
+              {t('home_page_want_to_know')}{' '}
+            </span>
 
             <br className='max-lg:hidden' />
 
-            <span className='inline-block bg-gradient-to-r from-[#27415F] via-[#007AFF] to-[#007AFF] bg-clip-text pr-2 text-transparent'>{t('home_page_real_score')}</span>
+            <span className='bg-gradient-to-r from-[#27415F] via-[#007AFF] to-[#007AFF] bg-clip-text pr-2 whitespace-nowrap text-transparent'>
+              {t('home_page_real_score')}
+            </span>
           </h1>
 
-          <p className={'text-base-dark text-sm sm:text-base lg:max-w-[325px] lg:text-[18px]'}>
+          <p className={'text-base-dark text-[16px] sm:text-base lg:max-w-[325px] lg:text-[18px]'}>
             {t('home_page_take_your_score')}
           </p>
 
